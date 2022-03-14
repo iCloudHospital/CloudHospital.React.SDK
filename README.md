@@ -8,7 +8,7 @@ on Local Repository
 # Install dependencies
 $ npm run install
 # transpile and bundle, then archive to out/ directory
-$ npm run pack:loacl
+$ npm run pack:local
 ```
 
 ### Install local package
