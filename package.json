@@ -1,0 +1,62 @@
+{
+  "name": "cloudhospital.react.sdk",
+  "version": "0.1.7",
+  "description": "",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist/**/*.{css,js,map,ts}"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c",
+    "lint": "eslint src/**/*.{ts,tsx}",
+    "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
+    "prepack:local": "npm run build",
+    "pack:local": "npm pack --pack-destination out"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^21.0.2",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "@types/qs": "^6.9.7",
+    "@typescript-eslint/eslint-plugin": "^5.14.0",
+    "@typescript-eslint/parser": "^5.14.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.11.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "next-auth": "^4.2.1",
+    "prettier": "^2.5.1",
+    "rollup": "^2.70.0",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "tslib": "^2.3.1",
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "@azure/communication-react": "^1.1.0",
+    "axios": "^0.21.4",
+    "ch-api-client-typescript2": "^2.7.9",
+    "moment-timezone": "^0.5.34",
+    "qs": "^6.10.3",
+    "redux": "^4.1.2",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-observable": "^2.0.0",
+    "redux-persist": "^6.0.0",
+    "rxjs": "^7.5.5",
+    "typesafe-actions": "^5.1.0",
+    "yup": "^0.32.11"
+  },
+  "peerDependencies": {
+    "next-auth": ">=4.2.0"
+  }
+}

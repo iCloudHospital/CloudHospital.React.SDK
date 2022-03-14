@@ -1,0 +1,13 @@
+.git/
+.github/
+node_modules/
+out/
+src/
+.babelrc
+.DS_Store
+.eslintignore
+.eslintrc
+.npmignore
+.prettierrc
+rollup.config.js
+tsconfig.json
