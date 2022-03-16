@@ -15,7 +15,7 @@
     "lint": "eslint src/**/*.{ts,tsx}",
     "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
     "prepack:local": "npm run build",
-    "pack:local": "npm pack --pack-destination out"
+    "pack:local": "mkdir -p out && npm pack --pack-destination out"
   },
   "keywords": [],
   "author": "",
