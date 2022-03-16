@@ -74,18 +74,19 @@ export const hospitalSpecialties = createReducer<
     (state, action) => action.payload,
   )
   .handleAction([appendHospitalSpecialtiesAsync.success], (state, action) => {
-    const HospitalSpecialtiesViewModel = {
+    const hospitalSpecialtiesModel = {
       items: {},
       metaData: {},
     } as HospitalSpecialtiesModel
 
-    const newItems = state
-      ? state.items?.concat(action.payload.items!)
-      : action.payload.items
-    HospitalSpecialtiesViewModel.items = newItems
-    HospitalSpecialtiesViewModel.metaData = action.payload.metaData
+    const newItems =
+      state && action.payload.metaData?.pageNumber !== 1
+        ? state.items?.concat(action.payload.items!)
+        : action.payload.items
+    hospitalSpecialtiesModel.items = newItems
+    hospitalSpecialtiesModel.metaData = action.payload.metaData
 
-    return HospitalSpecialtiesViewModel
+    return hospitalSpecialtiesModel
   })
 
 export const isLoadingHospitalSpecialty = createReducer<
