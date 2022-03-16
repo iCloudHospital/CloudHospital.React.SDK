@@ -12,6 +12,7 @@ import {
   resetSpecialtyTypesState,
   resetSpecialtyTypeState,
 } from '../actions/specialtyTypes'
+import { setMessage } from '../actions/toastMessages'
 
 export const loadSpecialtyTypesEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(

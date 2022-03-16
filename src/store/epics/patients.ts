@@ -12,7 +12,6 @@ import {
 } from '../actions/patients'
 import { RestException } from '../../models/exceptions'
 import { setMessage } from '../actions/toastMessages'
-// import Router from 'next/router'
 
 export const loadPatientEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(
@@ -66,22 +65,19 @@ export const deletePatientEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(
     filter(isActionOf(deletePatientAsync.request)),
     switchMap((action) =>
-      from(apis.patients.deletePatient(action.payload))
-        // TODO Please check router usages
-        // .pipe(tap(() => Router.back()))
-        .pipe(
-          switchMap((res) => [
-            deletePatientAsync.success(res),
-            setMessage({ text: 'Delete patient success', status: 200 }),
-            resetPatientState(),
-          ]),
-          catchError((restException: RestException) =>
-            of(
-              setMessage(restException),
-              deletePatientAsync.failure(restException),
-            ),
+      from(apis.patients.deletePatient(action.payload)).pipe(
+        switchMap((res) => [
+          deletePatientAsync.success(res),
+          setMessage({ text: 'Delete patient success', status: 200 }),
+          resetPatientState(),
+        ]),
+        catchError((restException: RestException) =>
+          of(
+            setMessage(restException),
+            deletePatientAsync.failure(restException),
           ),
         ),
+      ),
     ),
   )
 
