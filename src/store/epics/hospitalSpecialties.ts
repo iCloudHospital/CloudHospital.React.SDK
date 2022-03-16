@@ -50,9 +50,9 @@ export const loadHospitalSpecialtyEpic: RootEpic = (action$, state$, { apis }) =
 
 // #endregion HospitalSpecialties
 
-const hospitalsEpic = combineEpics(
+const hospitalSpecialtiesEpic = combineEpics(
   loadHospitalSpecialtiesEpic,
   appendHospitalSpecialtiesEpic,
   loadHospitalSpecialtyEpic
 )
-export default hospitalsEpic
+export default hospitalSpecialtiesEpic

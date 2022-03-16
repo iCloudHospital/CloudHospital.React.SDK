@@ -66,7 +66,11 @@ export const hospitalSpecialties = createReducer<
   HospitalSpecialtiesActionTypes
 >(null)
   .handleAction(
-    [resetHospitalSpecialtiesState, loadHospitalSpecialtiesAsync.failure],
+    [
+      resetHospitalSpecialtiesState,
+      loadHospitalSpecialtiesAsync.failure,
+      appendHospitalSpecialtiesAsync.failure,
+    ],
     (state, action) => null,
   )
   .handleAction(
