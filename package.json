@@ -1,6 +1,6 @@
 {
   "name": "cloudhospital.react.sdk",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -15,11 +15,24 @@
     "lint": "eslint src/**/*.{ts,tsx}",
     "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
     "prepack:local": "npm run build",
-    "pack:local": "mkdir out && npm pack --pack-destination out"
+    "pack:local": "mkdir -p out && npm pack --pack-destination out"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "ch-api-client-typescript2": "^2.8.0",
+    "moment-timezone": "^0.5.34",
+    "qs": "^6.10.3",
+    "redux": "^4.1.2",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-observable": "^2.0.0",
+    "redux-persist": "^6.0.0",
+    "rxjs": "^7.5.5",
+    "typesafe-actions": "^5.1.0",
+    "yup": "^0.32.11"
+  },
   "devDependencies": {
     "@babel/core": "^7.17.5",
     "@rollup/plugin-babel": "^5.3.1",
@@ -33,7 +46,6 @@
     "eslint": "^8.11.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "next-auth": "^4.2.1",
     "prettier": "^2.5.1",
     "rollup": "^2.70.0",
     "rollup-plugin-copy": "^3.4.0",
@@ -41,22 +53,5 @@
     "rollup-plugin-typescript2": "^0.31.2",
     "tslib": "^2.3.1",
     "typescript": "^4.6.2"
-  },
-  "dependencies": {
-    "@azure/communication-react": "^1.1.0",
-    "axios": "^0.21.4",
-    "ch-api-client-typescript2": "^2.8.0",
-    "moment-timezone": "^0.5.34",
-    "qs": "^6.10.3",
-    "redux": "^4.1.2",
-    "redux-devtools-extension": "^2.13.9",
-    "redux-observable": "^2.0.0",
-    "redux-persist": "^6.0.0",
-    "rxjs": "^7.5.5",
-    "typesafe-actions": "^5.1.0",
-    "yup": "^0.32.11"
-  },
-  "peerDependencies": {
-    "next-auth": ">=4.2.0"
   }
 }

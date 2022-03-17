@@ -1,7 +1,7 @@
 import { StateType } from 'typesafe-actions'
 import { combineReducers } from 'redux'
 import accountsState from './accounts'
-import externalLoginsState from './externalLogins'
+import azSearchState from './azSearch'
 import accreditationsState from './accreditations'
 import articlesState from './articles'
 import articleContributorsState from './articleContributors'
@@ -20,6 +20,7 @@ import doctorEducationsState from './doctorEducations'
 import doctorMediasState from './doctorMedias'
 import doctorPortfoliosState from './doctorPortfolios'
 import doctorSpecialtiesState from './doctorSpecialties'
+import externalLoginsState from './externalLogins'
 import faqCategoriesState from './faqCategories'
 import faqsState from './faqs'
 import hospitalsState from './hospitals'
@@ -29,6 +30,7 @@ import hospitalSpecialtiesState from './hospitalSpecialties'
 import hospitalServicesState from './hospitalServices'
 import imagesState from './images'
 import languagesState from './languages'
+import modalState from './modals'
 import membershipsState from './memberships'
 import notificationsState from './notifications'
 import patientsState from './patients'
@@ -36,18 +38,15 @@ import plansState from './plans'
 import profilesState from './profiles'
 import servicesState from './services'
 import servicesCategoriesState from './servicesCategories'
+import sideNavState from './sideNav'
 import specialtiesState from './specialties'
 import specialtyTypesState from './specialtyTypes'
 import tagsState from './tags'
 import toastMessageState from './toastMessages'
-import sideNavState from './sideNav'
-import modalState from './modals'
-import azSearchState from './azSearch'
-import custopmPopupState from './popups'
 
 const rootReducer = combineReducers({
   accountsState,
-  externalLoginsState,
+  azSearchState,
   accreditationsState,
   articlesState,
   articleContributorsState,
@@ -66,6 +65,7 @@ const rootReducer = combineReducers({
   doctorMediasState,
   doctorPortfoliosState,
   doctorSpecialtiesState,
+  externalLoginsState,
   faqCategoriesState,
   faqsState,
   hospitalsState,
@@ -75,6 +75,7 @@ const rootReducer = combineReducers({
   hospitalServicesState,
   imagesState,
   languagesState,
+  modalState,
   membershipsState,
   notificationsState,
   patientsState,
@@ -82,14 +83,11 @@ const rootReducer = combineReducers({
   profilesState,
   servicesState,
   servicesCategoriesState,
+  sideNavState,
   specialtiesState,
   specialtyTypesState,
   tagsState,
-  toastMessageState,
-  sideNavState,
-  modalState,
-  azSearchState,
-  custopmPopupState,
+  toastMessageState
 })
 
 export type RootReducer = StateType<typeof rootReducer>

@@ -1,17 +1,7 @@
-import React, { ReactNode } from 'react'
 import { combineReducers } from 'redux'
-import { Action, action, createReducer, Reducer } from 'typesafe-actions'
-import { RestException } from '../../models/exceptions'
+import { createReducer } from 'typesafe-actions'
+import { ModalContents } from '../../models/modals'
 import { ModalActionType, setModalConfirm } from '../actions/modals'
-
-export type ModalContents = {
-  title?: string
-  message: string | ReactNode
-  nextButtonMessage?: string
-  cancelButtonMessage?: string
-  selectAgreeCallbackFunction?: Function
-  selectCencleCallbackFunction?: Function
-}
 
 export const modalConfirmContents = createReducer<ModalContents | null, ModalActionType>(null).handleAction(
   [setModalConfirm],

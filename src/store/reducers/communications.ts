@@ -5,11 +5,9 @@ import { RestException } from '../../models/exceptions'
 import {
   CommunicationsActionTypes,
   showCommunications,
-  setGroupCallLocator,
+  setGroupCallId,
   loadCommunicationUserAsync
 } from '../actions/communications'
-import { GroupCallLocator } from '@azure/communication-calling'
-import { AzureCommunicationTokenCredential, CommunicationUserIdentifier } from '@azure/communication-common'
 
 export const isCommunicationsOpen = createReducer<boolean, CommunicationsActionTypes>(false as boolean).handleAction(
   [showCommunications],
@@ -19,8 +17,8 @@ export const isCommunicationsOpen = createReducer<boolean, CommunicationsActionT
   }
 )
 
-export const groupCallLocator = createReducer<GroupCallLocator | null, CommunicationsActionTypes>(null).handleAction(
-  [setGroupCallLocator],
+export const groupCallLocator = createReducer<string | null, CommunicationsActionTypes>(null).handleAction(
+  [setGroupCallId],
   (state, action) => action.payload
 )
 
@@ -36,23 +34,13 @@ export const communicationUser = createReducer<CommunicationUserTokenModel | nul
   .handleAction([loadCommunicationUserAsync.request, loadCommunicationUserAsync.failure], (state, action) => null)
   .handleAction([loadCommunicationUserAsync.success], (state, action) => action.payload)
 
-export const communicationUserIdentifier = createReducer<CommunicationUserIdentifier | null, CommunicationsActionTypes>(
-  null
-)
+export const communicationUserIdentifier = createReducer<string | null | undefined, CommunicationsActionTypes>(null)
   .handleAction([loadCommunicationUserAsync.request, loadCommunicationUserAsync.failure], (state, action) => null)
-  .handleAction([loadCommunicationUserAsync.success], (state, action) => {
-    return action.payload.communicationUserId
-      ? {
-          communicationUserId: action.payload.communicationUserId
-        }
-      : null
-  })
+  .handleAction([loadCommunicationUserAsync.success], (state, action) => action.payload.communicationUserId)
 
-export const credential = createReducer<AzureCommunicationTokenCredential | null, CommunicationsActionTypes>(null)
+export const credential = createReducer<string | null | undefined, CommunicationsActionTypes>(null)
   .handleAction([loadCommunicationUserAsync.request, loadCommunicationUserAsync.failure], (state, action) => null)
-  .handleAction([loadCommunicationUserAsync.success], (state, action) => {
-    return action.payload.token ? new AzureCommunicationTokenCredential(action.payload.token) : null
-  })
+  .handleAction([loadCommunicationUserAsync.success], (state, action) => action.payload.token)
 
 const communicationsState = combineReducers({
   isCommunicationsOpen,

@@ -1,6 +1,6 @@
-import { RestException } from '../models/exceptions'
-import { configuration, instance } from '../utils/interceptor'
+import { configuration, instance } from '../utils/HttpClient'
 import { CommunicationsApi, CommunicationUserTokenModel } from 'ch-api-client-typescript2/lib'
+import { RestException } from '../models/exceptions'
 import { log } from '../utils/log'
 
 const apiRoot = process.env.NEXT_PUBLIC_API_ROOT

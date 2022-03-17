@@ -1,4 +1,3 @@
-import axios from 'axios'
 import {
   PostAccountModel,
   ForgotPasswordModel,
@@ -10,7 +9,7 @@ import {
 import { IdentityError } from '../models/exceptions'
 import { log } from '../utils/log'
 import { RestException, Errors } from '../models/exceptions'
-import { getSession } from 'next-auth/react'
+import { HttpClient } from '../utils/HttpClient'
 
 const stsAuthority = process.env.NEXT_PUBLIC_STS_ISSUER
 
@@ -23,7 +22,9 @@ const postAccountAsync = async (data: PostAccountModel): Promise<boolean> => {
     log('DATA: ', data)
     log('URL > ', url)
 
-    const response = await axios({
+    const instance = HttpClient.getInstance()
+
+    const response = await instance({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -88,22 +89,18 @@ const postAccountAsync = async (data: PostAccountModel): Promise<boolean> => {
   }
 }
 
-const loadAccountAsync = async (access_token?: string, token_type?: string): Promise<AccountModel> => {
+const loadAccountAsync = async (): Promise<AccountModel> => {
   try {
     log('CALL loadAccounts')
-    const session = await getSession()
-
     const action = 'api/v1/accounts'
     const url = `${stsAuthority}/${action}`
 
-    const token = session?.access_token ?? access_token
-    const tokenType = session?.token_type ?? token_type
+    const instance = HttpClient.getInstance()
 
-    const response = await axios({
+    const response = await instance({
       method: 'GET',
       headers: {
-        Accept: '*/*',
-        Authorization: `${tokenType} ${token}`
+        Accept: '*/*'
       },
       url
     })
@@ -131,21 +128,18 @@ const loadAccountAsync = async (access_token?: string, token_type?: string): Pro
 const sendVerificationMailAsync = async (): Promise<boolean> => {
   try {
     log('CALL sendVerificationMail')
-    const session = await getSession()
-
     const action = 'api/v1/accounts/sendVerificationEmail'
     const url = `${stsAuthority}/${action}`
 
     log('URL > ', url)
 
-    const token = session?.access_token
-    const tokenType = session?.token_type
+    const instance = HttpClient.getInstance()
 
-    const response = await axios({
+    const response = await instance({
       method: 'POST',
       headers: {
-        Accept: '*/*',
-        Authorization: `${tokenType} ${token}`
+        Accept: '*/*'
+        // Authorization: `${token_type} ${access_token}`
       },
       url
     })
@@ -165,21 +159,15 @@ const sendVerificationMailAsync = async (): Promise<boolean> => {
 const confirmAccountAsync = async (data: ConfirmAccountModel): Promise<boolean> => {
   try {
     log('CALL confirmAccount')
-    const session = await getSession()
-
     const action = 'api/v1/accounts/confirmEmail'
     const url = `${stsAuthority}/${action}`
 
-    log('URL > ', url)
+    const instance = HttpClient.getInstance()
 
-    const token = session?.access_token
-    const tokenType = session?.token_type
-
-    const response = await axios({
+    const response = await instance({
       method: 'POST',
       headers: {
-        Accept: '*/*',
-        Authorization: `${tokenType} ${token}`
+        Accept: '*/*'
       },
       url,
       data
@@ -200,22 +188,15 @@ const confirmAccountAsync = async (data: ConfirmAccountModel): Promise<boolean> 
 const forgotPasswordAsync = async (data: ForgotPasswordModel): Promise<boolean> => {
   try {
     log('CALL forgotPassword')
-    const session = await getSession()
-
     const action = 'api/v1/accounts/forgotPassword'
     const url = `${stsAuthority}/${action}`
-    log('URL > ', url)
 
-    const token = session?.access_token
-    const tokenType = session?.token_type
+    const instance = HttpClient.getInstance()
 
-    log('DATA: ', data)
-
-    const response = await axios({
+    const response = await instance({
       method: 'POST',
       headers: {
-        Accept: '*/*',
-        Authorization: `${tokenType} ${token}`
+        Accept: '*/*'
       },
       url,
       data
@@ -268,22 +249,15 @@ const forgotPasswordAsync = async (data: ForgotPasswordModel): Promise<boolean> 
 const resetPasswordAsync = async (data: ResetPasswordModel): Promise<boolean> => {
   try {
     log('CALL resetPassword')
-    const session = await getSession()
-
     const action = 'api/v1/accounts/resetPassword'
     const url = `${stsAuthority}/${action}`
-    log('URL > ', url)
 
-    const token = session?.access_token
-    const tokenType = session?.token_type
+    const instance = HttpClient.getInstance()
 
-    log('DATA: ', data)
-
-    const response = await axios({
+    const response = await instance({
       method: 'POST',
       headers: {
-        Accept: '*/*',
-        Authorization: `${tokenType} ${token}`
+        Accept: '*/*'
       },
       url,
       data
@@ -336,22 +310,15 @@ const resetPasswordAsync = async (data: ResetPasswordModel): Promise<boolean> =>
 const changePasswordAsync = async (data: ChangePasswordModel): Promise<boolean> => {
   try {
     log('CALL changePassword')
-    const session = await getSession()
-
     const action = 'api/v1/accounts/changePassword'
     const url = `${stsAuthority}/${action}`
-    log('URL > ', url)
 
-    const token = session?.access_token
-    const tokenType = session?.token_type
+    const instance = HttpClient.getInstance()
 
-    log('DATA: ', data)
-
-    const response = await axios({
+    const response = await instance({
       method: 'POST',
       headers: {
-        Accept: '*/*',
-        Authorization: `${tokenType} ${token}`
+        Accept: '*/*'
       },
       url,
       data

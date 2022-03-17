@@ -1,4 +1,4 @@
-import { configuration, instance } from '../utils/interceptor'
+import { configuration, instance } from '../utils/HttpClient'
 import { RestException } from '../models/exceptions'
 import { ArticlesApi, ArticlesModel, ArticleModel } from 'ch-api-client-typescript2/lib'
 import { ArticleSearchOption, ArticlesSearchOption } from '../models/articles'
