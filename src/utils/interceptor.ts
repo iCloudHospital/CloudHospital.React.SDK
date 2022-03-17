@@ -1,9 +1,6 @@
 import axios from 'axios'
 import { Configuration } from 'ch-api-client-typescript2/lib'
-import { getToken } from 'next-auth/jwt'
-import { getSession } from 'next-auth/react'
 import { Errors, RestException } from '../models/exceptions'
-import { log } from './log'
 
 const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
@@ -22,10 +19,10 @@ instance.interceptors.request.use(
     config.headers.common['Access-Control-Allow-Origin'] = '*'
 
     if (typeof window !== 'undefined') {
-      const session = await getSession()
-      if (session && session.access_token) {
-        config.headers.Authorization = `${session.token_type} ${session.access_token}`
-      }
+      // const session = await getSession()
+      // if (session && session.access_token) {
+      //   config.headers.Authorization = `${session.token_type} ${session.access_token}`
+      // }
     }
 
     return config

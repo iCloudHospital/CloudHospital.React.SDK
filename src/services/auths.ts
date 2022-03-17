@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { JWT } from 'next-auth/jwt'
 import qs from 'qs'
 import { EmailSignIn, ExternalSignIn, IdentityToken } from '../models/auths'
 import { GrantValidationResult } from '../models/exceptions'
@@ -127,7 +126,7 @@ const signOutExternal = async (
   }
 }
 
-const refreshToken = async (token: JWT): Promise<any> => {
+const refreshToken = async (refresh_token: string): Promise<any> => {
   try {
     log('CALL refreshTokenAsync')
     const action = 'connect/token'
@@ -138,7 +137,7 @@ const refreshToken = async (token: JWT): Promise<any> => {
       client_id,
       client_secret,
       grant_type: 'refresh_token',
-      refresh_token: token?.refresh_token
+      refresh_token: refresh_token
     }
     log('DATA: ', data)
 
@@ -159,8 +158,7 @@ const refreshToken = async (token: JWT): Promise<any> => {
   } catch (error: any) {
     const grantValidationResult = error.response.data as GrantValidationResult
     log('CALL signInROPCAsync error: ', grantValidationResult)
-    // throw grantValidationResult
-    return { ...token, error: grantValidationResult }
+    throw grantValidationResult
   }
 }
 

@@ -1,16 +1,13 @@
 import axios from 'axios'
-import { getSession } from 'next-auth/react'
 import { CurrentLogin, ExternalLogins } from '../models/auths'
 import { IdentityError } from '../models/exceptions'
 import { log } from '../utils/log'
 
 const stsAuthority = process.env.NEXT_PUBLIC_STS_ISSUER
 
-const loadExternalLogins = async (): Promise<ExternalLogins> => {
+const loadExternalLogins = async (access_token?: string, token_type?: string): Promise<ExternalLogins> => {
   try {
     log('CALL loadExternalLoginsAsync')
-    const session = await getSession()
-
     const action = 'api/v1/externalLogins'
     const url = `${stsAuthority}/${action}`
 
@@ -18,7 +15,7 @@ const loadExternalLogins = async (): Promise<ExternalLogins> => {
       method: 'GET',
       headers: {
         Accept: '*/*',
-        Authorization: `${session?.token_type} ${session?.access_token}`
+        Authorization: `${token_type} ${access_token}`
       },
       url
     })
@@ -34,11 +31,9 @@ const loadExternalLogins = async (): Promise<ExternalLogins> => {
   }
 }
 
-const postExternalLogin = async (data: CurrentLogin): Promise<boolean> => {
+const postExternalLogin = async (data: CurrentLogin, access_token?: string, token_type?: string): Promise<boolean> => {
   try {
     log('CALL postExternalLoginAsync')
-    const session = await getSession()
-
     const action = 'api/v1/externalLogins'
     const url = `${stsAuthority}/${action}`
 
@@ -46,7 +41,7 @@ const postExternalLogin = async (data: CurrentLogin): Promise<boolean> => {
       method: 'POST',
       headers: {
         Accept: '*/*',
-        Authorization: `${session?.token_type} ${session?.access_token}`,
+        Authorization: `${token_type} ${access_token}`,
         'Content-Type': 'application/json-patch+json'
       },
       url,
@@ -64,11 +59,13 @@ const postExternalLogin = async (data: CurrentLogin): Promise<boolean> => {
   }
 }
 
-const deleteExternalLogin = async (data: CurrentLogin): Promise<boolean> => {
+const deleteExternalLogin = async (
+  data: CurrentLogin,
+  access_token?: string,
+  token_type?: string
+): Promise<boolean> => {
   try {
     log('CALL deleteExternalLoginAsync')
-    const session = await getSession()
-
     const action = '/api/v1/externalLogins'
     const url = `${stsAuthority}/${action}`
 
@@ -76,7 +73,7 @@ const deleteExternalLogin = async (data: CurrentLogin): Promise<boolean> => {
       method: 'DELETE',
       headers: {
         Accept: '*/*',
-        Authorization: `${session?.token_type} ${session?.access_token}`,
+        Authorization: `${token_type} ${access_token}`,
         'Content-Type': 'application/json-patch+json'
       },
       url,

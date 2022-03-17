@@ -1,10 +1,9 @@
 import { CommunicationUserTokenModel } from 'ch-api-client-typescript2/lib'
 import { ActionType, createAsyncAction, createAction } from 'typesafe-actions'
-import { GroupCallLocator } from '@azure/communication-calling'
 import { RestException } from '../../models/exceptions'
 
 export const showCommunications = createAction('SHOW_COMMUNICATIONS')<boolean>()
-export const setGroupCallLocator = createAction('SET_GROUPCALL_LOCATOR')<GroupCallLocator | null>()
+export const setGroupCallId = createAction('SET_GROUP_CALL_ID')<string | null>()
 
 export const loadCommunicationUserAsync = createAsyncAction(
   'LOAD_COMMUNICATIONUSER_REQUEST',
@@ -26,7 +25,7 @@ export const deleteCommunicationUserAsync = createAsyncAction(
 
 export type CommunicationsActionTypes =
   | ActionType<typeof showCommunications>
-  | ActionType<typeof setGroupCallLocator>
+  | ActionType<typeof setGroupCallId>
   | ActionType<typeof loadCommunicationUserAsync>
   | ActionType<typeof revokeCommunicationUserAsync>
   | ActionType<typeof deleteCommunicationUserAsync>
