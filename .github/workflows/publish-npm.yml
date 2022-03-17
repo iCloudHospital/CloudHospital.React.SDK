@@ -1,0 +1,39 @@
+name: publish npm 
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    name: publish npm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: install dependencies
+        run: |
+          npm install
+
+      # - name: lint
+      #   run: |
+      #     npm run lint --if-present
+
+      - name: build
+        run: |
+          npm run build
+        env:
+          NODE_ENV: production
+
+      - name: publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public

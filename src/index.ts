@@ -7,9 +7,13 @@ export type { RootAction } from './store/actions'
 export type { RootReducer } from './store/reducers'
 export type { Services } from './services'
 
-// actions
+export * from 'ch-api-client-typescript2/lib'
+export * from './models'
+
+export * from './services'
+
 export * from './store/actions/accounts'
-export * from './store/actions/externalLogins'
+export * from './store/actions/azSearch'
 export * from './store/actions/accreditations'
 export * from './store/actions/articles'
 export * from './store/actions/articleContributors'
@@ -28,6 +32,7 @@ export * from './store/actions/doctorEducations'
 export * from './store/actions/doctorMedias'
 export * from './store/actions/doctorPortfolios'
 export * from './store/actions/doctorSpecialties'
+export * from './store/actions/externalLogins'
 export * from './store/actions/faqCategories'
 export * from './store/actions/faqs'
 export * from './store/actions/hospitals'
@@ -47,15 +52,8 @@ export * from './store/actions/servicesCategories'
 export * from './store/actions/specialties'
 export * from './store/actions/specialtyTypes'
 export * from './store/actions/tags'
-export * from './store/actions/sideNav'
 export * from './store/actions/toastMessages'
-export * from './store/actions/azSearch'
-
-export * from 'ch-api-client-typescript2/lib'
-export * from './models'
-export * from './services'
 
 export * from './store/reducers'
-export * from './utils'
 
 export { store, actions, reduces }

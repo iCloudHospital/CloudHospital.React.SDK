@@ -1,5 +1,4 @@
 import { MarketingType, MediaType } from 'ch-api-client-typescript2/lib'
-import { StringifyOptions } from 'querystring'
 
 export interface HospitalsSearchOption {
   hospitalId?: string

@@ -1,4 +1,4 @@
-import { configuration, instance } from '../utils/HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { TagsApi, TagsModel, TagModel } from 'ch-api-client-typescript2/lib'
 import { TagsSearchOption } from '../models/tags'

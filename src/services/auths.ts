@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 import { EmailSignIn, ExternalSignIn, IdentityToken } from '../models/auths'
 import { GrantValidationResult } from '../models/exceptions'
-import { HttpClient } from '../utils/HttpClient'
+import { HttpClient } from './HttpClient'
 import { log } from '../utils/log'
 
 const sts_issuer = process.env.NEXT_PUBLIC_STS_ISSUER
@@ -95,6 +95,7 @@ const signInExternal = async (externalSignIn: ExternalSignIn): Promise<IdentityT
 }
 
 const signOutExternal = async (provider: 'Facebook' | 'Google' | 'Apple', providerKey: string): Promise<boolean> => {
+  // eslint-disable-next-line no-useless-catch
   try {
     log('CALL signOutExternalAsync')
 

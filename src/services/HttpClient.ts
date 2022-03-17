@@ -3,17 +3,10 @@ import { Configuration } from 'ch-api-client-typescript2/lib'
 
 const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
-interface GetInstanceOption {
-  forceRecreate?: boolean
-}
-
 export class HttpClient {
   private static instance: AxiosInstance | null = null
 
   public static getInstance(): AxiosInstance {
-    // if (this.instance === null || (this.instance !== null && option?.forceRecreate)) {
-    //   this.instance = axios.create()
-    // }
     if (this.instance === null) {
       this.instance = axios.create()
     }

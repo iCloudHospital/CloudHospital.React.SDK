@@ -1,12 +1,11 @@
-import { configuration, instance } from '../utils/HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import {
   HospitalsApi,
   HospitalServicesModel,
   HospitalServiceModel,
   MediasModel,
-  MediaModel,
-  SpecialtiesModel
+  MediaModel
 } from 'ch-api-client-typescript2/lib'
 import {
   HospitalServicesSearchOption,
