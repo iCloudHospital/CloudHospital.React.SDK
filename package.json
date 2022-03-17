@@ -17,7 +17,14 @@
     "prepack:local": "npm run build",
     "pack:local": "mkdir -p out && npm pack --pack-destination out"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iCloudHospital/CloudHospital.React.SDK"
+  },
+  "keywords": [
+    "CloudHospital",
+    "client sdk"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
