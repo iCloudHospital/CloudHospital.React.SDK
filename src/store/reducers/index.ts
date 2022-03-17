@@ -38,7 +38,6 @@ import plansState from './plans'
 import profilesState from './profiles'
 import servicesState from './services'
 import servicesCategoriesState from './servicesCategories'
-import sideNavState from './sideNav'
 import specialtiesState from './specialties'
 import specialtyTypesState from './specialtyTypes'
 import tagsState from './tags'
@@ -83,7 +82,6 @@ const rootReducer = combineReducers({
   profilesState,
   servicesState,
   servicesCategoriesState,
-  sideNavState,
   specialtiesState,
   specialtyTypesState,
   tagsState,

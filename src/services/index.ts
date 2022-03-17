@@ -89,3 +89,5 @@ const rootServices = {
 export type Services = typeof rootServices
 
 export default rootServices
+
+export * from './HttpClient'

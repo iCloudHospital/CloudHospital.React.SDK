@@ -1,7 +1,7 @@
 {
   "name": "cloudhospital.react.sdk",
-  "version": "0.2.0",
-  "description": "CloudHospital frontend SDK",
+  "version": "1.0.0",
+  "description": "",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -17,19 +17,16 @@
     "prepack:local": "npm run build",
     "pack:local": "mkdir -p out && npm pack --pack-destination out"
   },
-  "keywords": [
-    "CloudHospital",
-    "typescript",
-    "sdk"
-  ],
-  "author": {
-    "email": "hyounoosung@gmail.com",
-    "name": "CloudHospital",
-    "url": "https://icloudhospital.com"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/iCloudHospital/CloudHospital.React.SDK.git"
+    "url": "https://github.com/iCloudHospital/CloudHospital.React.SDK"
+  },
+  "keywords": [
+    "CloudHospital",
+    "client sdk"
+  ],
+  "author": {
+    "name": "CloudHospital"
   },
   "license": "ISC",
   "dependencies": {

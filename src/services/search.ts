@@ -1,4 +1,4 @@
-import { configuration, instance } from '../utils/HttpClient'
+import { configuration, instance } from './HttpClient'
 import { AutoCompleteOption, SearchCountModel, SearchOption } from '../models/search'
 import { RestException } from '../models/exceptions'
 

@@ -1,6 +1,6 @@
 import { combineEpics } from 'redux-observable'
 import accountsEpic from './accounts'
-import externalLoginsEpic from './externalLogins'
+import azSearchEpic from './azSearch'
 import accreditationsEpic from './accreditations'
 import articlesEpic from './articles'
 import articleContributorsEpic from './articleContributors'
@@ -19,6 +19,7 @@ import doctorEducationsEpic from './doctorEducations'
 import doctorMediasEpic from './doctorMedias'
 import doctorPortfoliosEpic from './doctorPortfolios'
 import doctorSpecialtiesEpic from './doctorSpecialties'
+import externalLoginsEpic from './externalLogins'
 import faqCategoriesEpic from './faqCategories'
 import faqsEpic from './faqs'
 import hospitalsEpic from './hospitals'
@@ -38,7 +39,6 @@ import servicesCategoriesEpic from './servicesCategories'
 import specialtiesEpic from './specialties'
 import specialtyTypesEpic from './specialtyTypes'
 import tagsEpic from './tags'
-import azSearchEpic from './azSearch'
 
 export default combineEpics(
   accountsEpic,
@@ -80,5 +80,5 @@ export default combineEpics(
   specialtiesEpic,
   specialtyTypesEpic,
   tagsEpic,
-  azSearchEpic,
+  azSearchEpic
 )

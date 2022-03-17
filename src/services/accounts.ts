@@ -7,9 +7,9 @@ import {
   ConfirmAccountModel
 } from '../models/accounts'
 import { IdentityError } from '../models/exceptions'
-import { log } from '../utils/log'
 import { RestException, Errors } from '../models/exceptions'
-import { HttpClient } from '../utils/HttpClient'
+import { HttpClient } from './HttpClient'
+import { log } from '../utils/log'
 
 const stsAuthority = process.env.NEXT_PUBLIC_STS_ISSUER
 

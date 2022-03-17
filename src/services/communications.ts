@@ -1,4 +1,4 @@
-import { configuration, instance } from '../utils/HttpClient'
+import { configuration, instance } from './HttpClient'
 import { CommunicationsApi, CommunicationUserTokenModel } from 'ch-api-client-typescript2/lib'
 import { RestException } from '../models/exceptions'
 import { log } from '../utils/log'

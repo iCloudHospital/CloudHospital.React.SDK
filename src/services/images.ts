@@ -1,4 +1,4 @@
-import { instance } from '../utils/HttpClient'
+import { instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { MediaModel } from 'ch-api-client-typescript2/lib'
 
