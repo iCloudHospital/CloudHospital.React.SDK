@@ -50,7 +50,7 @@ export function validHEX(hex: string) {
   if (typeof hex !== 'string') {
     return false
   }
-  const reg = new RegExp(/^\#?[0-9a-fA-F]{6,8}$/)
+  const reg = new RegExp(/^#?[0-9a-fA-F]{6,8}$/)
   return reg.test(hex)
 }
 //HEX → RGBA
@@ -58,11 +58,11 @@ export function HEX2RGBA(hex: string): Rgba {
   if (!validHEX(hex)) {
     throw new Error(`'${hex}' is not valid hex format!`)
   }
-  let temp = hex.replace('#', '')
-  let len = temp.length / 2
-  let rgba: string[] = []
+  const temp = hex.replace('#', '')
+  const len = temp.length / 2
+  const rgba: string[] = []
   for (let i = 0; i < len; i++) {
-    let hTarget = temp.substring(i * 2, (i + 1) * 2)
+    const hTarget = temp.substring(i * 2, (i + 1) * 2)
     //alpha value(0~1)
     if (i === 3) {
       rgba.push(String(parseInt(hTarget, 16) / 255))

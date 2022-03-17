@@ -10,13 +10,8 @@ import type { Services } from '../services'
 import rootEpic from './epics'
 import services from '../services'
 
-export const epicMiddleware = createEpicMiddleware<
-  RootAction,
-  RootAction,
-  RootReducer,
-  Services
->({
-  dependencies: services,
+export const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootReducer, Services>({
+  dependencies: services
 })
 
 // configure middlewares

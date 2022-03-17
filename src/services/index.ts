@@ -82,8 +82,8 @@ const rootServices = {
     specialties,
     specialtyTypes,
     tags,
-    azSearch,
-  },
+    azSearch
+  }
 }
 
 export type Services = typeof rootServices

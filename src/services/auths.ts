@@ -95,6 +95,7 @@ const signInExternal = async (externalSignIn: ExternalSignIn): Promise<IdentityT
 }
 
 const signOutExternal = async (provider: 'Facebook' | 'Google' | 'Apple', providerKey: string): Promise<boolean> => {
+  // eslint-disable-next-line no-useless-catch
   try {
     log('CALL signOutExternalAsync')
 

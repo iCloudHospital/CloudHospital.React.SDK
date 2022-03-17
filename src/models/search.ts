@@ -1,4 +1,4 @@
-import { AutocompleteMode, MarketingType } from "ch-api-client-typescript2/lib";
+import { AutocompleteMode, MarketingType } from 'ch-api-client-typescript2/lib'
 
 export interface SearchOption {
   searchTerm?: string
@@ -22,10 +22,9 @@ export interface AutoCompleteOption {
 }
 
 export type SearchCountModel = {
-  hospitals: number,
-  doctors: number,
-  deals: number,
-  specialties: number,
+  hospitals: number
+  doctors: number
+  deals: number
+  specialties: number
   specialtyTypes: number
 }
-
