@@ -1,4 +1,4 @@
-import { configuration, instance } from '../utils/HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { NotificationsSearchOption } from '../models/notifications'
 import { CheckNotificationsCommand, NotificationsApi, NotificationsModel } from 'ch-api-client-typescript2/lib'

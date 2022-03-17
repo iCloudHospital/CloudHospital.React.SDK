@@ -1,4 +1,4 @@
-import { configuration, instance } from '../utils/HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { CountriesApi, CountriesModel, CountryModel, MediaModel, MediasModel } from 'ch-api-client-typescript2/lib'
 import { CountriesSearchOption, CountrySearchOption } from '../models/countries'
