@@ -1,4 +1,4 @@
-import axios from 'axios'
+// import axios from 'axios'
 import {
   PostAccountModel,
   ForgotPasswordModel,
@@ -10,6 +10,7 @@ import {
 import { IdentityError } from '../models/exceptions'
 import { log } from '../utils/log'
 import { RestException, Errors } from '../models/exceptions'
+import { HttpClient } from '../utils/HttpClient'
 
 const stsAuthority = process.env.NEXT_PUBLIC_STS_ISSUER
 
@@ -22,7 +23,9 @@ const postAccountAsync = async (data: PostAccountModel): Promise<boolean> => {
     log('DATA: ', data)
     log('URL > ', url)
 
-    const response = await axios({
+    const client = HttpClient.getInstance()
+
+    const response = await client({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -93,11 +96,12 @@ const loadAccountAsync = async (access_token?: string, token_type?: string): Pro
     const action = 'api/v1/accounts'
     const url = `${stsAuthority}/${action}`
 
-    const response = await axios({
+    const client = HttpClient.getInstance()
+
+    const response = await client({
       method: 'GET',
       headers: {
-        Accept: '*/*',
-        Authorization: `${token_type} ${access_token}`
+        Accept: '*/*'
       },
       url
     })
@@ -130,7 +134,9 @@ const sendVerificationMailAsync = async (access_token?: string, token_type?: str
 
     log('URL > ', url)
 
-    const response = await axios({
+    const client = HttpClient.getInstance()
+
+    const response = await client({
       method: 'POST',
       headers: {
         Accept: '*/*',
@@ -161,7 +167,9 @@ const confirmAccountAsync = async (
     const action = 'api/v1/accounts/confirmEmail'
     const url = `${stsAuthority}/${action}`
 
-    const response = await axios({
+    const client = HttpClient.getInstance()
+
+    const response = await client({
       method: 'POST',
       headers: {
         Accept: '*/*',
@@ -193,7 +201,9 @@ const forgotPasswordAsync = async (
     const action = 'api/v1/accounts/forgotPassword'
     const url = `${stsAuthority}/${action}`
 
-    const response = await axios({
+    const client = HttpClient.getInstance()
+
+    const response = await client({
       method: 'POST',
       headers: {
         Accept: '*/*',
@@ -257,7 +267,9 @@ const resetPasswordAsync = async (
     const action = 'api/v1/accounts/resetPassword'
     const url = `${stsAuthority}/${action}`
 
-    const response = await axios({
+    const client = HttpClient.getInstance()
+
+    const response = await client({
       method: 'POST',
       headers: {
         Accept: '*/*',
@@ -321,7 +333,9 @@ const changePasswordAsync = async (
     const action = 'api/v1/accounts/changePassword'
     const url = `${stsAuthority}/${action}`
 
-    const response = await axios({
+    const client = HttpClient.getInstance()
+
+    const response = await client({
       method: 'POST',
       headers: {
         Accept: '*/*',
