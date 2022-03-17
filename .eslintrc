@@ -15,8 +15,7 @@
     "overrides": [
         {
             "files": [
-                "*.ts",
-                "*.tsx"
+                "*.ts"
             ],
             "env": {
                 "browser": true
@@ -30,8 +29,6 @@
                 "sourceType": "module"
             },
             "extends": [
-                "plugin:react-hooks/recommended",
-                "plugin:react/recommended",
                 "plugin:@typescript-eslint/recommended"
             ],
             "settings": {
@@ -40,7 +37,6 @@
                 }
             },
             "plugins": [
-                "react",
                 "@typescript-eslint"
             ],
             "rules": {

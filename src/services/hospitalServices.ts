@@ -5,8 +5,7 @@ import {
   HospitalServicesModel,
   HospitalServiceModel,
   MediasModel,
-  MediaModel,
-  SpecialtiesModel
+  MediaModel
 } from 'ch-api-client-typescript2/lib'
 import {
   HospitalServicesSearchOption,

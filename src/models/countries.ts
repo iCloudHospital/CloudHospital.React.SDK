@@ -1,5 +1,3 @@
-import { object, string } from 'yup'
-import { MediaType } from 'ch-api-client-typescript2/lib'
 export interface CountriesSearchOption {
   id?: string
   name?: string
