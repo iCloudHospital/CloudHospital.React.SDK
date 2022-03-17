@@ -1,6 +1,6 @@
-import { configuration, instance } from '../utils/interceptor'
-import { RestException } from '../models/exceptions'
+import { configuration, instance } from '../utils/HttpClient'
 import { ChangeEmailCommand, ProfilesApi, UserModel, UpdateProfileCommand } from 'ch-api-client-typescript2/lib'
+import { RestException } from '../models/exceptions'
 
 const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 

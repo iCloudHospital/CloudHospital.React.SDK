@@ -1,6 +1,6 @@
 import { ActionType } from 'typesafe-actions'
 import * as accounts from './accounts'
-import * as externalLogins from './externalLogins'
+import * as azSearch from './azSearch'
 import * as accreditations from './accreditations'
 import * as articles from './articles'
 import * as articleContributors from './articleContributors'
@@ -19,6 +19,7 @@ import * as doctorEducations from './doctorEducations'
 import * as doctorMedias from './doctorMedias'
 import * as doctorPortfolios from './doctorPortfolios'
 import * as doctorSpecialties from './doctorSpecialties'
+import * as externalLogins from './externalLogins'
 import * as faqCategories from './faqCategories'
 import * as faqs from './faqs'
 import * as hospitals from './hospitals'
@@ -35,16 +36,15 @@ import * as plans from './plans'
 import * as profiles from './profiles'
 import * as services from './services'
 import * as servicesCategories from './servicesCategories'
+import * as sideNav from './sideNav'
 import * as specialties from './specialties'
 import * as specialtyTypes from './specialtyTypes'
 import * as tags from './tags'
-import * as sideNav from './sideNav'
 import * as toastMessages from './toastMessages'
-import * as azSearch from './azSearch'
 
 const rootAction = {
   accounts,
-  externalLogins,
+  azSearch,
   accreditations,
   articles,
   articleContributors,
@@ -63,6 +63,7 @@ const rootAction = {
   doctorMedias,
   doctorPortfolios,
   doctorSpecialties,
+  externalLogins,
   faqCategories,
   faqs,
   hospitals,
@@ -79,12 +80,11 @@ const rootAction = {
   profiles,
   services,
   servicesCategories,
+  sideNav,
   specialties,
   specialtyTypes,
   tags,
-  sideNav,
-  toastMessages,
-  azSearch,
+  toastMessages
 }
 
 export type RootAction = ActionType<typeof rootAction>

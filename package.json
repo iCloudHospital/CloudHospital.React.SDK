@@ -1,6 +1,6 @@
 {
   "name": "cloudhospital.react.sdk",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -15,7 +15,7 @@
     "lint": "eslint src/**/*.{ts,tsx}",
     "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
     "prepack:local": "npm run build",
-    "pack:local": "mkdir out && npm pack --pack-destination out"
+    "pack:local": "mkdir -p out && npm pack --pack-destination out"
   },
   "keywords": [],
   "author": "",

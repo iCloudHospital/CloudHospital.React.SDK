@@ -1,4 +1,4 @@
-import { configuration, instance } from '../utils/interceptor'
+import { configuration, instance } from '../utils/HttpClient'
 import { RestException } from '../models/exceptions'
 import {
   HospitalsApi,
@@ -145,5 +145,5 @@ export default {
   loadHospitalService,
 
   loadHospitalServiceMedias,
-  loadHospitalServiceMedia,
+  loadHospitalServiceMedia
 }

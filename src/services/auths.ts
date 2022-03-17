@@ -2,6 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 import { EmailSignIn, ExternalSignIn, IdentityToken } from '../models/auths'
 import { GrantValidationResult } from '../models/exceptions'
+import { HttpClient } from '../utils/HttpClient'
 import { log } from '../utils/log'
 
 const sts_issuer = process.env.NEXT_PUBLIC_STS_ISSUER
@@ -24,7 +25,9 @@ const signInROPCAsync = async (emailSignIn: EmailSignIn): Promise<IdentityToken>
       password: emailSignIn.password
     }
 
-    const response = await axios({
+    const client = HttpClient.getInstance()
+
+    const response = await client({
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -63,9 +66,10 @@ const signInExternal = async (externalSignIn: ExternalSignIn): Promise<IdentityT
       external_token: externalSignIn.external_token,
       email: externalSignIn.email
     }
-    log('DATA: ', data)
 
-    const response = await axios({
+    const client = HttpClient.getInstance()
+
+    const response = await client({
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -90,25 +94,19 @@ const signInExternal = async (externalSignIn: ExternalSignIn): Promise<IdentityT
   }
 }
 
-const signOutExternal = async (
-  authType: IdentityToken,
-  provider: 'Facebook' | 'Google' | 'Apple',
-  providerKey: string
-): Promise<boolean> => {
+const signOutExternal = async (provider: 'Facebook' | 'Google' | 'Apple', providerKey: string): Promise<boolean> => {
   try {
     log('CALL signOutExternalAsync')
 
     const action = 'externalLogins/removeLogin'
     const url = `${sts_issuer}/${action}`
 
-    const token = authType.access_token
-    const tokenType = authType.token_type
+    const client = HttpClient.getInstance()
 
-    const response = await axios({
+    const response = await client({
       method: 'POST',
       headers: {
-        Accept: 'application/json',
-        Authorization: `${tokenType} ${token}`
+        Accept: 'application/json'
       },
       url,
       data: {
@@ -116,6 +114,7 @@ const signOutExternal = async (
         providerKey
       }
     })
+
     if (response.status === 200 && response.data) {
       return true
     } else {
@@ -131,7 +130,6 @@ const refreshToken = async (refresh_token: string): Promise<any> => {
     log('CALL refreshTokenAsync')
     const action = 'connect/token'
     const url = `${sts_issuer}/${action}`
-    log('URL > ', url)
 
     const data = {
       client_id,

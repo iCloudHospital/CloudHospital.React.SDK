@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { Action, action, createReducer, Reducer } from 'typesafe-actions'
+import { createReducer } from 'typesafe-actions'
 import { RestException } from '../../models/exceptions'
 import { MessageActionType, setMessage } from '../actions/toastMessages'
 
