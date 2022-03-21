@@ -28,7 +28,7 @@
   "author": "developer@icloudhospital.com",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.4",
+    "axios": "^0.26.1",
     "ch-api-client-typescript2": "^2.8.1",
     "moment-timezone": "^0.5.34",
     "qs": "^6.10.3",
