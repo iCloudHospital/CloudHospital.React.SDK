@@ -13,6 +13,7 @@ export interface HospitalSpecialtiesSearchOption {
   languageCode?: string
   showHidden?: boolean
   returnDefaultValue?: boolean
+  includeServices?: boolean
   page?: number
   limit?: number
   lastRetrieved?: Date
