@@ -5,6 +5,8 @@ export interface DoctorsSearchOption {
   languageCode?: string
   returnDefaultValue?: boolean
   ids?: Array<string>
+  specialtyId?: string
+  consultationEnabled?: boolean
   id?: string
   fullname?: string
   email?: string
