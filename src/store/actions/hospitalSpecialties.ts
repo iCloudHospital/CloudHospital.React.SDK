@@ -22,6 +22,8 @@ export const loadHospitalSpecialtyAsync = createAsyncAction(
   'LOAD_HOSPITAL_SPECIALTY_FAILURE'
 )<HospitalSpecialtySearchOption, HospitalSpecialtyModel, RestException>()
 
+export const loadHospitalSpecialties = createAction('LOAD_HOSPITAL_SPECIALTIES')<HospitalSpecialtiesModel>()
+
 export const resetHospitalSpecialtiesState = createAction('RESET_HOSPITAL_SPECIALTIES_STATE')<undefined>()
 
 export const resetHospitalSpecialtyState = createAction('RESET_HOSPITAL_SPECIALTY_STATE')()
@@ -33,3 +35,4 @@ export type HospitalSpecialtiesActionTypes =
   | ActionType<typeof loadHospitalSpecialtyAsync>
   | ActionType<typeof resetHospitalSpecialtiesState>
   | ActionType<typeof resetHospitalSpecialtyState>
+  | ActionType<typeof loadHospitalSpecialties>

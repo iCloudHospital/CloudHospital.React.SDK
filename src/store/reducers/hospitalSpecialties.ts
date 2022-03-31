@@ -2,10 +2,7 @@ import { combineReducers } from 'redux'
 import { createReducer } from 'typesafe-actions'
 import { RestException } from '../../models/exceptions'
 
-import {
-  HospitalSpecialtiesModel,
-  HospitalSpecialtyModel,
-} from 'ch-api-client-typescript2/lib'
+import { HospitalSpecialtiesModel, HospitalSpecialtyModel } from 'ch-api-client-typescript2/lib'
 
 import {
   HospitalSpecialtiesActionTypes,
@@ -14,73 +11,49 @@ import {
   loadHospitalSpecialtyAsync,
   resetHospitalSpecialtiesState,
   resetHospitalSpecialtyState,
+  loadHospitalSpecialties
 } from '../actions/hospitalSpecialties'
 
 // #region HospitalSpecialties
-export const isLoadingHospitalSpecialties = createReducer<
-  boolean,
-  HospitalSpecialtiesActionTypes
->(false as boolean)
+export const isLoadingHospitalSpecialties = createReducer<boolean, HospitalSpecialtiesActionTypes>(false as boolean)
   .handleAction(
     [
       resetHospitalSpecialtiesState,
       loadHospitalSpecialtiesAsync.success,
       loadHospitalSpecialtiesAsync.failure,
       appendHospitalSpecialtiesAsync.success,
-      appendHospitalSpecialtiesAsync.failure,
+      appendHospitalSpecialtiesAsync.failure
     ],
-    (state, action) => false,
+    (state, action) => false
   )
-  .handleAction(
-    [
-      loadHospitalSpecialtiesAsync.request,
-      appendHospitalSpecialtiesAsync.request,
-    ],
-    (state, action) => true,
-  )
+  .handleAction([loadHospitalSpecialtiesAsync.request, appendHospitalSpecialtiesAsync.request], (state, action) => true)
 
-export const loadHospitalSpecialtiesErrors = createReducer<
-  RestException | null,
-  HospitalSpecialtiesActionTypes
->(null)
+export const loadHospitalSpecialtiesErrors = createReducer<RestException | null, HospitalSpecialtiesActionTypes>(null)
   .handleAction(
     [
       resetHospitalSpecialtiesState,
       loadHospitalSpecialtiesAsync.request,
       loadHospitalSpecialtiesAsync.success,
       appendHospitalSpecialtiesAsync.request,
-      appendHospitalSpecialtiesAsync.success,
+      appendHospitalSpecialtiesAsync.success
     ],
-    (state, action) => null,
+    (state, action) => null
   )
   .handleAction(
-    [
-      loadHospitalSpecialtiesAsync.failure,
-      appendHospitalSpecialtiesAsync.failure,
-    ],
-    (state, action) => action.payload,
+    [loadHospitalSpecialtiesAsync.failure, appendHospitalSpecialtiesAsync.failure],
+    (state, action) => action.payload
   )
 
-export const hospitalSpecialties = createReducer<
-  HospitalSpecialtiesModel | null,
-  HospitalSpecialtiesActionTypes
->(null)
+export const hospitalSpecialties = createReducer<HospitalSpecialtiesModel | null, HospitalSpecialtiesActionTypes>(null)
   .handleAction(
-    [
-      resetHospitalSpecialtiesState,
-      loadHospitalSpecialtiesAsync.failure,
-      appendHospitalSpecialtiesAsync.failure,
-    ],
-    (state, action) => null,
+    [resetHospitalSpecialtiesState, loadHospitalSpecialtiesAsync.failure, appendHospitalSpecialtiesAsync.failure],
+    (state, action) => null
   )
-  .handleAction(
-    [loadHospitalSpecialtiesAsync.success],
-    (state, action) => action.payload,
-  )
+  .handleAction([loadHospitalSpecialtiesAsync.success, loadHospitalSpecialties], (state, action) => action.payload)
   .handleAction([appendHospitalSpecialtiesAsync.success], (state, action) => {
     const hospitalSpecialtiesModel = {
       items: {},
-      metaData: {},
+      metaData: {}
     } as HospitalSpecialtiesModel
 
     const newItems =
@@ -93,49 +66,23 @@ export const hospitalSpecialties = createReducer<
     return hospitalSpecialtiesModel
   })
 
-export const isLoadingHospitalSpecialty = createReducer<
-  boolean,
-  HospitalSpecialtiesActionTypes
->(false as boolean)
+export const isLoadingHospitalSpecialty = createReducer<boolean, HospitalSpecialtiesActionTypes>(false as boolean)
   .handleAction(
-    [
-      resetHospitalSpecialtyState,
-      loadHospitalSpecialtyAsync.success,
-      loadHospitalSpecialtyAsync.failure,
-    ],
-    (state, action) => false,
+    [resetHospitalSpecialtyState, loadHospitalSpecialtyAsync.success, loadHospitalSpecialtyAsync.failure],
+    (state, action) => false
   )
   .handleAction([loadHospitalSpecialtyAsync.request], (state, action) => true)
 
-export const loadHospitalSpecialtyErrors = createReducer<
-  RestException | null,
-  HospitalSpecialtiesActionTypes
->(null)
+export const loadHospitalSpecialtyErrors = createReducer<RestException | null, HospitalSpecialtiesActionTypes>(null)
   .handleAction(
-    [
-      resetHospitalSpecialtyState,
-      loadHospitalSpecialtyAsync.request,
-      loadHospitalSpecialtyAsync.success,
-    ],
-    (state, action) => null,
+    [resetHospitalSpecialtyState, loadHospitalSpecialtyAsync.request, loadHospitalSpecialtyAsync.success],
+    (state, action) => null
   )
-  .handleAction(
-    [loadHospitalSpecialtyAsync.failure],
-    (state, action) => action.payload,
-  )
+  .handleAction([loadHospitalSpecialtyAsync.failure], (state, action) => action.payload)
 
-export const hospitalSpecialty = createReducer<
-  HospitalSpecialtyModel | null,
-  HospitalSpecialtiesActionTypes
->(null)
-  .handleAction(
-    [resetHospitalSpecialtyState, loadHospitalSpecialtyAsync.failure],
-    (state, action) => null,
-  )
-  .handleAction(
-    [loadHospitalSpecialtyAsync.success],
-    (state, action) => action.payload,
-  )
+export const hospitalSpecialty = createReducer<HospitalSpecialtyModel | null, HospitalSpecialtiesActionTypes>(null)
+  .handleAction([resetHospitalSpecialtyState, loadHospitalSpecialtyAsync.failure], (state, action) => null)
+  .handleAction([loadHospitalSpecialtyAsync.success], (state, action) => action.payload)
 // #endregion HospitalSpecialties
 
 const hospitalSpecialtiesState = combineReducers({
@@ -145,10 +92,8 @@ const hospitalSpecialtiesState = combineReducers({
 
   isLoadingHospitalSpecialty,
   loadHospitalSpecialtyErrors,
-  hospitalSpecialty,
+  hospitalSpecialty
 })
 
 export default hospitalSpecialtiesState
-export type HospitalSpecialtiesState = ReturnType<
-  typeof hospitalSpecialtiesState
->
+export type HospitalSpecialtiesState = ReturnType<typeof hospitalSpecialtiesState>
