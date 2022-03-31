@@ -2,6 +2,7 @@ import axios from 'axios'
 import { CurrentLogin, ExternalLogins } from '../models/auths'
 import { IdentityError } from '../models/exceptions'
 import { log } from '../utils/log'
+import { HttpClient } from './HttpClient'
 
 const stsAuthority = process.env.NEXT_PUBLIC_STS_ISSUER
 
@@ -11,7 +12,9 @@ const loadExternalLogins = async (access_token?: string, token_type?: string): P
     const action = 'api/v1/externalLogins'
     const url = `${stsAuthority}/${action}`
 
-    const response = await axios({
+    const instance = HttpClient.getInstance()
+
+    const response = await instance({
       method: 'GET',
       headers: {
         Accept: '*/*',
@@ -37,7 +40,9 @@ const postExternalLogin = async (data: CurrentLogin, access_token?: string, toke
     const action = 'api/v1/externalLogins'
     const url = `${stsAuthority}/${action}`
 
-    const response = await axios({
+    const instance = HttpClient.getInstance()
+
+    const response = await instance({
       method: 'POST',
       headers: {
         Accept: '*/*',
@@ -69,7 +74,9 @@ const deleteExternalLogin = async (
     const action = '/api/v1/externalLogins'
     const url = `${stsAuthority}/${action}`
 
-    const response = await axios({
+    const instance = HttpClient.getInstance()
+
+    const response = await instance({
       method: 'DELETE',
       headers: {
         Accept: '*/*',
