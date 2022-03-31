@@ -140,7 +140,9 @@ const refreshToken = async (refresh_token: string): Promise<any> => {
     }
     log('DATA: ', data)
 
-    const response = await axios({
+    const instance = HttpClient.getInstance()
+
+    const response = await instance({
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
