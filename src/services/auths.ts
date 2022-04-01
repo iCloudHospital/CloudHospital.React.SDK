@@ -8,7 +8,7 @@ import { log } from '../utils/log'
 const sts_issuer = process.env.NEXT_PUBLIC_STS_ISSUER
 const client_id = process.env.STS_CLIENT_ID
 const client_secret = process.env.STS_CLIENT_SECRET
-const scope = process.env.SCOPE
+const scope = process.env.STS_SCOPE
 
 const signInROPCAsync = async (emailSignIn: EmailSignIn): Promise<IdentityToken> => {
   try {

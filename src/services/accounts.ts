@@ -11,14 +11,14 @@ import { RestException, Errors } from '../models/exceptions'
 import { HttpClient } from './HttpClient'
 import { log } from '../utils/log'
 
-const stsAuthority = process.env.NEXT_PUBLIC_STS_ISSUER
+const sts_issuer = process.env.NEXT_PUBLIC_STS_ISSUER
 
 const postAccountAsync = async (data: PostAccountModel): Promise<boolean> => {
   try {
     log('CALL postAccountAsync')
     const action = 'api/v1/accounts'
 
-    const url = `${stsAuthority}/${action}`
+    const url = `${sts_issuer}/${action}`
     log('DATA: ', data)
     log('URL > ', url)
 
@@ -93,7 +93,7 @@ const loadAccountAsync = async (): Promise<AccountModel> => {
   try {
     log('CALL loadAccounts')
     const action = 'api/v1/accounts'
-    const url = `${stsAuthority}/${action}`
+    const url = `${sts_issuer}/${action}`
 
     const instance = HttpClient.getInstance()
 
@@ -129,7 +129,7 @@ const sendVerificationMailAsync = async (): Promise<boolean> => {
   try {
     log('CALL sendVerificationMail')
     const action = 'api/v1/accounts/sendVerificationEmail'
-    const url = `${stsAuthority}/${action}`
+    const url = `${sts_issuer}/${action}`
 
     log('URL > ', url)
 
@@ -160,7 +160,7 @@ const confirmAccountAsync = async (data: ConfirmAccountModel): Promise<boolean> 
   try {
     log('CALL confirmAccount')
     const action = 'api/v1/accounts/confirmEmail'
-    const url = `${stsAuthority}/${action}`
+    const url = `${sts_issuer}/${action}`
 
     const instance = HttpClient.getInstance()
 
@@ -189,7 +189,7 @@ const forgotPasswordAsync = async (data: ForgotPasswordModel): Promise<boolean> 
   try {
     log('CALL forgotPassword')
     const action = 'api/v1/accounts/forgotPassword'
-    const url = `${stsAuthority}/${action}`
+    const url = `${sts_issuer}/${action}`
 
     const instance = HttpClient.getInstance()
 
@@ -250,7 +250,7 @@ const resetPasswordAsync = async (data: ResetPasswordModel): Promise<boolean> =>
   try {
     log('CALL resetPassword')
     const action = 'api/v1/accounts/resetPassword'
-    const url = `${stsAuthority}/${action}`
+    const url = `${sts_issuer}/${action}`
 
     const instance = HttpClient.getInstance()
 
@@ -311,7 +311,7 @@ const changePasswordAsync = async (data: ChangePasswordModel): Promise<boolean> 
   try {
     log('CALL changePassword')
     const action = 'api/v1/accounts/changePassword'
-    const url = `${stsAuthority}/${action}`
+    const url = `${sts_issuer}/${action}`
 
     const instance = HttpClient.getInstance()
 
