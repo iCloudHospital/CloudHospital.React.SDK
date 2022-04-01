@@ -11,7 +11,7 @@ import {
   loadHospitalSpecialtyAsync,
   resetHospitalSpecialtiesState,
   resetHospitalSpecialtyState,
-  loadHospitalSpecialties
+  loadHospitalSpecialtiesCLient
 } from '../actions/hospitalSpecialties'
 
 // #region HospitalSpecialties
@@ -49,7 +49,10 @@ export const hospitalSpecialties = createReducer<HospitalSpecialtiesModel | null
     [resetHospitalSpecialtiesState, loadHospitalSpecialtiesAsync.failure, appendHospitalSpecialtiesAsync.failure],
     (state, action) => null
   )
-  .handleAction([loadHospitalSpecialtiesAsync.success, loadHospitalSpecialties], (state, action) => action.payload)
+  .handleAction(
+    [loadHospitalSpecialtiesAsync.success, loadHospitalSpecialtiesCLient],
+    (state, action) => action.payload
+  )
   .handleAction([appendHospitalSpecialtiesAsync.success], (state, action) => {
     const hospitalSpecialtiesModel = {
       items: {},
