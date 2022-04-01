@@ -41,8 +41,8 @@ export const loadDoctorsSimpleAsync = createAsyncAction(
 )<DoctorsSimpleSearchOption, DoctorsSimpleModel, RestException>()
 
 export const appendDoctorsSimpleAsync = createAsyncAction(
-  'APPEND_DOCTORS_SIMPLE_SUCCESS',
   'APPEND_DOCTORS_SIMPLE_REQUEST',
+  'APPEND_DOCTORS_SIMPLE_SUCCESS',
   'APPEND_DOCTROS_SIMPLE_FAILURE'
 )<DoctorsSimpleSearchOption, DoctorsSimpleModel, RestException>()
 

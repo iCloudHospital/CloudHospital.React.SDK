@@ -100,6 +100,7 @@ const doctorsEpic = combineEpics(
   loadDoctorsEpic,
   appendDoctorsEpic,
   loadDoctorEpic,
+  loadDoctorsSimpleEpic,
   loadTranslatedDoctorEpic,
   loadDoctorAffiliationsEpic,
   loadDoctorAffiliationEpic
