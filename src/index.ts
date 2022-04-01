@@ -11,7 +11,8 @@ export type { Services } from './services'
 export * from 'ch-api-client-typescript2/lib'
 export * from './models'
 
-export * from './services'
+export * from './services/auths'
+export * from './services/accounts'
 
 export * from './store/actions/accounts'
 export * from './store/actions/azSearch'
