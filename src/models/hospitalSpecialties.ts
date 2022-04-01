@@ -24,3 +24,22 @@ export interface HospitalSpecialtySearchOption {
   hospitalId: string
   specialtyId: string
 }
+
+export interface HospitalSpecialtiesSimpleSearchOption {
+  hospitalId: string
+  hospitalName?: string
+  hospitalSlug?: string
+  specialtyId?: string
+  specialtyName?: string
+  specialtyTypeId?: string
+  title?: string
+  marketingType?: MarketingType
+  languageCode?: string
+  showHidden?: boolean
+  returnDefaultValue?: boolean
+  includeServices?: boolean
+  page?: number
+  limit?: number
+  lastRetrieved?: Date
+  options?: AxiosRequestConfig
+}

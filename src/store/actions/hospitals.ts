@@ -93,4 +93,3 @@ export type HospitalsActionTypes =
   | ActionType<typeof resetHospitalMediasState>
   | ActionType<typeof resetHospitalMediaState>
   | ActionType<typeof resetHospitalsSimpleState>
-
