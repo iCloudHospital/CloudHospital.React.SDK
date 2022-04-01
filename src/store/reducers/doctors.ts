@@ -2,12 +2,12 @@ import {
   DoctorsModel,
   DoctorModel,
   DoctorAffiliationsModel,
-  DoctorAffiliationModel
+  DoctorAffiliationModel,
+  DoctorsSimpleModel
 } from 'ch-api-client-typescript2/lib'
 import { combineReducers } from 'redux'
 import { createReducer } from 'typesafe-actions'
 import { RestException } from '../../models/exceptions'
-import { searchDoctors } from '../../services/search'
 import {
   DoctorsActionTypes,
   loadDoctorAsync,
@@ -19,19 +19,24 @@ import {
   loadDoctorAffiliationsAsync,
   loadDoctorAffiliationAsync,
   resetDoctorAffiliationState,
-  resetDoctorAffiliationsState
+  resetDoctorAffiliationsState,
+  resetDoctorsSimpleState,
+  loadDoctorsSimpleAsync,
+  appendDoctorsSimpleAsync
 } from '../actions/doctors'
 import { AzSearchActionTypes, searchDoctorsAsync } from '../actions/azSearch'
 // #region Doctors
 export const isLoadingDoctors = createReducer<boolean, DoctorsActionTypes | AzSearchActionTypes>(false as boolean)
-  .handleAction([
-    resetDoctorsState, 
-    loadDoctorsAsync.success, 
-    loadDoctorsAsync.failure,
-    searchDoctorsAsync.success,
-    searchDoctorsAsync.failure
-  ], 
-  (state, action) => false)
+  .handleAction(
+    [
+      resetDoctorsState,
+      loadDoctorsAsync.success,
+      loadDoctorsAsync.failure,
+      searchDoctorsAsync.success,
+      searchDoctorsAsync.failure
+    ],
+    (state, action) => false
+  )
   .handleAction([loadDoctorsAsync.request, searchDoctorsAsync.request], (state, action) => true)
 
 export const loadDoctorsErrors = createReducer<RestException | null, DoctorsActionTypes>(null)
@@ -96,6 +101,54 @@ export const translatedDoctor = createReducer<DoctorModel | null, DoctorsActionT
     (state, action) => null
   )
   .handleAction([loadTranslatedDoctorAsync.success], (state, action) => action.payload)
+
+export const isLoadingDoctorsSimple = createReducer<boolean, DoctorsActionTypes>(false as boolean)
+  .handleAction(
+    [
+      resetDoctorsSimpleState,
+      loadDoctorsSimpleAsync.success,
+      loadDoctorsSimpleAsync.failure,
+      appendDoctorsSimpleAsync.success,
+      appendDoctorsSimpleAsync.failure
+    ],
+    (state, action) => false
+  )
+  .handleAction([loadDoctorsSimpleAsync.request, appendDoctorsSimpleAsync.request], (state, action) => true)
+
+export const loadDoctorsSimpleErrors = createReducer<RestException | null, DoctorsActionTypes>(null)
+  .handleAction(
+    [
+      resetDoctorsSimpleState,
+      loadDoctorsSimpleAsync.request,
+      loadDoctorsSimpleAsync.success,
+      appendDoctorsSimpleAsync.request,
+      appendDoctorsSimpleAsync.success
+    ],
+    (state, action) => null
+  )
+  .handleAction([loadDoctorsSimpleAsync.failure, loadDoctorsSimpleAsync.failure], (state, action) => action.payload)
+
+export const doctorsSimple = createReducer<DoctorsSimpleModel | null, DoctorsActionTypes>(null)
+  .handleAction(
+    [resetDoctorsSimpleState, loadDoctorsSimpleAsync.failure, appendDoctorsSimpleAsync.failure],
+    (state, action) => null
+  )
+  .handleAction([loadDoctorsSimpleAsync.success], (state, action) => action.payload)
+  .handleAction([appendDoctorsSimpleAsync.success], (state, action) => {
+    const doctorsSimpleModel = {
+      items: {},
+      metaData: {}
+    } as DoctorsSimpleModel
+
+    const newItems =
+      state && action.payload.metaData?.pageNumber !== 1
+        ? state.items?.concat(action.payload.items!)
+        : action.payload.items
+    doctorsSimpleModel.items = newItems
+    doctorsSimpleModel.metaData = action.payload.metaData
+
+    return doctorsSimpleModel
+  })
 // #endregion Doctors
 
 // #region Doctor Affiliations
@@ -148,6 +201,10 @@ const doctorsState = combineReducers({
   loadDoctorErrors,
   doctor,
   translatedDoctor,
+
+  isLoadingDoctorsSimple,
+  loadDoctorsSimpleErrors,
+  doctorsSimple,
 
   isLoadingDoctorAffiliations,
   loadDoctorAffiliationsErrors,
