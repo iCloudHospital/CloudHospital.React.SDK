@@ -43,7 +43,10 @@ export const isLoadingHospitals = createReducer<boolean, HospitalsActionTypes | 
     ],
     (state, action) => false
   )
-  .handleAction([loadHospitalsAsync.request, appendHospitalsAsync.request, searchHospitalsAsync.request], (state, action) => true)
+  .handleAction(
+    [loadHospitalsAsync.request, appendHospitalsAsync.request, searchHospitalsAsync.request],
+    (state, action) => true
+  )
 
 export const loadHospitalsErrors = createReducer<RestException | null, HospitalsActionTypes | AzSearchActionTypes>(null)
   .handleAction(
@@ -114,7 +117,12 @@ export const loadHospitalsSimpleErrors = createReducer<RestException | null, Hos
 
 export const hospitalsSimple = createReducer<HospitalsSimpleModel | null, HospitalsActionTypes>(null)
   .handleAction(
-    [resetHospitalsState, resetHospitalsSimpleState, loadHospitalsSimpleAsync.failure, appendHospitalsSimpleAsync.failure],
+    [
+      resetHospitalsState,
+      resetHospitalsSimpleState,
+      loadHospitalsSimpleAsync.failure,
+      appendHospitalsSimpleAsync.failure
+    ],
     (state, action) => null
   )
   .handleAction([loadHospitalsSimpleAsync.success], (state, action) => action.payload)

@@ -2,7 +2,11 @@ import { combineReducers } from 'redux'
 import { createReducer } from 'typesafe-actions'
 import { RestException } from '../../models/exceptions'
 
-import { HospitalSpecialtiesModel, HospitalSpecialtyModel } from 'ch-api-client-typescript2/lib'
+import {
+  HospitalSpecialtiesModel,
+  HospitalSpecialtiesSimpleModel,
+  HospitalSpecialtyModel
+} from 'ch-api-client-typescript2/lib'
 
 import {
   HospitalSpecialtiesActionTypes,
@@ -11,7 +15,9 @@ import {
   loadHospitalSpecialtyAsync,
   resetHospitalSpecialtiesState,
   resetHospitalSpecialtyState,
-  loadHospitalSpecialtiesCLient
+  resetHospitalSpecialtiesSimpleState,
+  loadHospitalSpecialtiesSimpleAsync,
+  appendHospitalSpecialtiesSimpleAsync
 } from '../actions/hospitalSpecialties'
 
 // #region HospitalSpecialties
@@ -49,10 +55,7 @@ export const hospitalSpecialties = createReducer<HospitalSpecialtiesModel | null
     [resetHospitalSpecialtiesState, loadHospitalSpecialtiesAsync.failure, appendHospitalSpecialtiesAsync.failure],
     (state, action) => null
   )
-  .handleAction(
-    [loadHospitalSpecialtiesAsync.success, loadHospitalSpecialtiesCLient],
-    (state, action) => action.payload
-  )
+  .handleAction([loadHospitalSpecialtiesAsync.success], (state, action) => action.payload)
   .handleAction([appendHospitalSpecialtiesAsync.success], (state, action) => {
     const hospitalSpecialtiesModel = {
       items: {},
@@ -86,6 +89,71 @@ export const loadHospitalSpecialtyErrors = createReducer<RestException | null, H
 export const hospitalSpecialty = createReducer<HospitalSpecialtyModel | null, HospitalSpecialtiesActionTypes>(null)
   .handleAction([resetHospitalSpecialtyState, loadHospitalSpecialtyAsync.failure], (state, action) => null)
   .handleAction([loadHospitalSpecialtyAsync.success], (state, action) => action.payload)
+
+export const isLoadingHospitalSpecialtiesSimple = createReducer<boolean, HospitalSpecialtiesActionTypes>(
+  false as boolean
+)
+  .handleAction(
+    [
+      resetHospitalSpecialtiesSimpleState,
+      loadHospitalSpecialtiesSimpleAsync.success,
+      loadHospitalSpecialtiesSimpleAsync.failure,
+      appendHospitalSpecialtiesSimpleAsync.success,
+      appendHospitalSpecialtiesSimpleAsync.failure
+    ],
+    (state, action) => false
+  )
+  .handleAction(
+    [loadHospitalSpecialtiesSimpleAsync.request, appendHospitalSpecialtiesSimpleAsync.request],
+    (state, action) => true
+  )
+
+export const loadHospitalSpecialtiesSimpleErrors = createReducer<RestException | null, HospitalSpecialtiesActionTypes>(
+  null
+)
+  .handleAction(
+    [
+      resetHospitalSpecialtiesSimpleState,
+      loadHospitalSpecialtiesSimpleAsync.request,
+      loadHospitalSpecialtiesSimpleAsync.success,
+      appendHospitalSpecialtiesSimpleAsync.request,
+      appendHospitalSpecialtiesSimpleAsync.success
+    ],
+    (state, action) => null
+  )
+  .handleAction(
+    [loadHospitalSpecialtiesSimpleAsync.failure, appendHospitalSpecialtiesSimpleAsync.failure],
+    (state, action) => action.payload
+  )
+
+export const hospitalSpecialtiesSimple = createReducer<
+  HospitalSpecialtiesSimpleModel | null,
+  HospitalSpecialtiesActionTypes
+>(null)
+  .handleAction(
+    [
+      resetHospitalSpecialtiesSimpleState,
+      loadHospitalSpecialtiesSimpleAsync.failure,
+      appendHospitalSpecialtiesSimpleAsync.failure
+    ],
+    (state, action) => null
+  )
+  .handleAction([loadHospitalSpecialtiesSimpleAsync.success], (state, action) => action.payload)
+  .handleAction([appendHospitalSpecialtiesSimpleAsync.success], (state, action) => {
+    const hospitalsSimpleModel = {
+      items: {},
+      metaData: {}
+    } as HospitalSpecialtiesSimpleModel
+
+    const newItems =
+      state && action.payload.metaData?.pageNumber !== 1
+        ? state.items?.concat(action.payload.items!)
+        : action.payload.items
+    hospitalsSimpleModel.items = newItems
+    hospitalsSimpleModel.metaData = action.payload.metaData
+
+    return hospitalsSimpleModel
+  })
 // #endregion HospitalSpecialties
 
 const hospitalSpecialtiesState = combineReducers({
@@ -95,7 +163,11 @@ const hospitalSpecialtiesState = combineReducers({
 
   isLoadingHospitalSpecialty,
   loadHospitalSpecialtyErrors,
-  hospitalSpecialty
+  hospitalSpecialty,
+
+  isLoadingHospitalSpecialtiesSimple,
+  loadHospitalSpecialtiesSimpleErrors,
+  hospitalSpecialtiesSimple
 })
 
 export default hospitalSpecialtiesState

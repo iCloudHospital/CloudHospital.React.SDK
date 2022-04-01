@@ -1,6 +1,6 @@
 import { combineEpics } from 'redux-observable'
 import { from, of } from 'rxjs'
-import { catchError, filter, map, switchMap, tap } from 'rxjs/operators'
+import { catchError, filter, map, switchMap } from 'rxjs/operators'
 import { RootEpic } from 'CHTypes'
 import { isActionOf } from 'typesafe-actions'
 
@@ -9,10 +9,8 @@ import {
   loadHospitalSpecialtiesAsync,
   appendHospitalSpecialtiesAsync,
   loadHospitalSpecialtyAsync,
-  resetHospitalSpecialtyState
+  loadHospitalSpecialtiesSimpleAsync
 } from '../actions/hospitalSpecialties'
-
-import { setMessage } from '../actions/toastMessages'
 
 // #region HospitalSpecialties
 export const loadHospitalSpecialtiesEpic: RootEpic = (action$, state$, { apis }) =>
@@ -48,11 +46,23 @@ export const loadHospitalSpecialtyEpic: RootEpic = (action$, state$, { apis }) =
     )
   )
 
+export const loadHospitalSpecialtiesSimpleEpic: RootEpic = (action$, state$, { apis }) =>
+  action$.pipe(
+    filter(isActionOf(loadHospitalSpecialtiesSimpleAsync.request)),
+    switchMap((action) =>
+      from(apis.hospitalSpecialties.loadHospitalSpecialtiesSimple(action.payload)).pipe(
+        map(loadHospitalSpecialtiesSimpleAsync.success),
+        catchError((restException: RestException) => of(loadHospitalSpecialtiesSimpleAsync.failure(restException)))
+      )
+    )
+  )
+
 // #endregion HospitalSpecialties
 
 const hospitalSpecialtiesEpic = combineEpics(
   loadHospitalSpecialtiesEpic,
   appendHospitalSpecialtiesEpic,
-  loadHospitalSpecialtyEpic
+  loadHospitalSpecialtyEpic,
+  loadHospitalSpecialtiesSimpleEpic
 )
 export default hospitalSpecialtiesEpic
