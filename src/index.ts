@@ -1,7 +1,7 @@
 import store from './store'
 import actions from './store/actions'
 import reducers from './store/reducers'
-import services from './services'
+import rootServices from './services'
 
 export type { Store } from './store'
 export type { RootAction } from './store/actions'
@@ -57,4 +57,4 @@ export * from './store/actions/toastMessages'
 
 export * from './store/reducers'
 
-export { store, actions, reducers, services }
+export { store, actions, reducers, rootServices }
