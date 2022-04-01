@@ -3,13 +3,15 @@ import {
   DoctorsModel,
   DoctorModel,
   DoctorAffiliationsModel,
-  DoctorAffiliationModel
+  DoctorAffiliationModel,
+  DoctorsSimpleModel
 } from 'ch-api-client-typescript2/lib'
 import {
   DoctorAffiliationSearchOption,
   DoctorAffiliationsSearchOption,
   DoctorSearchOption,
-  DoctorsSearchOption
+  DoctorsSearchOption,
+  DoctorsSimpleSearchOption
 } from '../../models/doctors'
 import { RestException } from '../../models/exceptions'
 
@@ -32,6 +34,18 @@ export const loadDoctorAsync = createAsyncAction('LOAD_DOCTOR_REQUEST', 'LOAD_DO
   RestException
 >()
 
+export const loadDoctorsSimpleAsync = createAsyncAction(
+  'LOAD_DOCTORS_SIMPLE_REQUEST',
+  'LOAD_DOCTORS_SIMPLE_SUCCESS',
+  'LOAD_DOCTROS_SIMPLE_FAILURE'
+)<DoctorsSimpleSearchOption, DoctorsSimpleModel, RestException>()
+
+export const appendDoctorsSimpleAsync = createAsyncAction(
+  'APPEND_DOCTORS_SIMPLE_SUCCESS',
+  'APPEND_DOCTORS_SIMPLE_REQUEST',
+  'APPEND_DOCTROS_SIMPLE_FAILURE'
+)<DoctorsSimpleSearchOption, DoctorsSimpleModel, RestException>()
+
 export const loadTranslatedDoctorAsync = createAsyncAction(
   'LOAD_TRANSLATED_DOCTOR_REQUEST',
   'LOAD_TRANSLATED_DOCTOR_SUCCESS',
@@ -41,6 +55,8 @@ export const loadTranslatedDoctorAsync = createAsyncAction(
 export const resetDoctorsState = createAction('RESET_DOCTORS_STATE')<undefined>()
 
 export const resetDoctorState = createAction('RESET_DOCTOR_STATE')<undefined>()
+
+export const resetDoctorsSimpleState = createAction('RESET_DOCTORS_SIMPLE_STATE')<undefined>()
 // #endregion Doctors
 
 // #region Doctor Affiliations
@@ -59,6 +75,7 @@ export const loadDoctorAffiliationAsync = createAsyncAction(
 export const resetDoctorAffiliationsState = createAction('RESET_DOCTOR_AFFILIATIONS_STATE')<undefined>()
 
 export const resetDoctorAffiliationState = createAction('RESET_DOCTOR_AFFILIATION_STATE')<undefined>()
+
 // #endregion Doctor Affiliations
 
 export type DoctorsActionTypes =
@@ -72,3 +89,6 @@ export type DoctorsActionTypes =
   | ActionType<typeof loadDoctorAffiliationAsync>
   | ActionType<typeof resetDoctorAffiliationsState>
   | ActionType<typeof resetDoctorAffiliationState>
+  | ActionType<typeof loadDoctorsSimpleAsync>
+  | ActionType<typeof appendDoctorsSimpleAsync>
+  | ActionType<typeof resetDoctorsSimpleState>
