@@ -19,6 +19,25 @@ export interface DoctorsSearchOption {
   lastRetrieved?: Date
 }
 
+export interface DoctorsSimpleSearchOption {
+  hospitalId?: string
+  languageCode?: string
+  returnDefaultValue?: boolean
+  ids?: Array<string>
+  specialtyId?: string
+  consultationEnabled?: boolean
+  id?: string
+  fullname?: string
+  email?: string
+  gender?: Gender
+  dateOfBirth?: Date
+  created?: Date
+  showHidden?: boolean
+  page?: number
+  limit?: number
+  lastRetrieved?: Date
+}
+
 export interface DoctorSearchOption {
   doctorId: string
   slug: string

@@ -4,14 +4,16 @@ import {
   DoctorAffiliationSearchOption,
   DoctorAffiliationsSearchOption,
   DoctorSearchOption,
-  DoctorsSearchOption
+  DoctorsSearchOption,
+  DoctorsSimpleSearchOption
 } from '../models/doctors'
 import {
   DoctorsApi,
   DoctorsModel,
   DoctorModel,
   DoctorAffiliationsModel,
-  DoctorAffiliationModel
+  DoctorAffiliationModel,
+  DoctorsSimpleModel
 } from 'ch-api-client-typescript2/lib'
 
 const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
@@ -38,6 +40,53 @@ export function loadDoctors(doctorsSearchOption: DoctorsSearchOption): Promise<D
   } = doctorsSearchOption
   return new DoctorsApi(configuration, apiRoot, instance)
     .apiV2DoctorsGet(
+      hospitalId,
+      languageCode,
+      returnDefaultValue,
+      ids,
+      specialtyId,
+      consultationEnabled,
+      id,
+      fullname,
+      email,
+      gender,
+      dateOfBirth,
+      created,
+      showHidden,
+      page,
+      limit,
+      lastRetrieved
+    )
+    .then((res) => {
+      return res.data as DoctorsModel
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
+export function loadDoctorsSimple(doctorsSearchOption: DoctorsSimpleSearchOption): Promise<DoctorsSimpleModel> {
+  const {
+    hospitalId,
+    languageCode,
+    returnDefaultValue,
+    ids,
+    specialtyId,
+    consultationEnabled,
+    id,
+    fullname,
+    email,
+    gender,
+    dateOfBirth,
+    created,
+    showHidden,
+    page,
+    limit,
+    lastRetrieved
+  } = doctorsSearchOption
+  return new DoctorsApi(configuration, apiRoot, instance)
+    .apiV2DoctorsSimpleGet(
       hospitalId,
       languageCode,
       returnDefaultValue,
@@ -127,6 +176,7 @@ export function loadDoctorAffiliation(
 export default {
   loadDoctors,
   loadDoctor,
+  loadDoctorsSimple,
   loadDoctorAffiliations,
   loadDoctorAffiliation
 }
