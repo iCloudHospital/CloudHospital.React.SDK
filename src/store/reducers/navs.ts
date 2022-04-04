@@ -3,7 +3,7 @@ import { createReducer } from 'typesafe-actions'
 import { NavigationItem } from '../../models'
 import { loadNavs, NavsActionType } from '../actions/navs'
 
-export const navs = createReducer<NavigationItem | null, NavsActionType>(null).handleAction(
+export const navs = createReducer<NavigationItem[] | null, NavsActionType>(null).handleAction(
   [loadNavs],
   (state, action) => action.payload
 )
