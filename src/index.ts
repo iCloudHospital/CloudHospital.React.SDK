@@ -54,6 +54,7 @@ export * from './store/actions/specialties'
 export * from './store/actions/specialtyTypes'
 export * from './store/actions/tags'
 export * from './store/actions/toastMessages'
+export * from './store/actions/navs'
 
 export * from './store/reducers'
 
