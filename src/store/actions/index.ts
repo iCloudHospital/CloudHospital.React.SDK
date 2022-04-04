@@ -40,7 +40,7 @@ import * as specialties from './specialties'
 import * as specialtyTypes from './specialtyTypes'
 import * as tags from './tags'
 import * as toastMessages from './toastMessages'
-import * as navs from '../reducers/navs'
+import * as navs from './navs'
 
 const rootAction = {
   accounts,
