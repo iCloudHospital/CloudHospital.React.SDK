@@ -1,4 +1,4 @@
-import { CountriesModel, CountryModel, MediaModel, MediasModel } from 'ch-api-client-typescript2/lib'
+import { CountriesModel, CountryModel } from 'ch-api-client-typescript2/lib'
 import { ActionType, createAction, createAsyncAction } from 'typesafe-actions'
 import { CountriesSearchOption, CountrySearchOption } from '../../models/countries'
 import { RestException } from '../../models/exceptions'
