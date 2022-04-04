@@ -40,6 +40,7 @@ import * as specialties from './specialties'
 import * as specialtyTypes from './specialtyTypes'
 import * as tags from './tags'
 import * as toastMessages from './toastMessages'
+import * as navs from '../reducers/navs'
 
 const rootAction = {
   accounts,
@@ -82,7 +83,8 @@ const rootAction = {
   specialties,
   specialtyTypes,
   tags,
-  toastMessages
+  toastMessages,
+  navs
 }
 
 export type RootAction = ActionType<typeof rootAction>
