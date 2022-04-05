@@ -41,6 +41,7 @@ import * as specialtyTypes from './specialtyTypes'
 import * as tags from './tags'
 import * as toastMessages from './toastMessages'
 import * as navs from './navs'
+import * as signInRequest from './signInRequest'
 
 const rootAction = {
   accounts,
@@ -84,7 +85,8 @@ const rootAction = {
   specialtyTypes,
   tags,
   toastMessages,
-  navs
+  navs,
+  signInRequest
 }
 
 export type RootAction = ActionType<typeof rootAction>

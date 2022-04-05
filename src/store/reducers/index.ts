@@ -43,6 +43,7 @@ import specialtyTypesState from './specialtyTypes'
 import tagsState from './tags'
 import toastMessageState from './toastMessages'
 import navsState from './navs'
+import signInRequestState from './signInRequest'
 
 const rootReducer = combineReducers({
   accountsState,
@@ -87,7 +88,8 @@ const rootReducer = combineReducers({
   specialtyTypesState,
   tagsState,
   toastMessageState,
-  navsState
+  navsState,
+  signInRequestState
 })
 
 export type RootReducer = StateType<typeof rootReducer>

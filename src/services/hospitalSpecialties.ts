@@ -71,6 +71,20 @@ export function loadHospitalSpecialty(hospitalId: string, specialtyId: string): 
       throw restException
     })
 }
+export function loadHospitalSpecialtySlugSpecialty(
+  hospitalId: string,
+  specialtySlug: string
+): Promise<HospitalSpecialtyModel> {
+  return new HospitalsApi(configuration, apiRoot, instance)
+    .apiV2HospitalsHospitalIdSpecialtiesSpecialtySlugGet(hospitalId, specialtySlug)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
 
 export function loadHospitalSpecialtiesSimple(
   hospitalSpecialtiesSimpleSearchOption: HospitalSpecialtiesSimpleSearchOption
@@ -125,5 +139,6 @@ export function loadHospitalSpecialtiesSimple(
 export default {
   loadHospitalSpecialties,
   loadHospitalSpecialty,
+  loadHospitalSpecialtySlugSpecialty,
   loadHospitalSpecialtiesSimple
 }
