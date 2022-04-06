@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { createReducer } from 'typesafe-actions'
 import { SignInRequestActionTypes, setSignInRequest } from '../actions/signInRequest'
 
-const signInRequest = createReducer<string | null | undefined, SignInRequestActionTypes>(undefined).handleAction(
+const signInRequest = createReducer<string | null, SignInRequestActionTypes>(null).handleAction(
   [setSignInRequest],
   (state, action) => action.payload
 )
