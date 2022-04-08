@@ -39,6 +39,7 @@ import servicesCategoriesEpic from './servicesCategories'
 import specialtiesEpic from './specialties'
 import specialtyTypesEpic from './specialtyTypes'
 import tagsEpic from './tags'
+import serviceReviewsEpic from './serviceReviews'
 
 export default combineEpics(
   accountsEpic,
@@ -80,5 +81,6 @@ export default combineEpics(
   specialtiesEpic,
   specialtyTypesEpic,
   tagsEpic,
-  azSearchEpic
+  azSearchEpic,
+  serviceReviewsEpic
 )

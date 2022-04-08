@@ -39,6 +39,7 @@ import specialties from './specialties'
 import specialtyTypes from './specialtyTypes'
 import tags from './tags'
 import azSearch from './search'
+import serviceReviews from './serviceReviews'
 
 const rootServices = {
   apis: {
@@ -82,7 +83,8 @@ const rootServices = {
     specialties,
     specialtyTypes,
     tags,
-    azSearch
+    azSearch,
+    serviceReviews
   }
 }
 

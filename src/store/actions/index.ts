@@ -36,6 +36,7 @@ import * as plans from './plans'
 import * as profiles from './profiles'
 import * as services from './services'
 import * as servicesCategories from './servicesCategories'
+import * as serviceReviews from './serviceReviews'
 import * as specialties from './specialties'
 import * as specialtyTypes from './specialtyTypes'
 import * as tags from './tags'
@@ -81,6 +82,7 @@ const rootAction = {
   profiles,
   services,
   servicesCategories,
+  serviceReviews,
   specialties,
   specialtyTypes,
   tags,
