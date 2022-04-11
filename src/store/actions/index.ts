@@ -37,12 +37,12 @@ import * as profiles from './profiles'
 import * as services from './services'
 import * as servicesCategories from './servicesCategories'
 import * as serviceReviews from './serviceReviews'
+import * as signInRequest from './signInRequest'
 import * as specialties from './specialties'
 import * as specialtyTypes from './specialtyTypes'
 import * as tags from './tags'
 import * as toastMessages from './toastMessages'
 import * as navs from './navs'
-import * as signInRequest from './signInRequest'
 
 const rootAction = {
   accounts,
