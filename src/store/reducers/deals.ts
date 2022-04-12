@@ -101,7 +101,7 @@ export const loadDealsSimpleErrors = createReducer<RestException | null, DealsAc
   )
   .handleAction([loadDealsSimpleAsync.failure, appendDealsSimpleAsync.failure], (state, action) => action.payload)
 
-export const DealsSimple = createReducer<DealsSimpleModel | null, DealsActionTypes>(null)
+export const dealsSimple = createReducer<DealsSimpleModel | null, DealsActionTypes>(null)
   .handleAction([resetDealsSimpleState], (state, action) => null)
   .handleAction([loadDealsSimpleAsync.success], (state, action) => action.payload)
   .handleAction([appendDealsSimpleAsync.success], (state, action) => {
@@ -233,7 +233,7 @@ const dealsState = combineReducers({
 
   isLoadingDealsSimple,
   loadDealsSimpleErrors,
-  DealsSimple,
+  dealsSimple,
 
   isLoadingDealPackages,
   loadDealPackagesErrors,
