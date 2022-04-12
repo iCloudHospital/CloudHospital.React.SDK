@@ -4,7 +4,8 @@ import {
   DealModel,
   DealPackagesModel,
   DealServicesModel,
-  DealServiceModel
+  DealServiceModel,
+  DealsSimpleModel
 } from 'ch-api-client-typescript2/lib'
 import { combineReducers } from 'redux'
 import { createReducer } from 'typesafe-actions'
@@ -23,7 +24,10 @@ import {
   loadDealServicesAsync,
   loadDealServiceAsync,
   resetDealServicesState,
-  resetDealServiceState
+  resetDealServiceState,
+  loadDealsSimpleAsync,
+  appendDealsSimpleAsync,
+  resetDealsSimpleState
 } from '../actions/deals'
 import { AzSearchActionTypes, searchDealsAsync, searchDoctorsAsync } from '../actions/azSearch'
 
@@ -72,6 +76,47 @@ export const deals = createReducer<DealsModel | null, DealsActionTypes>(null)
     return dealsViewModel
   })
 
+export const isLoadingDealsSimple = createReducer<boolean, DealsActionTypes>(false as boolean)
+  .handleAction([loadDealsSimpleAsync.request, appendDealsSimpleAsync.request], (state, action) => true)
+  .handleAction(
+    [
+      loadDealsSimpleAsync.success,
+      loadDealsSimpleAsync.failure,
+      appendDealsSimpleAsync.success,
+      appendDealsSimpleAsync.failure
+    ],
+    (state, action) => false
+  )
+
+export const loadDealsSimpleErrors = createReducer<RestException | null, DealsActionTypes>(null)
+  .handleAction(
+    [
+      loadDealsSimpleAsync.success,
+      loadDealsSimpleAsync.request,
+      appendDealsSimpleAsync.success,
+      appendDealsSimpleAsync.request,
+      resetDealsSimpleState
+    ],
+    (state, action) => null
+  )
+  .handleAction([loadDealsSimpleAsync.failure, appendDealsSimpleAsync.failure], (state, action) => action.payload)
+
+export const DealsSimple = createReducer<DealsSimpleModel | null, DealsActionTypes>(null)
+  .handleAction([resetDealsSimpleState], (state, action) => null)
+  .handleAction([loadDealsSimpleAsync.success], (state, action) => action.payload)
+  .handleAction([appendDealsSimpleAsync.success], (state, action) => {
+    const dealsSimple = {
+      items: {},
+      metaData: {}
+    } as DealsSimpleModel
+
+    const newItems = state ? state.items?.concat(action.payload.items!) : action.payload.items
+    dealsSimple.items = newItems
+    dealsSimple.metaData = action.payload.metaData
+
+    return dealsSimple
+  })
+
 export const isLoadingDeal = createReducer<boolean, DealsActionTypes>(false as boolean)
   .handleAction([resetDealState, loadDealAsync.success, loadDealAsync.failure], (state, action) => false)
   .handleAction([loadDealAsync.request], (state, action) => true)
@@ -88,7 +133,13 @@ export const deal = createReducer<DealModel | null, DealsActionTypes>(null)
 // #region Deal Packages
 export const isLoadingDealPackages = createReducer<boolean, DealsActionTypes | AzSearchActionTypes>(false as boolean)
   .handleAction(
-    [resetDealPackagesState, loadDealPackagesAsync.success, loadDealPackagesAsync.failure, searchDoctorsAsync.failure, searchDealsAsync.success],
+    [
+      resetDealPackagesState,
+      loadDealPackagesAsync.success,
+      loadDealPackagesAsync.failure,
+      searchDoctorsAsync.failure,
+      searchDealsAsync.success
+    ],
     (state, action) => false
   )
   .handleAction([loadDealPackagesAsync.request, searchDealsAsync.request], (state, action) => true)
@@ -179,6 +230,10 @@ const dealsState = combineReducers({
   isLoadingDeal,
   loadDealErrors,
   deal,
+
+  isLoadingDealsSimple,
+  loadDealsSimpleErrors,
+  DealsSimple,
 
   isLoadingDealPackages,
   loadDealPackagesErrors,

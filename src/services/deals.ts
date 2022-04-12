@@ -6,7 +6,8 @@ import {
   DealSearchOption,
   DealServiceSearchOption,
   DealServicesSearchOption,
-  DealsSearchOption
+  DealsSearchOption,
+  DealsSimpleSearchOption
 } from '../models/deals'
 import {
   DealsApi,
@@ -15,7 +16,8 @@ import {
   DealPackagesModel,
   DealPackageModel,
   DealServicesModel,
-  DealServiceModel
+  DealServiceModel,
+  DealsSimpleModel
 } from 'ch-api-client-typescript2/lib'
 import { log } from '../utils/log'
 
@@ -44,6 +46,57 @@ export function loadDeals(dealsSearchOption: DealsSearchOption): Promise<DealsMo
   } = dealsSearchOption
   return new DealsApi(configuration, apiRoot, instance)
     .apiV2DealsGet(
+      id,
+      name,
+      marketingType,
+      countryId,
+      hospitalId,
+      hospitalName,
+      specialtyId,
+      specialtyTypeId,
+      ServiceId,
+      exceptHospitalId,
+      exceptDealId,
+      ids,
+      languageCode,
+      showHidden,
+      returnDefaultValue,
+      page,
+      limit,
+      lastRetrieved
+    )
+    .then((res) => {
+      return res.data as DealsModel
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
+export function loadDealsSimple(dealsSimpleSearchOption: DealsSimpleSearchOption): Promise<DealsSimpleModel> {
+  const {
+    id,
+    name,
+    marketingType,
+    countryId,
+    hospitalId,
+    hospitalName,
+    specialtyId,
+    specialtyTypeId,
+    ServiceId,
+    exceptHospitalId,
+    exceptDealId,
+    ids,
+    languageCode,
+    showHidden,
+    returnDefaultValue,
+    page,
+    limit,
+    lastRetrieved
+  } = dealsSimpleSearchOption
+  return new DealsApi(configuration, apiRoot, instance)
+    .apiV2DealsSimpleGet(
       id,
       name,
       marketingType,
@@ -183,6 +236,8 @@ export function loadDealService(dealServiceSearchOption: DealServiceSearchOption
 export default {
   loadDeals,
   loadDeal,
+
+  loadDealsSimple,
 
   loadDealPackages,
   loadDealPackage,

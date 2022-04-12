@@ -26,6 +26,27 @@ export interface DealsSearchOption {
   lastRetrieved?: Date
 }
 
+export interface DealsSimpleSearchOption {
+  id?: string
+  name?: string
+  marketingType?: MarketingType
+  countryId?: string
+  hospitalId?: string
+  hospitalName?: string
+  specialtyId?: string
+  specialtyTypeId?: string
+  ServiceId?: string
+  exceptHospitalId?: string
+  exceptDealId?: string
+  ids?: Array<string>
+  languageCode?: string
+  showHidden?: boolean
+  returnDefaultValue?: boolean
+  page?: number
+  limit?: number
+  lastRetrieved?: Date
+}
+
 export interface DealSearchOption {
   dealId: string
   slug: string
