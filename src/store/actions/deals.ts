@@ -5,7 +5,8 @@ import {
   DealPackagesModel,
   DealPackageModel,
   DealServicesModel,
-  DealServiceModel
+  DealServiceModel,
+  DealsSimpleModel
 } from 'ch-api-client-typescript2/lib'
 import {
   DealSearchOption,
@@ -13,7 +14,8 @@ import {
   DealPackageSearchOption,
   DealPackagesSearchOption,
   DealServiceSearchOption,
-  DealServicesSearchOption
+  DealServicesSearchOption,
+  DealsSimpleSearchOption
 } from '../../models/deals'
 import { RestException } from '../../models/exceptions'
 
@@ -35,6 +37,20 @@ export const loadDealAsync = createAsyncAction('LOAD_DEAL_REQUEST', 'LOAD_DEAL_S
   DealModel,
   RestException
 >()
+
+export const loadDealsSimpleAsync = createAsyncAction(
+  'LOAD_DEALS_SIMPLE_REQUEST',
+  'LOAD_DEALS_SIMPLE_SUCCESS',
+  'LOAD_DEALS_SIMPLE_FAILURE'
+)<DealsSimpleSearchOption, DealsSimpleModel, RestException>()
+
+export const appendDealsSimpleAsync = createAsyncAction(
+  'APPEND_DEALS_SIMPLE_REQUEST',
+  'APPEND_DEALS_SIMPLE_SUCCESS',
+  'APPEND_DEALS_SIMPLE_FAILURE'
+)<DealsSimpleSearchOption, DealsSimpleModel, RestException>()
+
+export const resetDealsSimpleState = createAction('RESET_DEALS_SIMPLE_STATE')<undefined>()
 
 export const resetDealsState = createAction('RESET_DEALS_STATE')<undefined>()
 
@@ -91,3 +107,6 @@ export type DealsActionTypes =
   | ActionType<typeof loadDealServiceAsync>
   | ActionType<typeof resetDealServicesState>
   | ActionType<typeof resetDealServiceState>
+  | ActionType<typeof loadDealsSimpleAsync>
+  | ActionType<typeof appendDealsSimpleAsync>
+  | ActionType<typeof resetDealsSimpleState>
