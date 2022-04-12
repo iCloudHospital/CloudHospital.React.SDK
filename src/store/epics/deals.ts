@@ -67,7 +67,7 @@ export const appendDealsSimpleEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(
     filter(isActionOf(appendDealsSimpleAsync.request)),
     switchMap((action) =>
-      from(apis.deals.loadDeals(action.payload)).pipe(
+      from(apis.deals.loadDealsSimple(action.payload)).pipe(
         map(appendDealsSimpleAsync.success),
         catchError((restException: RestException) => of(appendDealsSimpleAsync.failure(restException)))
       )
