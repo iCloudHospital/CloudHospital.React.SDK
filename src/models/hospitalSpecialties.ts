@@ -8,6 +8,7 @@ export interface HospitalSpecialtiesSearchOption {
   specialtyId?: string
   specialtyName?: string
   specialtyTypeId?: string
+  hospitalSpecialtySlug?: string
   title?: string
   marketingType?: MarketingType
   languageCode?: string
@@ -32,6 +33,7 @@ export interface HospitalSpecialtiesSimpleSearchOption {
   specialtyId?: string
   specialtyName?: string
   specialtyTypeId?: string
+  hospitalSpecialtySlug?: string
   title?: string
   marketingType?: MarketingType
   languageCode?: string
