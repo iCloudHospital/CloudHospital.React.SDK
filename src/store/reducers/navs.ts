@@ -1,12 +1,11 @@
 import { combineReducers } from 'redux'
 import { createReducer } from 'typesafe-actions'
 import { NavigationItem } from '../../models'
-import { loadNavs, NavsActionType } from '../actions/navs'
+import { loadNavs, NavsActionType, resetNavsState } from '../actions/navs'
 
-export const navs = createReducer<NavigationItem[] | null, NavsActionType>(null).handleAction(
-  [loadNavs],
-  (state, action) => action.payload
-)
+export const navs = createReducer<NavigationItem[] | null, NavsActionType>(null)
+  .handleAction([loadNavs], (state, action) => action.payload)
+  .handleAction([resetNavsState], (state, action) => null)
 
 const navsState = combineReducers({
   navs
