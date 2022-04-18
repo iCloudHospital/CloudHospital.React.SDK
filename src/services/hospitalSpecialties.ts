@@ -6,7 +6,11 @@ import {
   HospitalSpecialtiesSimpleModel,
   HospitalSpecialtyModel
 } from 'ch-api-client-typescript2/lib'
-import { HospitalSpecialtiesSearchOption, HospitalSpecialtiesSimpleSearchOption } from '../models/hospitalSpecialties'
+import {
+  HospitalSpecialtiesSearchOption,
+  HospitalSpecialtiesSimpleSearchOption,
+  HospitalSpecialtySearchOption
+} from '../models/hospitalSpecialties'
 
 const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
@@ -62,9 +66,18 @@ export function loadHospitalSpecialties(
     })
 }
 
-export function loadHospitalSpecialty(hospitalId: string, specialtyId: string): Promise<HospitalSpecialtyModel> {
+export function loadHospitalSpecialty(
+  HospitalSpecialtySearchOption: HospitalSpecialtySearchOption
+): Promise<HospitalSpecialtyModel> {
+  const { hospitalId, specialtyId, languageCode, returnDefaultValue, includeServices } = HospitalSpecialtySearchOption
   return new HospitalsApi(configuration, apiRoot, instance)
-    .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdGet(hospitalId, specialtyId)
+    .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdGet(
+      hospitalId,
+      specialtyId,
+      languageCode,
+      returnDefaultValue,
+      includeServices
+    )
     .then((res) => {
       return res.data
     })
