@@ -5,7 +5,12 @@ import {
   loadConsultationsAsync,
   loadConsultationAsync,
   cancelConsultationAsync,
-  resetConsultationState
+  resetConsultationState,
+  postConsultationAsync,
+  putConsultationAsync,
+  resetConsultationSecret,
+  createConsultationSecretAsync,
+  resetConsultationDetailErrors
 } from '../actions/consultations'
 import { ConsultationsModel, ConsultationModel } from 'ch-api-client-typescript2/lib'
 import { RestException } from '../../models/exceptions'
@@ -23,12 +28,37 @@ export const consultations = createReducer<ConsultationsModel | null, Consultati
   .handleAction([loadConsultationsAsync.success], (state, action) => action.payload)
 
 export const isLoadingConsultation = createReducer<boolean, ConsultationsActionTypes>(false as boolean)
-  .handleAction([loadConsultationAsync.success, loadConsultationAsync.failure], (state, action) => false)
-  .handleAction([loadConsultationAsync.request], (state, action) => true)
+  .handleAction(
+    [
+      loadConsultationAsync.success,
+      loadConsultationAsync.failure,
+      postConsultationAsync.success,
+      postConsultationAsync.failure,
+      putConsultationAsync.success,
+      putConsultationAsync.failure
+    ],
+     (state, action) => false)
+  .handleAction([loadConsultationAsync.request, postConsultationAsync.request, putConsultationAsync.request], (state, action) => true)
 
 export const loadConsultationErrors = createReducer<RestException | null, ConsultationsActionTypes>(null)
-  .handleAction([loadConsultationAsync.request, loadConsultationAsync.success], (state, action) => null)
-  .handleAction([loadConsultationAsync.failure], (state, action) => action.payload)
+  .handleAction(
+    [
+      loadConsultationAsync.request,
+      loadConsultationAsync.success,
+      postConsultationAsync.request,
+      postConsultationAsync.success,
+      putConsultationAsync.request,
+      putConsultationAsync.success,
+      resetConsultationDetailErrors
+    ],
+    (state, action) => null)
+  .handleAction(
+    [
+      loadConsultationAsync.failure,
+      postConsultationAsync.failure,
+      putConsultationAsync.failure
+    ],
+    (state, action) => action.payload)
 
 export const consultation = createReducer<ConsultationModel | null, ConsultationsActionTypes>(null)
   .handleAction(
@@ -44,6 +74,27 @@ export const cancelConsultationSuccess = createReducer<boolean, ConsultationsAct
   )
   .handleAction([cancelConsultationAsync.success], (state, action) => action.payload)
 
+export const postConsultationSuccess = createReducer<boolean, ConsultationsActionTypes>(false as boolean)
+  .handleAction(
+    [resetConsultationState, postConsultationAsync.request, postConsultationAsync.failure],
+    (state, action) => false
+  )
+  .handleAction([postConsultationAsync.success], (state, action) => action.payload)
+
+export const putConsultationSuccess = createReducer<boolean, ConsultationsActionTypes>(false as boolean)
+  .handleAction(
+    [resetConsultationState, putConsultationAsync.request, putConsultationAsync.failure],
+    (state, action) => false
+  )
+  .handleAction([putConsultationAsync.success], (state, action) => action.payload)
+  
+export const consultationSecretKey = createReducer<string | null, ConsultationsActionTypes>(null)
+  .handleAction(
+    [resetConsultationSecret, createConsultationSecretAsync.request, createConsultationSecretAsync.failure],
+    (state, action) => null
+  )
+  .handleAction([createConsultationSecretAsync.success], (state, action) => action.payload)
+
 const consultationsState = combineReducers({
   isLoadingConsultations,
   loadConsultationsErrors,
@@ -51,7 +102,13 @@ const consultationsState = combineReducers({
 
   isLoadingConsultation,
   loadConsultationErrors,
-  consultation
+  consultation,
+
+  cancelConsultationSuccess,
+  postConsultationSuccess,
+  putConsultationSuccess,
+
+  consultationSecretKey
 })
 
 export default consultationsState
