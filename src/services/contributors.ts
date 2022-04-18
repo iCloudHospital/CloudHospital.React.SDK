@@ -41,6 +41,7 @@ export function loadContributors(contributorsSearchOption: ContributorsSearchOpt
       website,
       hospitalId,
       interviewerOnly,
+      showHidden,
       languageCode,
       showHidden,
       page,
