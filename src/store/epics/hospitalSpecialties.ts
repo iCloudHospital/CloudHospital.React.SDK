@@ -39,7 +39,7 @@ export const loadHospitalSpecialtyEpic: RootEpic = (action$, state$, { apis }) =
   action$.pipe(
     filter(isActionOf(loadHospitalSpecialtyAsync.request)),
     switchMap((action) =>
-      from(apis.hospitalSpecialties.loadHospitalSpecialty(action.payload.hospitalId, action.payload.specialtyId)).pipe(
+      from(apis.hospitalSpecialties.loadHospitalSpecialty(action.payload)).pipe(
         map(loadHospitalSpecialtyAsync.success),
         catchError((restException: RestException) => of(loadHospitalSpecialtyAsync.failure(restException)))
       )
