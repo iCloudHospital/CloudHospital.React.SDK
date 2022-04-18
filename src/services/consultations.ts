@@ -1,7 +1,8 @@
 import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
-import { ConsultationsApi, ConsultationsModel, ConsultationModel } from 'ch-api-client-typescript2/lib'
+import { ConsultationsApi, ConsultationsModel, ConsultationModel, CreateConsultationCommand, UpdateConsultationCommand } from 'ch-api-client-typescript2/lib'
 import { ConsultationsSearchOption, ConsultationSearchOption } from '../models/consultations'
+import { log } from '../utils/log'
 
 const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
@@ -50,8 +51,56 @@ export function cancelConsultation(consultationId: string): Promise<boolean> {
     })
 }
 
+export function postConsultation(
+  requestId: string,
+  createConsultationCommand: CreateConsultationCommand
+): Promise<boolean> {
+  return new ConsultationsApi(configuration, apiRoot, instance)
+    .apiV2ConsultationsRequestIdPost(requestId, createConsultationCommand)
+    .then((res) => {
+      log('post consultation: ', res.data)
+      return res.data as boolean
+    })
+    .catch((error) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
+export function putConsultation(
+  consultationId: string,
+  updateConsultationCommand: UpdateConsultationCommand
+): Promise<boolean> {
+  return new ConsultationsApi(configuration, apiRoot, instance)
+    .apiV2ConsultationsConsultationIdPut(consultationId, updateConsultationCommand)
+    .then((res) => {
+      log('put consultation: ', res.data)
+      return res.data as boolean
+    })
+    .catch((error) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
+
+export const createSecret = async (consultationId: string): Promise<string> => {
+  return new ConsultationsApi(configuration, apiRoot, instance)
+    .apiV2ConsultationsConsultationIdPayPost(consultationId)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
 export default {
   loadConsultations,
   loadConsultation,
-  cancelConsultation
+  cancelConsultation,
+  postConsultation,
+  putConsultation,
+  createSecret
 }
