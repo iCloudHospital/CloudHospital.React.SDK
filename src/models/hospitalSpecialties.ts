@@ -24,6 +24,9 @@ export interface HospitalSpecialtiesSearchOption {
 export interface HospitalSpecialtySearchOption {
   hospitalId: string
   specialtyId: string
+  languageCode?: string
+  returnDefaultValue?: boolean
+  includeServices?: boolean
 }
 
 export interface HospitalSpecialtiesSimpleSearchOption {
