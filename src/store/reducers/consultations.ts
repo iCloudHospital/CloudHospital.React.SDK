@@ -74,17 +74,17 @@ export const cancelConsultationSuccess = createReducer<boolean, ConsultationsAct
   )
   .handleAction([cancelConsultationAsync.success], (state, action) => action.payload)
 
-export const postConsultationSuccess = createReducer<boolean, ConsultationsActionTypes>(false as boolean)
+export const postConsultationSuccess = createReducer<ConsultationModel | null, ConsultationsActionTypes>(null)
   .handleAction(
     [resetConsultationState, postConsultationAsync.request, postConsultationAsync.failure],
-    (state, action) => false
+    (state, action) => null
   )
   .handleAction([postConsultationAsync.success], (state, action) => action.payload)
 
-export const putConsultationSuccess = createReducer<boolean, ConsultationsActionTypes>(false as boolean)
+export const putConsultationSuccess = createReducer<ConsultationModel | null, ConsultationsActionTypes>(null)
   .handleAction(
     [resetConsultationState, putConsultationAsync.request, putConsultationAsync.failure],
-    (state, action) => false
+    (state, action) => null
   )
   .handleAction([putConsultationAsync.success], (state, action) => action.payload)
   

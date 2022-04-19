@@ -31,13 +31,13 @@ export const postConsultationAsync = createAsyncAction(
   'POST_CONSULTATION_REQUEST',
   'POST_CONSULTATION_SUCCESS',
   'POST_CONSULTATION_FAILURE'
-)<{ requestId: string; command: CreateConsultationCommand }, boolean, RestException>()
+)<{ requestId: string; command: CreateConsultationCommand }, ConsultationModel, RestException>()
 
 export const putConsultationAsync = createAsyncAction(
   'PUT_CONSULTATION_REQUEST',
   'PUT_CONSULTATION_SUCCESS',
   'PUT_CONSULTATION_FAILURE'
-)<{ consultationId: string; command: UpdateConsultationCommand }, boolean, RestException>()
+)<{ consultationId: string; command: UpdateConsultationCommand }, ConsultationModel, RestException>()
 
 export const createConsultationSecretAsync = createAsyncAction(
   'CREATE_CONSULTATION_SECRET_REQUEST',
