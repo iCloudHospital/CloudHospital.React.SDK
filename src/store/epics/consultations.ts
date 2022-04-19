@@ -82,16 +82,8 @@ export const postConsultationEpic: RootEpic = (action$, state$, { apis }) =>
     filter(isActionOf(postConsultationAsync.request)),
     switchMap((action) =>
       from(apis.consultations.postConsultation(action.payload.requestId, action.payload.command)).pipe(
-        switchMap((res) => [
-          postConsultationAsync.success(res),
-          setMessage({ text: 'postConsultation success', status: 200 }),
-        ]),
-        catchError((restException: RestException) => 
-          of(
-            setMessage(restException),
-            postConsultationAsync.failure(restException)
-          )
-        )
+        map(postConsultationAsync.success),
+        catchError((restException: RestException) => of(postConsultationAsync.failure(restException)))
       )
     )
   )
@@ -101,16 +93,8 @@ export const putConsultationEpic: RootEpic = (action$, state$, { apis }) =>
     filter(isActionOf(putConsultationAsync.request)),
     switchMap((action) =>
       from(apis.consultations.putConsultation(action.payload.consultationId, action.payload.command)).pipe(
-        switchMap((res) => [
-          putConsultationAsync.success(res),
-          setMessage({ text: 'putConsultation success', status: 200 }),
-        ]),
-        catchError((restException: RestException) => 
-          of(
-            setMessage(restException),
-            putConsultationAsync.failure(restException)
-          )
-        )
+        map(putConsultationAsync.success),
+        catchError((restException: RestException) => of(putConsultationAsync.failure(restException)))
       )
     )
   )
@@ -120,16 +104,8 @@ export const createConsultationSecretEpic: RootEpic = (action$, state$, { apis }
     filter(isActionOf(createConsultationSecretAsync.request)),
     switchMap((action) =>
       from(apis.consultations.createSecret(action.payload)).pipe(
-        switchMap((res) => [
-          createConsultationSecretAsync.success(res),
-          setMessage({ text: 'createSecret success', status: 200 }),
-        ]),
-        catchError((restException: RestException) => 
-          of(
-            setMessage(restException),
-              createConsultationSecretAsync.failure(restException)
-            )
-          )
+        map(createConsultationSecretAsync.success),
+        catchError((restException: RestException) => of(createConsultationSecretAsync.failure(restException)))
       )
     )
   )
