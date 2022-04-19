@@ -43,6 +43,7 @@ import * as specialtyTypes from './specialtyTypes'
 import * as tags from './tags'
 import * as toastMessages from './toastMessages'
 import * as navs from './navs'
+import * as languageSelectOption from '../reducers/languageSelectOption'
 
 const rootAction = {
   accounts,
@@ -88,7 +89,8 @@ const rootAction = {
   tags,
   toastMessages,
   navs,
-  signInRequest
+  signInRequest,
+  languageSelectOption
 }
 
 export type RootAction = ActionType<typeof rootAction>
