@@ -54,12 +54,12 @@ export function cancelConsultation(consultationId: string): Promise<boolean> {
 export function postConsultation(
   requestId: string,
   createConsultationCommand: CreateConsultationCommand
-): Promise<boolean> {
+): Promise<ConsultationModel> {
   return new ConsultationsApi(configuration, apiRoot, instance)
     .apiV2ConsultationsRequestIdPost(requestId, createConsultationCommand)
     .then((res) => {
       log('post consultation: ', res.data)
-      return res.data as boolean
+      return res.data as ConsultationModel
     })
     .catch((error) => {
       const restException = error.response.data as RestException
@@ -70,12 +70,12 @@ export function postConsultation(
 export function putConsultation(
   consultationId: string,
   updateConsultationCommand: UpdateConsultationCommand
-): Promise<boolean> {
+): Promise<ConsultationModel> {
   return new ConsultationsApi(configuration, apiRoot, instance)
     .apiV2ConsultationsConsultationIdPut(consultationId, updateConsultationCommand)
     .then((res) => {
       log('put consultation: ', res.data)
-      return res.data as boolean
+      return res.data as ConsultationModel
     })
     .catch((error) => {
       const restException = error.response.data as RestException
