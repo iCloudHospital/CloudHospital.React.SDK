@@ -53,7 +53,7 @@ export function cancelConsultation(consultationId: string): Promise<boolean> {
 
 export function postConsultation(
   requestId: string,
-  createConsultationCommand: CreateConsultationCommand
+  createConsultationCommand?: CreateConsultationCommand
 ): Promise<ConsultationModel> {
   return new ConsultationsApi(configuration, apiRoot, instance)
     .apiV2ConsultationsRequestIdPost(requestId, createConsultationCommand)
@@ -69,7 +69,7 @@ export function postConsultation(
 
 export function putConsultation(
   consultationId: string,
-  updateConsultationCommand: UpdateConsultationCommand
+  updateConsultationCommand?: UpdateConsultationCommand
 ): Promise<ConsultationModel> {
   return new ConsultationsApi(configuration, apiRoot, instance)
     .apiV2ConsultationsConsultationIdPut(consultationId, updateConsultationCommand)
@@ -84,7 +84,7 @@ export function putConsultation(
 }
 
 
-export const createSecret = async (consultationId: string): Promise<string> => {
+export const postConsultationPaymentKey = async (consultationId: string): Promise<string> => {
   return new ConsultationsApi(configuration, apiRoot, instance)
     .apiV2ConsultationsConsultationIdPayPost(consultationId)
     .then((res) => {
@@ -102,5 +102,5 @@ export default {
   cancelConsultation,
   postConsultation,
   putConsultation,
-  createSecret
+  postConsultationPaymentKey
 }

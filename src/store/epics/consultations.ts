@@ -1,6 +1,6 @@
 import { combineEpics } from 'redux-observable'
 import { from, of } from 'rxjs'
-import { catchError, filter, map, switchMap, tap } from 'rxjs/operators'
+import { catchError, filter, map, switchMap } from 'rxjs/operators'
 import { isActionOf } from 'typesafe-actions'
 import { RootEpic } from 'CHTypes'
 import { RestException } from '../../models/exceptions'
@@ -11,7 +11,7 @@ import {
   loadCompletedConsultationsAsync,
   postConsultationAsync,
   putConsultationAsync,
-  createConsultationSecretAsync,
+  postConsultationPaymentKeyAsync
 } from '../actions/consultations'
 import { setMessage } from '../actions/toastMessages'
 
@@ -99,13 +99,13 @@ export const putConsultationEpic: RootEpic = (action$, state$, { apis }) =>
     )
   )
 
-export const createConsultationSecretEpic: RootEpic = (action$, state$, { apis }) =>
+export const postConsultationPaymentKeyEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(
-    filter(isActionOf(createConsultationSecretAsync.request)),
+    filter(isActionOf(postConsultationPaymentKeyAsync.request)),
     switchMap((action) =>
-      from(apis.consultations.createSecret(action.payload)).pipe(
-        map(createConsultationSecretAsync.success),
-        catchError((restException: RestException) => of(createConsultationSecretAsync.failure(restException)))
+      from(apis.consultations.postConsultationPaymentKey(action.payload)).pipe(
+        map(postConsultationPaymentKeyAsync.success),
+        catchError((restException: RestException) => of(postConsultationPaymentKeyAsync.failure(restException)))
       )
     )
   )
@@ -117,7 +117,7 @@ const consultationsEpic = combineEpics(
   cancelConsultationEpic,
   postConsultationEpic,
   putConsultationEpic,
-  createConsultationSecretEpic
+  postConsultationPaymentKeyEpic
 )
 
 export default consultationsEpic

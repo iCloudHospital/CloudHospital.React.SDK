@@ -8,8 +8,8 @@ import {
   resetConsultationState,
   postConsultationAsync,
   putConsultationAsync,
-  resetConsultationSecret,
-  createConsultationSecretAsync,
+  postConsultationPaymentKeyAsync,
+  resetConsultationPaymentKey,
   resetConsultationDetailErrors
 } from '../actions/consultations'
 import { ConsultationsModel, ConsultationModel } from 'ch-api-client-typescript2/lib'
@@ -88,12 +88,12 @@ export const putConsultationSuccess = createReducer<ConsultationModel | null, Co
   )
   .handleAction([putConsultationAsync.success], (state, action) => action.payload)
   
-export const consultationSecretKey = createReducer<string | null, ConsultationsActionTypes>(null)
+export const consultationPaymentKey = createReducer<string | null, ConsultationsActionTypes>(null)
   .handleAction(
-    [resetConsultationSecret, createConsultationSecretAsync.request, createConsultationSecretAsync.failure],
+    [resetConsultationPaymentKey, postConsultationPaymentKeyAsync.request, postConsultationPaymentKeyAsync.failure],
     (state, action) => null
   )
-  .handleAction([createConsultationSecretAsync.success], (state, action) => action.payload)
+  .handleAction([postConsultationPaymentKeyAsync.success], (state, action) => action.payload)
 
 const consultationsState = combineReducers({
   isLoadingConsultations,
@@ -108,7 +108,7 @@ const consultationsState = combineReducers({
   postConsultationSuccess,
   putConsultationSuccess,
 
-  consultationSecretKey
+  consultationPaymentKey
 })
 
 export default consultationsState
