@@ -11,6 +11,7 @@ export interface ConsultationsSearchOption {
   isCompleted?: boolean
   status?: ConsultationStatus
   consultationType?: ConsultationType
+  hospitalId?: string
   page?: number
   limit?: number
   lastRetrieved?: Date

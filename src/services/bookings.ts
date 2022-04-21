@@ -6,9 +6,9 @@ import { BookingSearchOption, BookingsSearchOption } from '../models/bookings'
 const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 export function loadBookings(bookingsSearchOption: BookingsSearchOption): Promise<BookingsModel> {
-  const { searchString, isOpen, isCompleted, status, dealPackageId, page, limit, lastRetrieved } = bookingsSearchOption
+  const { searchString, isOpen, isCompleted, status, dealPackageId, hospitalId, page, limit, lastRetrieved } = bookingsSearchOption
   return new BookingsApi(configuration, apiRoot, instance)
-    .apiV2BookingsGet(searchString, isOpen, isCompleted, status, dealPackageId, page, limit, lastRetrieved)
+    .apiV2BookingsGet(searchString, isOpen, isCompleted, status, dealPackageId, hospitalId, page, limit, lastRetrieved)
     .then((res) => {
       return res.data as BookingsModel
     })
