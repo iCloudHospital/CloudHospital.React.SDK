@@ -7,10 +7,10 @@ import { log } from '../utils/log'
 const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 export function loadConsultations(consultationsSearchOption: ConsultationsSearchOption): Promise<ConsultationsModel> {
-  const { searchString, isOpen, isCompleted, status, consultationType, page, limit, lastRetrieved } =
+  const { searchString, isOpen, isCompleted, status, consultationType, hospitalId, page, limit, lastRetrieved } =
     consultationsSearchOption
   return new ConsultationsApi(configuration, apiRoot, instance)
-    .apiV2ConsultationsGet(searchString, isOpen, isCompleted, status, consultationType, page, limit, lastRetrieved)
+    .apiV2ConsultationsGet(searchString, isOpen, isCompleted, status, consultationType, hospitalId, page, limit, lastRetrieved)
     .then((res) => {
       return res.data as ConsultationsModel
     })

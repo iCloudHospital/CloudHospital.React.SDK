@@ -10,6 +10,7 @@ export interface BookingsSearchOption {
   isCompleted?: boolean
   status?: BookingStatus
   dealPackageId?: string
+  hospitalId?: string
   page?: number
   limit?: number
   lastRetrieved?: Date
