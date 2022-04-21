@@ -53,7 +53,8 @@ const config = {
     json(),
 
     includePaths({
-      paths: ["./dist/store", "./dist/models", "./dist/store/reducers", "./dist/store/actions", "./dist/services", "./dist/store/models"],
+      paths: ["./dist/store", "./dist/models/*", "./dist/store/reducers/*", "./dist/store/actions/*", "./dist/services/*"],
+      extensions: ['.js', '.json', '.jsx', '.ts', '.tsx']
     }),
 
   ],
