@@ -6,6 +6,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import copy from 'rollup-plugin-copy'
 import pkg from './package.json'
 import json from '@rollup/plugin-json'
+import includePaths from 'rollup-plugin-includepaths'
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
 const external = ['moment-timezone', 'next-auth']
@@ -50,8 +51,14 @@ const config = {
       targets: [{ src: 'src/**/*.css', dest: 'dist' }],
     }),
     json(),
+
+    includePaths({
+      paths: ["./dist/store", "./dist/models", "./dist/store/reducers", "./dist/store/actions", "./dist/services", "./dist/store/models"],
+    }),
+
   ],
   external,
+
 }
 
 export default config
