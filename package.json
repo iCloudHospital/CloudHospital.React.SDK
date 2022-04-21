@@ -7,7 +7,8 @@
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "files": [
-    "dist/**/*.{css,js,map,ts}"
+    "dist/**/*.{css,js,map,ts}",
+    "dist/*.{ts}"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

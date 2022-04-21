@@ -20,5 +20,5 @@ on Your project
 `npm installl <path to archive file>`
 
 ```bash
-$ npm installl ../CloudHospital.React.SDK/out/cloudhospita.react.sdk.0.1.0.tgz
+$ npm install ../CloudHospital.React.SDK/out/cloudhospita;.react.sdk.1.0.40.tgz
 ```

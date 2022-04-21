@@ -13,15 +13,25 @@ const external = ['moment-timezone', 'next-auth']
 
 process.env.BABEL_ENV = 'production'
 
+let includePathOptions = {
+  include: {
+
+  },
+  paths: ["./dist/store/*", "./dist/models/*", "./dist/store/reducers/*", "./dist/store/actions/*", "./dist/services/*"],
+  external: [],
+  extensions: ['.js', '.json', '.jsx', '.ts', '.tsx']
+}
+
 /**
  * @type {import('rollup').RollupOptions}
  */
+
 const config = {
   input: 'src/index.ts',
   output: [
     {
       file: pkg.main,
-      format: 'cjs',
+      format: 'esm',
       sourcemap: true,
     },
     {
@@ -52,12 +62,9 @@ const config = {
     }),
     json(),
 
-    includePaths({
-      paths: ["./dist/store", "./dist/models/*", "./dist/store/reducers/*", "./dist/store/actions/*", "./dist/services/*"],
-      extensions: ['.js', '.json', '.jsx', '.ts', '.tsx']
-    }),
-
+    includePaths(includePathOptions),
   ],
+
   external,
 
 }
