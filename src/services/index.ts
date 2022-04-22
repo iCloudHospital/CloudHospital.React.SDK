@@ -40,6 +40,7 @@ import specialtyTypes from './specialtyTypes'
 import tags from './tags'
 import azSearch from './search'
 import serviceReviews from './serviceReviews'
+import groupChannels from './groupChannels'
 
 const rootServices = {
   apis: {
@@ -66,6 +67,7 @@ const rootServices = {
     doctorSpecialties,
     faqCategories,
     faqs,
+    groupChannels,
     hospitals,
     hospitalAccreditations,
     hospitalEquipments,

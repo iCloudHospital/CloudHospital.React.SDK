@@ -40,6 +40,7 @@ import specialtiesEpic from './specialties'
 import specialtyTypesEpic from './specialtyTypes'
 import tagsEpic from './tags'
 import serviceReviewsEpic from './serviceReviews'
+import groupChannelsEpic from './groupChannels'
 
 export default combineEpics(
   accountsEpic,
@@ -64,6 +65,7 @@ export default combineEpics(
   doctorSpecialtiesEpic,
   faqCategoriesEpic,
   faqsEpic,
+  groupChannelsEpic,
   hospitalsEpic,
   hospitalAccreditationsEpic,
   hospitalEquipmentsEpic,
