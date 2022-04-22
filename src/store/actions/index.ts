@@ -44,6 +44,7 @@ import * as tags from './tags'
 import * as toastMessages from './toastMessages'
 import * as navs from './navs'
 import * as languageSelectOption from '../reducers/languageSelectOption'
+import * as groupChannels from './groupChannels'
 
 const rootAction = {
   accounts,
@@ -69,6 +70,7 @@ const rootAction = {
   externalLogins,
   faqCategories,
   faqs,
+  groupChannels,
   hospitals,
   hospitalAccreditations,
   hospitalEquipments,
