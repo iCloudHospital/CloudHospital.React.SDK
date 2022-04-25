@@ -1,5 +1,5 @@
 // import { RootAction, RootReducer, Services } from 'CHTypes'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { createEpicMiddleware } from 'redux-observable'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { StateType } from 'typesafe-actions'
@@ -17,8 +17,14 @@ export const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootR
 // configure middlewares
 const middlewares = [epicMiddleware]
 // compose enhancers
-const enhancer = composeWithDevTools(applyMiddleware(...middlewares))
-
+const enhancer =
+  process.env.NODE_ENV && process.env.NODE_ENV === 'production'
+    ? (() => {
+        return compose(applyMiddleware(...middlewares))
+      })()
+    : (() => {
+        return composeWithDevTools(applyMiddleware(...middlewares))
+      })()
 // rehydrate state on app start
 const initialState = {}
 
