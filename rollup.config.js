@@ -6,21 +6,10 @@ import commonjs from '@rollup/plugin-commonjs'
 import copy from 'rollup-plugin-copy'
 import pkg from './package.json'
 import json from '@rollup/plugin-json'
-import includePaths from 'rollup-plugin-includepaths'
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
 const external = ['moment-timezone', 'next-auth']
 
-process.env.BABEL_ENV = 'production'
-
-let includePathOptions = {
-  include: {
-
-  },
-  paths: ["./dist/store/*", "./dist/models/*", "./dist/store/reducers/*", "./dist/store/actions/*", "./dist/services/*"],
-  external: [],
-  extensions: ['.js', '.json', '.jsx', '.ts', '.tsx']
-}
 
 /**
  * @type {import('rollup').RollupOptions}
@@ -31,7 +20,7 @@ const config = {
   output: [
     {
       file: pkg.main,
-      format: 'esm',
+      format: 'cjs',
       sourcemap: true,
     },
     {
