@@ -50,8 +50,6 @@ const config = {
       targets: [{ src: 'src/**/*.css', dest: 'dist' }],
     }),
     json(),
-
-    includePaths(includePathOptions),
   ],
 
   external,
