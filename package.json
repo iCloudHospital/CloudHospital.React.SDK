@@ -1,6 +1,6 @@
 {
   "name": "cloudhospital.react.sdk",
-  "version": "1.0.45",
+  "version": "1.0.46",
   "description": "",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -30,7 +30,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.26.1",
-    "ch-api-client-typescript2": "^2.9.2",
+    "ch-api-client-typescript2": "^2.9.4",
     "moment-timezone": "^0.5.34",
     "qs": "^6.10.3",
     "redux": "^4.1.2",

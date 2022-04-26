@@ -16,9 +16,9 @@ $ npm run pack:local
 on Your project
 
 > If package's Local Repository is '../CloudHospital.React.SDK
- 
+
 `npm installl <path to archive file>`
 
 ```bash
-$ npm install ../CloudHospital.React.SDK/out/cloudhospita;.react.sdk.1.0.40.tgz
+$ npm install ../CloudHospital.React.SDK/out/cloudhospital.react.sdk-1.0.45.tgz
 ```
