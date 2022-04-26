@@ -23,6 +23,16 @@ export const patient = createReducer<PatientModel | null, PatientsActionTypes>(n
   .handleAction([resetPatientState, loadPatientAsync.request, loadPatientAsync.failure], (state, action) => null)
   .handleAction([loadPatientAsync.success], (state, action) => action.payload)
 
+
+export const createPatient = createReducer<PatientModel | null, PatientsActionTypes>(null)
+  .handleAction([resetPatientState, postPatientAsync.request, postPatientAsync.failure], (state, action) => null)
+  .handleAction([postPatientAsync.success], (state, action) => action.payload)
+
+
+export const updatePatient = createReducer<PatientModel | null, PatientsActionTypes>(null)
+  .handleAction([resetPatientState, putPatientAsync.request, putPatientAsync.failure], (state, action) => null)
+  .handleAction([putPatientAsync.success], (state, action) => action.payload)
+
 export const isUpdatingPatient = createReducer<boolean, PatientsActionTypes>(false as boolean)
   .handleAction(
     [
@@ -69,6 +79,8 @@ const patientsState = combineReducers({
   isLoadingPatient,
   loadPatientErrors,
   patient,
+  createPatient,
+  updatePatient,
 
   isUpdatingPatient,
   postPatientErrors,
