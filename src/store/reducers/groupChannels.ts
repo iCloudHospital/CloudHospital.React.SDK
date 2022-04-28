@@ -2,7 +2,13 @@ import { SendBirdGroupChannelModel } from 'ch-api-client-typescript2/lib'
 import { combineReducers } from 'redux'
 import { createReducer } from 'typesafe-actions'
 import { RestException } from '../../models/exceptions'
-import { groupChannelsActionTypes, loadDealGroupChannelAsync, loadDoctorGroupChannelAsync, loadHospitalGroupChannelAsync, postInviteGroupChannelAsync } from '../actions/groupChannels'
+import {
+  groupChannelsActionTypes,
+  loadDealGroupChannelAsync,
+  loadDoctorGroupChannelAsync,
+  loadHospitalGroupChannelAsync,
+  postInviteGroupChannelAsync
+} from '../actions/groupChannels'
 
 export const isLoadingGroupChannel = createReducer<boolean, groupChannelsActionTypes>(false as boolean)
   .handleAction(
@@ -31,7 +37,7 @@ export const loadGroupChannelErrors = createReducer<RestException | null, groupC
       loadDealGroupChannelAsync.request,
       loadDealGroupChannelAsync.success,
       postInviteGroupChannelAsync.request,
-      postInviteGroupChannelAsync.success,
+      postInviteGroupChannelAsync.success
     ],
     (state, action) => null
   )
@@ -53,7 +59,7 @@ export const groupChannel = createReducer<SendBirdGroupChannelModel | null, grou
       loadDoctorGroupChannelAsync.request,
       loadDoctorGroupChannelAsync.failure,
       loadDealGroupChannelAsync.request,
-      loadDealGroupChannelAsync.failure,
+      loadDealGroupChannelAsync.failure
     ],
     (state, action) => null
   )
@@ -67,6 +73,7 @@ export const postInviteGroupChannelSuccess = createReducer<boolean, groupChannel
   .handleAction([postInviteGroupChannelAsync.success], (state, action) => false)
 
 const groupChannelsState = combineReducers({
+  groupChannel,
   isLoadingGroupChannel,
   loadGroupChannelErrors,
   postInviteGroupChannelSuccess

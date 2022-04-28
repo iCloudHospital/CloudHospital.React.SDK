@@ -1,6 +1,6 @@
-import { SendBirdGroupChannelModel } from "ch-api-client-typescript2/lib";
-import { ActionType, createAsyncAction } from "typesafe-actions";
-import { RestException } from "../../models/exceptions";
+import { SendBirdGroupChannelModel } from 'ch-api-client-typescript2/lib'
+import { ActionType, createAsyncAction } from 'typesafe-actions'
+import { RestException } from '../../models/exceptions'
 
 export const loadHospitalGroupChannelAsync = createAsyncAction(
   'LOAD_HOSPITAL_GROUP_CHANNEL_REQUEST',
