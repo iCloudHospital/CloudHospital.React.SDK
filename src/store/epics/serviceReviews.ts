@@ -21,7 +21,7 @@ import {
   resetServiceReviewState,
   resetServiceReviewMediaState
 } from '../actions/serviceReviews'
-import { setMessage } from '../actions/toastMessages'
+import { setToastMessage } from '../actions/toastMessages'
 // import Router from '/next/router'
 
 // #region ServiceReviews
@@ -67,11 +67,14 @@ export const postServiceReviewEpic: RootEpic = (action$, state$, { apis }) =>
         .pipe(
           switchMap((res) => [
             postServiceReviewAsync.success(res),
-            setMessage({ text: 'Create serviceReview success', status: 200 }),
+            setToastMessage({ text: 'Create serviceReview success', type: 'success', statusCode: 200 }),
             resetServiceReviewState()
           ]),
           catchError((restException: RestException) =>
-            of(setMessage(restException), postServiceReviewAsync.failure(restException))
+            of(
+              setToastMessage({ text: restException.title, type: 'error', statusCode: restException.status }),
+              postServiceReviewAsync.failure(restException)
+            )
           )
         )
     )
@@ -85,11 +88,14 @@ export const putServiceReviewEpic: RootEpic = (action$, state$, { apis }) =>
       ).pipe(
         switchMap((res) => [
           putServiceReviewAsync.success(res),
-          setMessage({ text: 'Update serviceReview success', status: 200 }),
+          setToastMessage({ text: 'Update serviceReview success', type: 'success', statusCode: 200 }),
           resetServiceReviewState()
         ]),
         catchError((restException: RestException) =>
-          of(setMessage(restException), putServiceReviewAsync.failure(restException))
+          of(
+            setToastMessage({ text: restException.title, type: 'error', statusCode: restException.status }),
+            putServiceReviewAsync.failure(restException)
+          )
         )
       )
     )
@@ -103,11 +109,14 @@ export const deleteServiceReviewEpic: RootEpic = (action$, state$, { apis }) =>
         .pipe(
           switchMap((res) => [
             deleteServiceReviewAsync.success(res),
-            setMessage({ text: 'Delete serviceReview success', status: 200 }),
+            setToastMessage({ text: 'Delete serviceReview success', type: 'success', statusCode: 200 }),
             resetServiceReviewState()
           ]),
           catchError((restException: RestException) =>
-            of(setMessage(restException), deleteServiceReviewAsync.failure(restException))
+            of(
+              setToastMessage({ text: restException.title, type: 'error', statusCode: restException.status }),
+              deleteServiceReviewAsync.failure(restException)
+            )
           )
         )
     )
@@ -158,11 +167,14 @@ export const postServiceReviewMediaEpic: RootEpic = (action$, state$, { apis }) 
       ).pipe(
         switchMap((res) => [
           postServiceReviewMediaAsync.success(res),
-          setMessage({ text: 'Create serviceReview media success', status: 200 }),
+          setToastMessage({ text: 'Create serviceReview media success', type: 'success', statusCode: 200 }),
           resetServiceReviewMediaState()
         ]),
         catchError((restException: RestException) =>
-          of(setMessage(restException), postServiceReviewMediaAsync.failure(restException))
+          of(
+            setToastMessage({ text: restException.title, type: 'error', statusCode: restException.status }),
+            postServiceReviewMediaAsync.failure(restException)
+          )
         )
       )
     )
@@ -181,10 +193,13 @@ export const putServiceReviewMediaEpic: RootEpic = (action$, state$, { apis }) =
       ).pipe(
         switchMap((res) => [
           putServiceReviewMediaAsync.success(res),
-          setMessage({ text: 'Update serviceReview media success.', status: 200 })
+          setToastMessage({ text: 'Update serviceReview media success.', type: 'success', statusCode: 200 })
         ]),
         catchError((restException: RestException) =>
-          of(setMessage(restException), putServiceReviewMediaAsync.failure(restException))
+          of(
+            setToastMessage({ text: restException.title, type: 'error', statusCode: restException.status }),
+            putServiceReviewMediaAsync.failure(restException)
+          )
         )
       )
     )
@@ -197,7 +212,7 @@ export const deleteServiceReviewMediaEpic: RootEpic = (action$, state$, { apis }
       from(apis.serviceReviews.deleteServiceReviewMedia(action.payload.serviceReviewId, action.payload.mediaId)).pipe(
         switchMap((res) => [
           deleteServiceReviewMediaAsync.success(res),
-          setMessage({ text: 'Delete serviceReview media success.', status: 200 })
+          setToastMessage({ text: 'Delete serviceReview media success.', type: 'success', statusCode: 200 })
         ]),
         catchError((restException: RestException) => of(deleteServiceReviewMediaAsync.failure(restException)))
       )

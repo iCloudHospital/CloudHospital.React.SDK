@@ -1,17 +1,10 @@
 import { combineEpics } from 'redux-observable'
 import { from, of } from 'rxjs'
-import { catchError, filter, map, switchMap, tap } from 'rxjs/operators'
+import { catchError, filter, map, switchMap } from 'rxjs/operators'
 import { isActionOf } from 'typesafe-actions'
 import { RootEpic } from 'CHTypes'
 import { RestException } from '../../models/exceptions'
-import {
-  appendFaqsAsync,
-  loadFaqAsync,
-  loadFaqsAsync,
-  resetFaqsState,
-  resetFaqState,
-} from '../actions/faqs'
-import { setMessage } from '../actions/toastMessages'
+import { appendFaqsAsync, loadFaqAsync, loadFaqsAsync } from '../actions/faqs'
 
 export const loadFaqsEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(
@@ -19,11 +12,9 @@ export const loadFaqsEpic: RootEpic = (action$, state$, { apis }) =>
     switchMap((action) =>
       from(apis.faqs.loadFaqs(action.payload)).pipe(
         map(loadFaqsAsync.success),
-        catchError((restException: RestException) =>
-          of(loadFaqsAsync.failure(restException)),
-        ),
-      ),
-    ),
+        catchError((restException: RestException) => of(loadFaqsAsync.failure(restException)))
+      )
+    )
   )
 
 export const appendFaqsEpic: RootEpic = (action$, state$, { apis }) =>
@@ -32,11 +23,9 @@ export const appendFaqsEpic: RootEpic = (action$, state$, { apis }) =>
     switchMap((action) =>
       from(apis.faqs.loadFaqs(action.payload)).pipe(
         map(appendFaqsAsync.success),
-        catchError((restException: RestException) =>
-          of(appendFaqsAsync.failure(restException)),
-        ),
-      ),
-    ),
+        catchError((restException: RestException) => of(appendFaqsAsync.failure(restException)))
+      )
+    )
   )
 
 export const loadFaqEpic: RootEpic = (action$, state$, { apis }) =>
@@ -45,11 +34,9 @@ export const loadFaqEpic: RootEpic = (action$, state$, { apis }) =>
     switchMap((action) =>
       from(apis.faqs.loadFaq(action.payload)).pipe(
         map(loadFaqAsync.success),
-        catchError((restException: RestException) =>
-          of(loadFaqAsync.failure(restException)),
-        ),
-      ),
-    ),
+        catchError((restException: RestException) => of(loadFaqAsync.failure(restException)))
+      )
+    )
   )
 
 const faqsEpic = combineEpics(loadFaqsEpic, appendFaqsEpic, loadFaqEpic)

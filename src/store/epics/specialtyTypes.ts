@@ -1,6 +1,6 @@
 import { combineEpics } from 'redux-observable'
 import { from, of } from 'rxjs'
-import { catchError, filter, map, switchMap, tap } from 'rxjs/operators'
+import { catchError, filter, map, switchMap } from 'rxjs/operators'
 import { isActionOf } from 'typesafe-actions'
 import { RootEpic } from 'CHTypes'
 import { RestException } from '../../models/exceptions'
@@ -8,11 +8,8 @@ import {
   appendSpecialtyTypesAsync,
   loadSpecialtyTypeAsync,
   loadSpecialtyTypesAsync,
-  loadTranslatedSpecialtyTypeAsync,
-  resetSpecialtyTypesState,
-  resetSpecialtyTypeState,
+  loadTranslatedSpecialtyTypeAsync
 } from '../actions/specialtyTypes'
-import { setMessage } from '../actions/toastMessages'
 
 export const loadSpecialtyTypesEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(
@@ -20,11 +17,9 @@ export const loadSpecialtyTypesEpic: RootEpic = (action$, state$, { apis }) =>
     switchMap((action) =>
       from(apis.specialtyTypes.loadSpecialtyTypes(action.payload)).pipe(
         map(loadSpecialtyTypesAsync.success),
-        catchError((restException: RestException) =>
-          of(loadSpecialtyTypesAsync.failure(restException)),
-        ),
-      ),
-    ),
+        catchError((restException: RestException) => of(loadSpecialtyTypesAsync.failure(restException)))
+      )
+    )
   )
 
 export const appendSpecialtyTypesEpic: RootEpic = (action$, state$, { apis }) =>
@@ -33,11 +28,9 @@ export const appendSpecialtyTypesEpic: RootEpic = (action$, state$, { apis }) =>
     switchMap((action) =>
       from(apis.specialtyTypes.loadSpecialtyTypes(action.payload)).pipe(
         map(appendSpecialtyTypesAsync.success),
-        catchError((restException: RestException) =>
-          of(appendSpecialtyTypesAsync.failure(restException)),
-        ),
-      ),
-    ),
+        catchError((restException: RestException) => of(appendSpecialtyTypesAsync.failure(restException)))
+      )
+    )
   )
 
 export const loadSpecialtyTypeEpic: RootEpic = (action$, state$, { apis }) =>
@@ -46,35 +39,27 @@ export const loadSpecialtyTypeEpic: RootEpic = (action$, state$, { apis }) =>
     switchMap((action) =>
       from(apis.specialtyTypes.loadSpecialtyType(action.payload)).pipe(
         map(loadSpecialtyTypeAsync.success),
-        catchError((restException: RestException) =>
-          of(loadSpecialtyTypeAsync.failure(restException)),
-        ),
-      ),
-    ),
+        catchError((restException: RestException) => of(loadSpecialtyTypeAsync.failure(restException)))
+      )
+    )
   )
 
-export const loadTranslatedSpecialtyTypeEpic: RootEpic = (
-  action$,
-  state$,
-  { apis },
-) =>
+export const loadTranslatedSpecialtyTypeEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(
     filter(isActionOf(loadTranslatedSpecialtyTypeAsync.request)),
     switchMap((action) =>
       from(apis.specialtyTypes.loadSpecialtyType(action.payload)).pipe(
         map(loadTranslatedSpecialtyTypeAsync.success),
-        catchError((restException: RestException) =>
-          of(loadTranslatedSpecialtyTypeAsync.failure(restException)),
-        ),
-      ),
-    ),
+        catchError((restException: RestException) => of(loadTranslatedSpecialtyTypeAsync.failure(restException)))
+      )
+    )
   )
 
 const specialtyTypesEpic = combineEpics(
   loadSpecialtyTypesEpic,
   appendSpecialtyTypesEpic,
   loadSpecialtyTypeEpic,
-  loadTranslatedSpecialtyTypeEpic,
+  loadTranslatedSpecialtyTypeEpic
 )
 
 export default specialtyTypesEpic

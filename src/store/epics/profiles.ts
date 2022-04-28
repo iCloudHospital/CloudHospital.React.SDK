@@ -5,7 +5,7 @@ import { RootEpic } from 'CHTypes'
 import { isActionOf } from 'typesafe-actions'
 import { IdentityError, RestException } from '../../models/exceptions'
 import { changeEmailAsync, loadProfileAsync, updateProfileAsync } from '../actions/profiles'
-import { setMessage } from '../actions/toastMessages'
+import { setToastMessage } from '../actions/toastMessages'
 
 export const loadProfileEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(
@@ -36,10 +36,13 @@ export const updateProfileEpic: RootEpic = (action$, state$, { apis }) =>
       from(apis.profiles.updateProfile(action.payload)).pipe(
         switchMap((res) => [
           updateProfileAsync.success(res),
-          setMessage({ text: 'Update Profile success.', status: 200 })
+          setToastMessage({ text: 'Update Profile success.', type: 'success', statusCode: 200 })
         ]),
         catchError((restException: RestException) =>
-          of(setMessage(restException), updateProfileAsync.failure(restException))
+          of(
+            setToastMessage({ text: restException.title, type: 'error', statusCode: restException.status }),
+            updateProfileAsync.failure(restException)
+          )
         )
       )
     )

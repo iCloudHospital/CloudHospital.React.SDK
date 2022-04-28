@@ -13,7 +13,7 @@ import {
   putConsultationAsync,
   postConsultationPaymentKeyAsync
 } from '../actions/consultations'
-import { setMessage } from '../actions/toastMessages'
+import { setToastMessage } from '../actions/toastMessages'
 
 export const loadConsultationsEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(
@@ -21,11 +21,9 @@ export const loadConsultationsEpic: RootEpic = (action$, state$, { apis }) =>
     switchMap((action) =>
       from(apis.consultations.loadConsultations(action.payload)).pipe(
         map(loadConsultationsAsync.success),
-        catchError((restException: RestException) =>
-          of(loadConsultationsAsync.failure(restException)),
-        ),
-      ),
-    ),
+        catchError((restException: RestException) => of(loadConsultationsAsync.failure(restException)))
+      )
+    )
   )
 
 export const loadConsultationEpic: RootEpic = (action$, state$, { apis }) =>
@@ -34,28 +32,20 @@ export const loadConsultationEpic: RootEpic = (action$, state$, { apis }) =>
     switchMap((action) =>
       from(apis.consultations.loadConsultation(action.payload)).pipe(
         map(loadConsultationAsync.success),
-        catchError((restException: RestException) =>
-          of(loadConsultationAsync.failure(restException)),
-        ),
-      ),
-    ),
+        catchError((restException: RestException) => of(loadConsultationAsync.failure(restException)))
+      )
+    )
   )
 
-export const loadCompletedConsultationsEpic: RootEpic = (
-  action$,
-  state$,
-  { apis },
-) =>
+export const loadCompletedConsultationsEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(
     filter(isActionOf(loadCompletedConsultationsAsync.request)),
     switchMap((action) =>
       from(apis.consultations.loadConsultations(action.payload)).pipe(
         map(loadCompletedConsultationsAsync.success),
-        catchError((restException: RestException) =>
-          of(loadCompletedConsultationsAsync.failure(restException)),
-        ),
-      ),
-    ),
+        catchError((restException: RestException) => of(loadCompletedConsultationsAsync.failure(restException)))
+      )
+    )
   )
 
 export const cancelConsultationEpic: RootEpic = (action$, state$, { apis }) =>
@@ -65,16 +55,16 @@ export const cancelConsultationEpic: RootEpic = (action$, state$, { apis }) =>
       from(apis.consultations.cancelConsultation(action.payload)).pipe(
         switchMap((res) => [
           cancelConsultationAsync.success(res),
-          setMessage({ text: 'Cancel consultation success', status: 200 }),
+          setToastMessage({ text: 'Cancel consultation success', statusCode: 200 })
         ]),
         catchError((restException: RestException) =>
           of(
-            setMessage(restException),
-            cancelConsultationAsync.failure(restException),
-          ),
-        ),
-      ),
-    ),
+            setToastMessage({ text: restException.title, type: 'error', statusCode: restException.status }),
+            cancelConsultationAsync.failure(restException)
+          )
+        )
+      )
+    )
   )
 
 export const postConsultationEpic: RootEpic = (action$, state$, { apis }) =>

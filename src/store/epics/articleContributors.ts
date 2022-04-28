@@ -7,10 +7,8 @@ import { RestException } from '../../models/exceptions'
 import {
   loadArticleContributorsAsync,
   appendArticleContributorsAsync,
-  loadArticleContributorAsync,
-  resetArticleContributorState
+  loadArticleContributorAsync
 } from '../actions/articleContributors'
-import { setMessage } from '../actions/toastMessages'
 
 // #region ArticleContributors
 export const loadArticleContributorsEpic: RootEpic = (action$, state$, { apis }) =>

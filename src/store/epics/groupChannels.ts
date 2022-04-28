@@ -4,8 +4,12 @@ import { from, of } from 'rxjs'
 import { catchError, filter, map, switchMap } from 'rxjs/operators'
 import { isActionOf } from 'typesafe-actions'
 import { RestException } from '../../models/exceptions'
-import { loadHospitalGroupChannelAsync, loadDoctorGroupChannelAsync, loadDealGroupChannelAsync, postInviteGroupChannelAsync } from '../actions/groupChannels'
-import { InviteSendBirdGroupChannelCommand } from 'ch-api-client-typescript2/lib'
+import {
+  loadHospitalGroupChannelAsync,
+  loadDoctorGroupChannelAsync,
+  loadDealGroupChannelAsync,
+  postInviteGroupChannelAsync
+} from '../actions/groupChannels'
 
 export const loadHospitalGroupChannelEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(

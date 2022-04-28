@@ -80,22 +80,22 @@ const rootReducer = combineReducers({
   hospitalServicesState,
   imagesState,
   languagesState,
+  languagesSelectOptionState,
   modalState,
   membershipsState,
+  navsState,
   notificationsState,
   patientsState,
   plansState,
   profilesState,
   servicesState,
   servicesCategoriesState,
+  signInRequestState,
   specialtiesState,
   specialtyTypesState,
-  tagsState,
-  toastMessageState,
-  navsState,
-  signInRequestState,
   serviceReviewsState,
-  languagesSelectOptionState
+  tagsState,
+  toastMessageState
 })
 
 export type RootReducer = StateType<typeof rootReducer>

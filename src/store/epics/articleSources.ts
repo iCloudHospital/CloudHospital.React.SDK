@@ -4,13 +4,7 @@ import { catchError, filter, map, switchMap } from 'rxjs/operators'
 import { isActionOf } from 'typesafe-actions'
 import { RootEpic } from 'CHTypes'
 import { RestException } from '../../models/exceptions'
-import {
-  loadArticleSourcesAsync,
-  appendArticleSourcesAsync,
-  loadArticleSourceAsync,
-  resetArticleSourceState
-} from '../actions/articleSources'
-import { setMessage } from '../actions/toastMessages'
+import { loadArticleSourcesAsync, appendArticleSourcesAsync, loadArticleSourceAsync } from '../actions/articleSources'
 
 // #region ArticleSources
 export const loadArticleSourcesEpic: RootEpic = (action$, state$, { apis }) =>
