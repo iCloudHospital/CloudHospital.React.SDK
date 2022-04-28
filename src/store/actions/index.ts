@@ -43,10 +43,12 @@ import * as specialtyTypes from './specialtyTypes'
 import * as tags from './tags'
 import * as toastMessages from './toastMessages'
 import * as navs from './navs'
-import * as languageSelectOption from '../reducers/languageSelectOption'
+import * as languageSelectOption from './languageSelectOption'
 import * as groupChannels from './groupChannels'
+import * as aboutUs from './aboutUs'
 
 const rootAction = {
+  aboutUs,
   accounts,
   azSearch,
   accreditations,
