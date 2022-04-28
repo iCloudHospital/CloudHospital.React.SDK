@@ -59,6 +59,7 @@ export * from './store/actions/tags'
 export * from './store/actions/toastMessages'
 export * from './store/actions/navs'
 export * from './store/actions/languageSelectOption'
+export * from './store/actions/serviceReviewsSurgery'
 
 export * from './store/reducers'
 

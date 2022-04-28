@@ -47,6 +47,7 @@ import signInRequestState from './signInRequest'
 import serviceReviewsState from './serviceReviews'
 import languagesSelectOptionState from './languageSelectOption'
 import groupChannelsState from './groupChannels'
+import serviceReviewsSurgeryState from './serviceReviewsSurgery'
 
 const rootReducer = combineReducers({
   accountsState,
@@ -94,6 +95,7 @@ const rootReducer = combineReducers({
   specialtiesState,
   specialtyTypesState,
   serviceReviewsState,
+  serviceReviewsSurgeryState,
   tagsState,
   toastMessageState
 })
