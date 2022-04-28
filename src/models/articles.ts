@@ -18,6 +18,7 @@ export interface ArticlesSearchOption {
   hospitalName?: string
   countryId?: string
   tag?: string
+  exceptArticleId?: string
   exceptHospitalId?: string
   contributorId?: string
   languageCode?: string

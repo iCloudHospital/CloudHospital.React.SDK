@@ -1,5 +1,5 @@
 import { SendBirdGroupChannelModel } from 'ch-api-client-typescript2/lib'
-import { ActionType, createAsyncAction } from 'typesafe-actions'
+import { ActionType, createAction, createAsyncAction } from 'typesafe-actions'
 import { RestException } from '../../models/exceptions'
 
 export const loadHospitalGroupChannelAsync = createAsyncAction(
@@ -26,8 +26,11 @@ export const postInviteGroupChannelAsync = createAsyncAction(
   'POST_INVITE_GROUP_CHANNEL_FAILURE'
 )<{ channelUrl: string; user_ids: string[] }, boolean, RestException>()
 
+export const resetGroupChannel = createAction('RESET_GROUP_CHANNEL_SUCCESS')<undefined>()
+
 export type groupChannelsActionTypes =
   | ActionType<typeof loadHospitalGroupChannelAsync>
   | ActionType<typeof loadDoctorGroupChannelAsync>
   | ActionType<typeof loadDealGroupChannelAsync>
   | ActionType<typeof postInviteGroupChannelAsync>
+  | ActionType<typeof resetGroupChannel>
