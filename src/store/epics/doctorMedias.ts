@@ -5,13 +5,7 @@ import { RootEpic } from 'CHTypes'
 import { isActionOf } from 'typesafe-actions'
 import { RestException } from '../../models/exceptions'
 import {} from '../actions/deals'
-import {
-  loadDoctorMediasAsync,
-  appendDoctorMediasAsync,
-  loadDoctorMediaAsync,
-  resetDoctorMediaState
-} from '../actions/doctorMedias'
-import { setMessage } from '../actions/toastMessages'
+import { loadDoctorMediasAsync, appendDoctorMediasAsync, loadDoctorMediaAsync } from '../actions/doctorMedias'
 
 // #region DoctorMedias
 export const loadDoctorMediasEpic: RootEpic = (action$, state$, { apis }) =>

@@ -11,10 +11,8 @@ import {
   loadHospitalEquipmentAsync,
   loadHospitalEquipmentMediasAsync,
   appendHospitalEquipmentMediasAsync,
-  loadHospitalEquipmentMediaAsync,
-  resetHospitalEquipmentState
+  loadHospitalEquipmentMediaAsync
 } from '../actions/hospitalEquipments'
-import { setMessage } from '../actions/toastMessages'
 
 // #region HospitalEquipments
 export const loadHospitalEquipmentsEpic: RootEpic = (action$, state$, { apis }) =>

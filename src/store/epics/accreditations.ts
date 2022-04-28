@@ -4,14 +4,7 @@ import { catchError, filter, map, switchMap } from 'rxjs/operators'
 import { isActionOf } from 'typesafe-actions'
 import { RootEpic } from 'CHTypes'
 import { RestException } from '../../models/exceptions'
-import {
-  appendAccreditationsAsync,
-  loadAccreditationAsync,
-  loadAccreditationsAsync,
-  resetAccreditationState
-} from '../actions/accreditations'
-import { setMessage } from '../actions/toastMessages'
-import { resetHospitalAccreditationsState } from '../actions/hospitalAccreditations'
+import { appendAccreditationsAsync, loadAccreditationAsync, loadAccreditationsAsync } from '../actions/accreditations'
 
 export const loadAccreditationsEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(

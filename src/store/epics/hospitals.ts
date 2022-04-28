@@ -1,5 +1,5 @@
 import { combineEpics } from 'redux-observable'
-import { from, of, tap } from 'rxjs'
+import { from, of } from 'rxjs'
 import { catchError, filter, map, switchMap } from 'rxjs/operators'
 import { RootEpic } from 'CHTypes'
 import { isActionOf } from 'typesafe-actions'
@@ -14,7 +14,7 @@ import {
   loadHospitalMediaAsync,
   loadTranslatedHospitalAsync,
   loadHospitalsSimpleAsync,
-  appendHospitalsSimpleAsync,
+  appendHospitalsSimpleAsync
 } from '../actions/hospitals'
 
 // #region Hospitals

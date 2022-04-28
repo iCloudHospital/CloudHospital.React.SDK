@@ -1,4 +1,4 @@
-import { Epic, combineEpics } from 'redux-observable'
+import { combineEpics } from 'redux-observable'
 import { from, of } from 'rxjs'
 import { catchError, filter, map, switchMap } from 'rxjs/operators'
 import { RootEpic } from 'CHTypes'

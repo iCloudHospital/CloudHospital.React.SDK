@@ -4,12 +4,7 @@ import { catchError, filter, map, switchMap } from 'rxjs/operators'
 import { RootEpic } from 'CHTypes'
 import { isActionOf } from 'typesafe-actions'
 import { RestException } from '../../models/exceptions'
-import {
-  loadDoctorPortfolioAsync,
-  loadDoctorPortfoliosAsync,
-  resetDoctorPortfolioState
-} from '../actions/doctorPortfolios'
-import { setMessage } from '../actions/toastMessages'
+import { loadDoctorPortfolioAsync, loadDoctorPortfoliosAsync } from '../actions/doctorPortfolios'
 
 export const loadDoctorPortfoliosEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(

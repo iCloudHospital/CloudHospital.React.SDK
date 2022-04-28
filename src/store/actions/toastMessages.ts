@@ -1,6 +1,7 @@
 import { ActionType, createAction } from 'typesafe-actions'
-import { Message } from '../reducers/toastMessages'
+import { ToastMessageModel } from '../../models/toastMessage'
 
-export const setMessage = createAction('SET_TOAST_MESSAGE')<Message>()
+export const setToastMessage = createAction('SET_TOAST_MESSAGE')<ToastMessageModel>()
+export const resetToastMessage = createAction('RESET_TOAST_MESSAGE')<ToastMessageModel>()
 
-export type MessageActionType = ActionType<typeof setMessage>
+export type ToastMessageActionType = ActionType<typeof setToastMessage> | ActionType<typeof resetToastMessage>
