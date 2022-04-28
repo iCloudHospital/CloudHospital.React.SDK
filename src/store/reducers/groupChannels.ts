@@ -7,7 +7,8 @@ import {
   loadDealGroupChannelAsync,
   loadDoctorGroupChannelAsync,
   loadHospitalGroupChannelAsync,
-  postInviteGroupChannelAsync
+  postInviteGroupChannelAsync,
+  resetGroupChannel
 } from '../actions/groupChannels'
 
 export const isLoadingGroupChannel = createReducer<boolean, groupChannelsActionTypes>(false as boolean)
@@ -59,7 +60,8 @@ export const groupChannel = createReducer<SendBirdGroupChannelModel | null, grou
       loadDoctorGroupChannelAsync.request,
       loadDoctorGroupChannelAsync.failure,
       loadDealGroupChannelAsync.request,
-      loadDealGroupChannelAsync.failure
+      loadDealGroupChannelAsync.failure,
+      resetGroupChannel
     ],
     (state, action) => null
   )
