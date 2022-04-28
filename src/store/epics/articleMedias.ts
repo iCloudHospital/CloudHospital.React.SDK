@@ -5,7 +5,6 @@ import { isActionOf } from 'typesafe-actions'
 import { RootEpic } from 'CHTypes'
 import { RestException } from '../../models/exceptions'
 import { appendArticleMediasAsync, loadArticleMediaAsync, loadArticleMediasAsync } from '../actions/articleMedias'
-import { setMessage } from '../actions/toastMessages'
 
 // #region ArticleMedias
 export const loadArticleMediasEpic: RootEpic = (action$, state$, { apis }) =>

@@ -3,15 +3,8 @@ import { from, of } from 'rxjs'
 import { catchError, filter, map, switchMap } from 'rxjs/operators'
 import { RootEpic } from 'CHTypes'
 import { isActionOf } from 'typesafe-actions'
-import {
-  loadPlanAsync,
-  loadPlansAsync,
-  loadPlanHospitalsAsync,
-  loadPlanHospitalAsync,
-  resetPlanState
-} from '../actions/plans'
+import { loadPlanAsync, loadPlansAsync, loadPlanHospitalsAsync, loadPlanHospitalAsync } from '../actions/plans'
 import { RestException } from '../../models/exceptions'
-import { setMessage } from '../actions/toastMessages'
 
 // #region Plans
 export const loadPlansEpic: RootEpic = (action$, state$, { apis }) =>

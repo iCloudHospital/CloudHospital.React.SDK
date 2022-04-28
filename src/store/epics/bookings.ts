@@ -1,6 +1,6 @@
 import { combineEpics } from 'redux-observable'
 import { from, of } from 'rxjs'
-import { catchError, filter, map, switchMap, tap } from 'rxjs/operators'
+import { catchError, filter, map, switchMap } from 'rxjs/operators'
 import { RootEpic } from 'CHTypes'
 import { isActionOf } from 'typesafe-actions'
 import { RestException } from '../../models/exceptions'
@@ -8,10 +8,9 @@ import {
   loadBookingsAsync,
   loadBookingAsync,
   cancelBookingAsync,
-  loadCompletedBookingsAsync,
-  resetBookingState,
+  loadCompletedBookingsAsync
 } from '../actions/bookings'
-import { setMessage } from '../actions/toastMessages'
+import { setToastMessage } from '../actions/toastMessages'
 
 export const loadBookingsEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(
@@ -19,11 +18,9 @@ export const loadBookingsEpic: RootEpic = (action$, state$, { apis }) =>
     switchMap((action) =>
       from(apis.bookings.loadBookings(action.payload)).pipe(
         map(loadBookingsAsync.success),
-        catchError((restException: RestException) =>
-          of(loadBookingsAsync.failure(restException)),
-        ),
-      ),
-    ),
+        catchError((restException: RestException) => of(loadBookingsAsync.failure(restException)))
+      )
+    )
   )
 
 export const loadBookingEpic: RootEpic = (action$, state$, { apis }) =>
@@ -32,28 +29,20 @@ export const loadBookingEpic: RootEpic = (action$, state$, { apis }) =>
     switchMap((action) =>
       from(apis.bookings.loadBooking(action.payload)).pipe(
         map(loadBookingAsync.success),
-        catchError((restException: RestException) =>
-          of(loadBookingAsync.failure(restException)),
-        ),
-      ),
-    ),
+        catchError((restException: RestException) => of(loadBookingAsync.failure(restException)))
+      )
+    )
   )
 
-export const loadCompletedBookingsEpic: RootEpic = (
-  action$,
-  state$,
-  { apis },
-) =>
+export const loadCompletedBookingsEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(
     filter(isActionOf(loadCompletedBookingsAsync.request)),
     switchMap((action) =>
       from(apis.bookings.loadBookings(action.payload)).pipe(
         map(loadCompletedBookingsAsync.success),
-        catchError((restException: RestException) =>
-          of(loadCompletedBookingsAsync.failure(restException)),
-        ),
-      ),
-    ),
+        catchError((restException: RestException) => of(loadCompletedBookingsAsync.failure(restException)))
+      )
+    )
   )
 
 export const cancelBookingEpic: RootEpic = (action$, state$, { apis }) =>
@@ -63,23 +52,18 @@ export const cancelBookingEpic: RootEpic = (action$, state$, { apis }) =>
       from(apis.bookings.cancelBooking(action.payload)).pipe(
         switchMap((res) => [
           cancelBookingAsync.success(res),
-          setMessage({ text: 'Cancel booking success.', status: 200 }),
+          setToastMessage({ text: 'Cancel booking success.', statusCode: 200 })
         ]),
         catchError((restException: RestException) =>
           of(
-            setMessage(restException),
-            cancelBookingAsync.failure(restException),
-          ),
-        ),
-      ),
-    ),
+            setToastMessage({ text: restException.title, type: 'warning', statusCode: restException.status }),
+            cancelBookingAsync.failure(restException)
+          )
+        )
+      )
+    )
   )
 
-const bookingsEpic = combineEpics(
-  loadBookingsEpic,
-  loadBookingEpic,
-  loadCompletedBookingsEpic,
-  cancelBookingEpic,
-)
+const bookingsEpic = combineEpics(loadBookingsEpic, loadBookingEpic, loadCompletedBookingsEpic, cancelBookingEpic)
 
 export default bookingsEpic

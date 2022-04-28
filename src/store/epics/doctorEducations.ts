@@ -1,15 +1,10 @@
-import { combineEpics, ofType } from 'redux-observable'
+import { combineEpics } from 'redux-observable'
 import { from, of } from 'rxjs'
-import { catchError, filter, map, mergeMap, switchMap, concat, tap } from 'rxjs/operators'
+import { catchError, filter, map, switchMap } from 'rxjs/operators'
 import { RootEpic } from 'CHTypes'
 import { isActionOf } from 'typesafe-actions'
 import { RestException } from '../../models/exceptions'
-import {
-  loadDoctorEducationAsync,
-  loadDoctorEducationsAsync,
-  resetDoctorEducationState
-} from '../actions/doctorEducations'
-import { setMessage } from '../actions/toastMessages'
+import { loadDoctorEducationAsync, loadDoctorEducationsAsync } from '../actions/doctorEducations'
 
 export const loadDoctorEducationsEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(

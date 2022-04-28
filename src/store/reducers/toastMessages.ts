@@ -1,20 +1,14 @@
 import { combineReducers } from 'redux'
 import { createReducer } from 'typesafe-actions'
-import { RestException } from '../../models/exceptions'
-import { MessageActionType, setMessage } from '../actions/toastMessages'
+import { ToastMessageModel } from '../../models/toastMessage'
+import { resetToastMessage, setToastMessage, ToastMessageActionType } from '../actions/toastMessages'
 
-export type SuccessMessage = {
-  text: string
-  status?: number | null
-}
-
-export type Message = RestException | SuccessMessage
-export const message = createReducer<Message, MessageActionType>({
-  text: ''
-}).handleAction([setMessage], (state, action) => action.payload)
+export const toastMessage = createReducer<ToastMessageModel | null, ToastMessageActionType>(null)
+  .handleAction([setToastMessage], (state, action) => action.payload)
+  .handleAction([resetToastMessage], (action, state) => null)
 
 const toastMessageState = combineReducers({
-  message
+  toastMessage
 })
 
 export type ToastMessageState = ReturnType<typeof toastMessageState>

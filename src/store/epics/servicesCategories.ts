@@ -5,7 +5,6 @@ import { isActionOf } from 'typesafe-actions'
 import { RootEpic } from 'CHTypes'
 import { RestException } from '../../models/exceptions'
 import { loadServicesCategoriesAsync, loadServicesCategoryAsync } from '../actions/servicesCategories'
-import { setMessage } from '../actions/toastMessages'
 
 export const loadServicesCategoriesEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(

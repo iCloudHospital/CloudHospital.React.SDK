@@ -1,4 +1,4 @@
-import { combineEpics, Epic } from 'redux-observable'
+import { combineEpics } from 'redux-observable'
 import { from, of } from 'rxjs'
 import { catchError, filter, map, switchMap } from 'rxjs/operators'
 import { isActionOf } from 'typesafe-actions'
@@ -7,11 +7,9 @@ import {
   appendCountriesAsync,
   loadCountriesAsync,
   loadCountryAsync,
-  loadTranslatedCountryAsync,
-  resetCountryState
+  loadTranslatedCountryAsync
 } from '../actions/countries'
 import { RestException } from '../../models/exceptions'
-import { setMessage } from '../actions/toastMessages'
 
 export const loadCountriesEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(
