@@ -48,6 +48,7 @@ import serviceReviewsState from './serviceReviews'
 import languagesSelectOptionState from './languageSelectOption'
 import groupChannelsState from './groupChannels'
 import serviceReviewsSurgeryState from './serviceReviewsSurgery'
+import serviceReviewsRealStoryState from './serviceReviewsRealStory'
 
 const rootReducer = combineReducers({
   accountsState,
@@ -96,6 +97,7 @@ const rootReducer = combineReducers({
   specialtyTypesState,
   serviceReviewsState,
   serviceReviewsSurgeryState,
+  serviceReviewsRealStoryState,
   tagsState,
   toastMessageState
 })

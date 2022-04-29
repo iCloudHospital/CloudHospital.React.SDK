@@ -38,6 +38,7 @@ import * as services from './services'
 import * as servicesCategories from './servicesCategories'
 import * as serviceReviews from './serviceReviews'
 import * as serviceReviewsSurgery from './serviceReviewsSurgery'
+import * as serviceReviewsRealStory from './serviceReviewsRealStory'
 import * as signInRequest from './signInRequest'
 import * as specialties from './specialties'
 import * as specialtyTypes from './specialtyTypes'
@@ -90,6 +91,7 @@ const rootAction = {
   servicesCategories,
   serviceReviews,
   serviceReviewsSurgery,
+  serviceReviewsRealStory,
   specialties,
   specialtyTypes,
   tags,
