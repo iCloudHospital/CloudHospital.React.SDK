@@ -39,6 +39,7 @@ import * as servicesCategories from './servicesCategories'
 import * as serviceReviews from './serviceReviews'
 import * as serviceReviewsSurgery from './serviceReviewsSurgery'
 import * as serviceReviewsRealStory from './serviceReviewsRealStory'
+import * as serviceReviewsPhoto from './serviceReviewsPhoto'
 import * as signInRequest from './signInRequest'
 import * as specialties from './specialties'
 import * as specialtyTypes from './specialtyTypes'
@@ -92,6 +93,7 @@ const rootAction = {
   serviceReviews,
   serviceReviewsSurgery,
   serviceReviewsRealStory,
+  serviceReviewsPhoto,
   specialties,
   specialtyTypes,
   tags,

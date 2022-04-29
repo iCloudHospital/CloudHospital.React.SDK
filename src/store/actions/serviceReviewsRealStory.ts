@@ -48,8 +48,8 @@ export const putServiceReviewRealStoryAsync = createAsyncAction(
   RestException
 >()
 
-export const resetServiceReviewsRealStoryState = createAction('RESET_SERVICE_REVIEWS_STATE')()
-export const resetServiceReviewRealStoryState = createAction('RESET_SERVICE_REVIEW_STATE')()
+export const resetServiceReviewsRealStoryState = createAction('RESET_SERVICE_REVIEWS_REAL_STORY_STATE')()
+export const resetServiceReviewRealStoryState = createAction('RESET_SERVICE_REVIEW_REAL_STORY_STATE')()
 
 export type ServiceReviewsRealStoryActionType =
   | ActionType<typeof loadServiceReviewsRealStoryAsync>

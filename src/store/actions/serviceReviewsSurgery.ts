@@ -48,8 +48,8 @@ export const putServiceReviewSurgeryAsync = createAsyncAction(
   RestException
 >()
 
-export const resetServiceReviewsSurgeryState = createAction('RESET_SERVICE_REVIEWS_STATE')()
-export const resetServiceReviewSurgeryState = createAction('RESET_SERVICE_REVIEW_STATE')()
+export const resetServiceReviewsSurgeryState = createAction('RESET_SERVICE_REVIEWS_SURGERY_STATE')()
+export const resetServiceReviewSurgeryState = createAction('RESET_SERVICE_REVIEW_SURGERY_STATE')()
 
 export type ServiceReviewsSurgeryActionType =
   | ActionType<typeof loadServiceReviewsSurgeryAsync>
