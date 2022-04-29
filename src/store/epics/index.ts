@@ -40,6 +40,9 @@ import specialtiesEpic from './specialties'
 import specialtyTypesEpic from './specialtyTypes'
 import tagsEpic from './tags'
 import serviceReviewsEpic from './serviceReviews'
+import serviceReviewsSurgeryEpic from './serviceReviewsSurgery'
+import serviceReviewsRealStoryEpic from './serviceReviewsRealStory'
+import serviceReviewsPhotoEpic from './serviceReviewsPhoto'
 import groupChannelsEpic from './groupChannels'
 
 export default combineEpics(
@@ -84,5 +87,8 @@ export default combineEpics(
   specialtyTypesEpic,
   tagsEpic,
   azSearchEpic,
-  serviceReviewsEpic
+  serviceReviewsEpic,
+  serviceReviewsSurgeryEpic,
+  serviceReviewsRealStoryEpic,
+  serviceReviewsPhotoEpic
 )
