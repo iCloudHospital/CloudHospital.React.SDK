@@ -41,6 +41,7 @@ import tags from './tags'
 import azSearch from './search'
 import serviceReviews from './serviceReviews'
 import groupChannels from './groupChannels'
+import aboutUs from './aboutUs'
 
 const rootServices = {
   apis: {
@@ -86,7 +87,8 @@ const rootServices = {
     specialtyTypes,
     tags,
     azSearch,
-    serviceReviews
+    serviceReviews,
+    aboutUs
   }
 }
 
