@@ -37,16 +37,21 @@ import * as profiles from './profiles'
 import * as services from './services'
 import * as servicesCategories from './servicesCategories'
 import * as serviceReviews from './serviceReviews'
+import * as serviceReviewsSurgery from './serviceReviewsSurgery'
+import * as serviceReviewsRealStory from './serviceReviewsRealStory'
+import * as serviceReviewsPhoto from './serviceReviewsPhoto'
 import * as signInRequest from './signInRequest'
 import * as specialties from './specialties'
 import * as specialtyTypes from './specialtyTypes'
 import * as tags from './tags'
 import * as toastMessages from './toastMessages'
 import * as navs from './navs'
-import * as languageSelectOption from '../reducers/languageSelectOption'
+import * as languageSelectOption from './languageSelectOption'
 import * as groupChannels from './groupChannels'
+import * as aboutUs from './aboutUs'
 
 const rootAction = {
+  aboutUs,
   accounts,
   azSearch,
   accreditations,
@@ -86,6 +91,9 @@ const rootAction = {
   services,
   servicesCategories,
   serviceReviews,
+  serviceReviewsSurgery,
+  serviceReviewsRealStory,
+  serviceReviewsPhoto,
   specialties,
   specialtyTypes,
   tags,
