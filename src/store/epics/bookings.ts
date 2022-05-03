@@ -8,7 +8,9 @@ import {
   loadBookingsAsync,
   loadBookingAsync,
   cancelBookingAsync,
-  loadCompletedBookingsAsync
+  loadCompletedBookingsAsync,
+  postBookingAsync,
+  putBookingAsync
 } from '../actions/bookings'
 import { setToastMessage } from '../actions/toastMessages'
 
@@ -64,6 +66,35 @@ export const cancelBookingEpic: RootEpic = (action$, state$, { apis }) =>
     )
   )
 
-const bookingsEpic = combineEpics(loadBookingsEpic, loadBookingEpic, loadCompletedBookingsEpic, cancelBookingEpic)
+export const postBookingEpic: RootEpic = (action$, state$, { apis }) =>
+  action$.pipe(
+    filter(isActionOf(postBookingAsync.request)),
+    switchMap((action) =>
+      from(apis.bookings.postBooking(action.payload.requestId, action.payload.command)).pipe(
+        map(postBookingAsync.success),
+        catchError((restException: RestException) => of(postBookingAsync.failure(restException)))
+      )
+    )
+  )
+
+export const putBookingEpic: RootEpic = (action$, state$, { apis }) =>
+  action$.pipe(
+    filter(isActionOf(putBookingAsync.request)),
+    switchMap((action) =>
+      from(apis.bookings.putBooking(action.payload.bookingId, action.payload.command)).pipe(
+        map(putBookingAsync.success),
+        catchError((restException: RestException) => of(putBookingAsync.failure(restException)))
+      )
+    )
+  )
+
+const bookingsEpic = combineEpics(
+  loadBookingsEpic,
+  loadBookingEpic,
+  loadCompletedBookingsEpic,
+  cancelBookingEpic,
+  postBookingEpic,
+  putBookingEpic
+)
 
 export default bookingsEpic
