@@ -21,12 +21,6 @@ export const loadBookingAsync = createAsyncAction(
   'LOAD_BOOKING_FAILURE'
 )<BookingSearchOption, BookingModel, RestException>()
 
-export const cancelBookingAsync = createAsyncAction(
-  'CANCEL_BOOKING_REQUEST',
-  'CANCEL_BOOKING_SUCCESS',
-  'CANCEL_BOOKING_FAILURE'
-)<string, boolean, RestException>()
-
 export const postBookingAsync = createAsyncAction(
   'POST_BOOKING_REQUEST',
   'POST_BOOKING_SUCCESS',
@@ -45,7 +39,6 @@ export type BookingsActionTypes =
   | ActionType<typeof loadBookingsAsync>
   | ActionType<typeof loadCompletedBookingsAsync>
   | ActionType<typeof loadBookingAsync>
-  | ActionType<typeof cancelBookingAsync>
   | ActionType<typeof postBookingAsync>
   | ActionType<typeof putBookingAsync>
   | ActionType<typeof resetBookingState>

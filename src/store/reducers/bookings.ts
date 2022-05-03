@@ -4,7 +4,6 @@ import {
   BookingsActionTypes,
   loadBookingsAsync,
   loadBookingAsync,
-  cancelBookingAsync,
   loadCompletedBookingsAsync,
   resetBookingState,
   postBookingAsync,
@@ -51,13 +50,6 @@ export const booking = createReducer<BookingModel | null, BookingsActionTypes>(n
   .handleAction([loadBookingAsync.request, loadBookingAsync.failure], (state, action) => null)
   .handleAction([loadBookingAsync.success], (state, action) => action.payload)
 
-export const cancelBookingSuccess = createReducer<boolean, BookingsActionTypes>(false as boolean)
-  .handleAction(
-    [resetBookingState, cancelBookingAsync.request, cancelBookingAsync.failure],
-    (state, action) => false
-  )
-  .handleAction([cancelBookingAsync.success], (state, action) => action.payload)
-
 export const postBookingSuccess = createReducer<BookingModel | null, BookingsActionTypes>(null)
   .handleAction(
     [resetBookingState, postBookingAsync.request, postBookingAsync.failure],
@@ -81,7 +73,6 @@ const bookingsState = combineReducers({
   loadBookingErrors,
   booking,
 
-  cancelBookingSuccess,
   postBookingSuccess,
   putBookingSuccess
 })

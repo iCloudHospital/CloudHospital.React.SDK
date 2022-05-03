@@ -4,7 +4,6 @@ import {
   ConsultationsActionTypes,
   loadConsultationsAsync,
   loadConsultationAsync,
-  cancelConsultationAsync,
   resetConsultationState,
   postConsultationAsync,
   putConsultationAsync,
@@ -67,13 +66,6 @@ export const consultation = createReducer<ConsultationModel | null, Consultation
   )
   .handleAction([loadConsultationAsync.success], (state, action) => action.payload)
 
-export const cancelConsultationSuccess = createReducer<boolean, ConsultationsActionTypes>(false as boolean)
-  .handleAction(
-    [resetConsultationState, cancelConsultationAsync.request, cancelConsultationAsync.failure],
-    (state, action) => false
-  )
-  .handleAction([cancelConsultationAsync.success], (state, action) => action.payload)
-
 export const postConsultationSuccess = createReducer<ConsultationModel | null, ConsultationsActionTypes>(null)
   .handleAction(
     [resetConsultationState, postConsultationAsync.request, postConsultationAsync.failure],
@@ -104,7 +96,6 @@ const consultationsState = combineReducers({
   loadConsultationErrors,
   consultation,
 
-  cancelConsultationSuccess,
   postConsultationSuccess,
   putConsultationSuccess,
 
