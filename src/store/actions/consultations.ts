@@ -21,12 +21,6 @@ export const loadConsultationAsync = createAsyncAction(
   'LOAD_CONSULTATION_FAILURE'
 )<ConsultationSearchOption, ConsultationModel, RestException>()
 
-export const cancelConsultationAsync = createAsyncAction(
-  'CANCEL_CONSULTATION_REQUEST',
-  'CANCEL_CONSULTATION_SUCCESS',
-  'CANCEL_CONSULTATION_FAILURE'
-)<string, boolean, RestException>()
-
 export const postConsultationAsync = createAsyncAction(
   'POST_CONSULTATION_REQUEST',
   'POST_CONSULTATION_SUCCESS',
@@ -57,7 +51,6 @@ export type ConsultationsActionTypes =
   | ActionType<typeof loadConsultationsAsync>
   | ActionType<typeof loadCompletedConsultationsAsync>
   | ActionType<typeof loadConsultationAsync>
-  | ActionType<typeof cancelConsultationAsync>
   | ActionType<typeof postConsultationAsync>
   | ActionType<typeof putConsultationAsync>
   | ActionType<typeof postConsultationPaymentKeyAsync>

@@ -32,18 +32,6 @@ export function loadBooking(bookingSearchOption: BookingSearchOption): Promise<B
     })
 }
 
-export function cancelBooking(bookingId: string): Promise<boolean> {
-  return new BookingsApi(configuration, apiRoot, instance)
-    .apiV2BookingsBookingIdCancelPut(bookingId)
-    .then((res) => {
-      return res.data as boolean
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-
 export function postBooking(
   requestId: string,
   createBookingCommand?: CreateBookingCommand
@@ -79,7 +67,6 @@ export function putBooking(
 export default {
   loadBookings,
   loadBooking,
-  cancelBooking,
   postBooking,
   putBooking
 }

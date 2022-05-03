@@ -7,7 +7,6 @@ import { RestException } from '../../models/exceptions'
 import {
   loadBookingsAsync,
   loadBookingAsync,
-  cancelBookingAsync,
   loadCompletedBookingsAsync,
   postBookingAsync,
   putBookingAsync
@@ -47,25 +46,6 @@ export const loadCompletedBookingsEpic: RootEpic = (action$, state$, { apis }) =
     )
   )
 
-export const cancelBookingEpic: RootEpic = (action$, state$, { apis }) =>
-  action$.pipe(
-    filter(isActionOf(cancelBookingAsync.request)),
-    switchMap((action) =>
-      from(apis.bookings.cancelBooking(action.payload)).pipe(
-        switchMap((res) => [
-          cancelBookingAsync.success(res),
-          setToastMessage({ text: 'Cancel booking success.', statusCode: 200 })
-        ]),
-        catchError((restException: RestException) =>
-          of(
-            setToastMessage({ text: restException.title, type: 'warning', statusCode: restException.status }),
-            cancelBookingAsync.failure(restException)
-          )
-        )
-      )
-    )
-  )
-
 export const postBookingEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(
     filter(isActionOf(postBookingAsync.request)),
@@ -92,7 +72,6 @@ const bookingsEpic = combineEpics(
   loadBookingsEpic,
   loadBookingEpic,
   loadCompletedBookingsEpic,
-  cancelBookingEpic,
   postBookingEpic,
   putBookingEpic
 )

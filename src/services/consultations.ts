@@ -39,18 +39,6 @@ export function loadConsultation(consultationSearchOption: ConsultationSearchOpt
     })
 }
 
-export function cancelConsultation(consultationId: string): Promise<boolean> {
-  return new ConsultationsApi(configuration, apiRoot, instance)
-    .apiV2ConsultationsConsultationIdCancelPut(consultationId)
-    .then((res) => {
-      return res.data as boolean
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-
 export function postConsultation(
   requestId: string,
   createConsultationCommand?: CreateConsultationCommand
@@ -99,7 +87,6 @@ export const postConsultationPaymentKey = async (consultationId: string): Promis
 export default {
   loadConsultations,
   loadConsultation,
-  cancelConsultation,
   postConsultation,
   putConsultation,
   postConsultationPaymentKey
