@@ -13,6 +13,7 @@ export * from './models'
 
 export * from './services'
 
+export * from './store/actions/aboutUs'
 export * from './store/actions/accounts'
 export * from './store/actions/azSearch'
 export * from './store/actions/accreditations'

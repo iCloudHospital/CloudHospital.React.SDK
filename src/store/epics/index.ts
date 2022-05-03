@@ -44,8 +44,10 @@ import serviceReviewsSurgeryEpic from './serviceReviewsSurgery'
 import serviceReviewsRealStoryEpic from './serviceReviewsRealStory'
 import serviceReviewsPhotoEpic from './serviceReviewsPhoto'
 import groupChannelsEpic from './groupChannels'
+import aboutUsEpic from './aboutUs'
 
 export default combineEpics(
+  aboutUsEpic,
   accountsEpic,
   externalLoginsEpic,
   accreditationsEpic,

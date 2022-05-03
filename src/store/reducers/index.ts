@@ -50,8 +50,10 @@ import groupChannelsState from './groupChannels'
 import serviceReviewsSurgeryState from './serviceReviewsSurgery'
 import serviceReviewsRealStoryState from './serviceReviewsRealStory'
 import serviceReviewsPhotoState from './serviceReviewsPhoto'
+import aboutUs from './aboutUs'
 
 const rootReducer = combineReducers({
+  aboutUs,
   accountsState,
   azSearchState,
   accreditationsState,

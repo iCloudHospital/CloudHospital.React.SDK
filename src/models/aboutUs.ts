@@ -1,4 +1,4 @@
-export interface AboutUsSearchOption {
+export interface AboutUsPagesSearchOption {
   hospitalId?: string
   hospitalName?: string
   hospitalSlug?: string
@@ -15,4 +15,11 @@ export interface AboutUsSearchOption {
   page?: number
   limit?: number
   lastRetrieved?: Date
+}
+
+export interface AboutUsPageSearchOption {
+  hospitalId: string
+  languageCode?: string
+  returnDefaultValue?: boolean
+  slug?: string
 }
