@@ -1,7 +1,7 @@
 import { createAsyncAction, ActionType, createAction } from 'typesafe-actions'
 import { BookingsSearchOption, BookingSearchOption } from '../../models/bookings'
 import { RestException } from '../../models/exceptions'
-import { BookingsModel, BookingModel } from 'ch-api-client-typescript2/lib'
+import { BookingsModel, BookingModel, CreateBookingCommand, UpdateBookingCommand } from 'ch-api-client-typescript2/lib'
 
 export const loadBookingsAsync = createAsyncAction(
   'LOAD_BOOKINGS_REQUEST',
@@ -21,11 +21,17 @@ export const loadBookingAsync = createAsyncAction(
   'LOAD_BOOKING_FAILURE'
 )<BookingSearchOption, BookingModel, RestException>()
 
-export const cancelBookingAsync = createAsyncAction(
-  'CANCEL_BOOKING_REQUEST',
-  'CANCEL_BOOKING_SUCCESS',
-  'CANCEL_BOOKING_FAILURE'
-)<string, boolean, RestException>()
+export const postBookingAsync = createAsyncAction(
+  'POST_BOOKING_REQUEST',
+  'POST_BOOKING_SUCCESS',
+  'POST_BOOKING_FAILURE'
+)<{ requestId: string; command?: CreateBookingCommand }, BookingModel, RestException>()
+
+export const putBookingAsync = createAsyncAction(
+  'PUT_BOOKING_REQUEST',
+  'PUT_BOOKING_SUCCESS',
+  'PUT_BOOKING_FAILURE'
+)<{ bookingId: string; command?: UpdateBookingCommand }, BookingModel, RestException>()
 
 export const resetBookingState = createAction('RESET_BOOKING_STATE')<undefined>()
 
@@ -33,5 +39,6 @@ export type BookingsActionTypes =
   | ActionType<typeof loadBookingsAsync>
   | ActionType<typeof loadCompletedBookingsAsync>
   | ActionType<typeof loadBookingAsync>
-  | ActionType<typeof cancelBookingAsync>
+  | ActionType<typeof postBookingAsync>
+  | ActionType<typeof putBookingAsync>
   | ActionType<typeof resetBookingState>

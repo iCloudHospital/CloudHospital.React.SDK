@@ -7,8 +7,9 @@ import { RestException } from '../../models/exceptions'
 import {
   loadBookingsAsync,
   loadBookingAsync,
-  cancelBookingAsync,
-  loadCompletedBookingsAsync
+  loadCompletedBookingsAsync,
+  postBookingAsync,
+  putBookingAsync
 } from '../actions/bookings'
 import { setToastMessage } from '../actions/toastMessages'
 
@@ -45,25 +46,34 @@ export const loadCompletedBookingsEpic: RootEpic = (action$, state$, { apis }) =
     )
   )
 
-export const cancelBookingEpic: RootEpic = (action$, state$, { apis }) =>
+export const postBookingEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(
-    filter(isActionOf(cancelBookingAsync.request)),
+    filter(isActionOf(postBookingAsync.request)),
     switchMap((action) =>
-      from(apis.bookings.cancelBooking(action.payload)).pipe(
-        switchMap((res) => [
-          cancelBookingAsync.success(res),
-          setToastMessage({ text: 'Cancel booking success.', statusCode: 200 })
-        ]),
-        catchError((restException: RestException) =>
-          of(
-            setToastMessage({ text: restException.title, type: 'warning', statusCode: restException.status }),
-            cancelBookingAsync.failure(restException)
-          )
-        )
+      from(apis.bookings.postBooking(action.payload.requestId, action.payload.command)).pipe(
+        map(postBookingAsync.success),
+        catchError((restException: RestException) => of(postBookingAsync.failure(restException)))
       )
     )
   )
 
-const bookingsEpic = combineEpics(loadBookingsEpic, loadBookingEpic, loadCompletedBookingsEpic, cancelBookingEpic)
+export const putBookingEpic: RootEpic = (action$, state$, { apis }) =>
+  action$.pipe(
+    filter(isActionOf(putBookingAsync.request)),
+    switchMap((action) =>
+      from(apis.bookings.putBooking(action.payload.bookingId, action.payload.command)).pipe(
+        map(putBookingAsync.success),
+        catchError((restException: RestException) => of(putBookingAsync.failure(restException)))
+      )
+    )
+  )
+
+const bookingsEpic = combineEpics(
+  loadBookingsEpic,
+  loadBookingEpic,
+  loadCompletedBookingsEpic,
+  postBookingEpic,
+  putBookingEpic
+)
 
 export default bookingsEpic

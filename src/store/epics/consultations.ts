@@ -7,7 +7,6 @@ import { RestException } from '../../models/exceptions'
 import {
   loadConsultationsAsync,
   loadConsultationAsync,
-  cancelConsultationAsync,
   loadCompletedConsultationsAsync,
   postConsultationAsync,
   putConsultationAsync,
@@ -44,25 +43,6 @@ export const loadCompletedConsultationsEpic: RootEpic = (action$, state$, { apis
       from(apis.consultations.loadConsultations(action.payload)).pipe(
         map(loadCompletedConsultationsAsync.success),
         catchError((restException: RestException) => of(loadCompletedConsultationsAsync.failure(restException)))
-      )
-    )
-  )
-
-export const cancelConsultationEpic: RootEpic = (action$, state$, { apis }) =>
-  action$.pipe(
-    filter(isActionOf(cancelConsultationAsync.request)),
-    switchMap((action) =>
-      from(apis.consultations.cancelConsultation(action.payload)).pipe(
-        switchMap((res) => [
-          cancelConsultationAsync.success(res),
-          setToastMessage({ text: 'Cancel consultation success', statusCode: 200 })
-        ]),
-        catchError((restException: RestException) =>
-          of(
-            setToastMessage({ text: restException.title, type: 'error', statusCode: restException.status }),
-            cancelConsultationAsync.failure(restException)
-          )
-        )
       )
     )
   )
@@ -104,7 +84,6 @@ const consultationsEpic = combineEpics(
   loadConsultationsEpic,
   loadConsultationEpic,
   loadCompletedConsultationsEpic,
-  cancelConsultationEpic,
   postConsultationEpic,
   putConsultationEpic,
   postConsultationPaymentKeyEpic
