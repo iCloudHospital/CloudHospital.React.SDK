@@ -34,6 +34,7 @@ export const putBookingAsync = createAsyncAction(
 )<{ bookingId: string; command?: UpdateBookingCommand }, BookingModel, RestException>()
 
 export const resetBookingState = createAction('RESET_BOOKING_STATE')<undefined>()
+export const resetBookingErrors = createAction('RESET_BOOKING_ERRORS')<undefined>()
 
 export type BookingsActionTypes =
   | ActionType<typeof loadBookingsAsync>
@@ -42,3 +43,4 @@ export type BookingsActionTypes =
   | ActionType<typeof postBookingAsync>
   | ActionType<typeof putBookingAsync>
   | ActionType<typeof resetBookingState>
+  | ActionType<typeof resetBookingErrors>
