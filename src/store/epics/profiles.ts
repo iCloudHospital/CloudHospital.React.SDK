@@ -3,7 +3,7 @@ import { from, of } from 'rxjs'
 import { catchError, filter, map, switchMap } from 'rxjs/operators'
 import { RootEpic } from 'CHTypes'
 import { isActionOf } from 'typesafe-actions'
-import { IdentityError, RestException } from '../../models/exceptions'
+import { RestException } from '../../models/exceptions'
 import { changeEmailAsync, loadProfileAsync, updateProfileAsync } from '../actions/profiles'
 import { setToastMessage } from '../actions/toastMessages'
 
@@ -24,7 +24,7 @@ export const changeEmailEpic: RootEpic = (action$, state$, { apis }) =>
     switchMap((action) =>
       from(apis.profiles.changeEmail(action.payload)).pipe(
         map(changeEmailAsync.success),
-        catchError((identityErrors: IdentityError[]) => of(changeEmailAsync.failure(identityErrors)))
+        catchError((identityErrors: RestException) => of(changeEmailAsync.failure(identityErrors)))
       )
     )
   )

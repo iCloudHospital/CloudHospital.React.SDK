@@ -1,6 +1,6 @@
 import { UpdateProfileCommand, UserModel } from 'ch-api-client-typescript2/lib'
 import { ActionType, createAction, createAsyncAction } from 'typesafe-actions'
-import { IdentityError, RestException } from '../../models/exceptions'
+import { RestException } from '../../models/exceptions'
 import { ChangeEmailModel } from '../../models/users'
 
 export const loadProfileAsync = createAsyncAction(
@@ -13,7 +13,7 @@ export const changeEmailAsync = createAsyncAction(
   'CHANGE_EMAIL_REQUEST',
   'CHANGE_EMAIL_SUCCESS',
   'CHANGE_EMAIL_FAILURE'
-)<ChangeEmailModel, boolean, IdentityError[]>()
+)<ChangeEmailModel, boolean, RestException>()
 
 export const updateProfileAsync = createAsyncAction(
   'UPDATE_PROFILE_REQUEST',

@@ -1,7 +1,7 @@
 import { UserModel } from 'ch-api-client-typescript2/lib'
 import { combineReducers } from 'redux'
-import { action, createReducer } from 'typesafe-actions'
-import { IdentityError, RestException } from '../../models/exceptions'
+import { createReducer } from 'typesafe-actions'
+import { RestException } from '../../models/exceptions'
 import {
   changeEmailAsync,
   loadProfileAsync,
@@ -32,7 +32,7 @@ export const profile = createReducer<UserModel | null, ProfilesActionTypes>(null
   .handleAction([resetProfileState, loadProfileAsync.request, loadProfileAsync.failure], (state, action) => null)
   .handleAction([loadProfileAsync.success], (state, action) => action.payload)
 
-export const changeEmailErrors = createReducer<IdentityError[] | null, ProfilesActionTypes>(null)
+export const changeEmailErrors = createReducer<RestException | null, ProfilesActionTypes>(null)
   .handleAction([resetProfileState, changeEmailAsync.request, changeEmailAsync.success], (state, action) => null)
   .handleAction([changeEmailAsync.failure], (state, action) => action.payload)
 
