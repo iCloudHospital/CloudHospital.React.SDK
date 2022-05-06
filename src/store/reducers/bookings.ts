@@ -7,7 +7,8 @@ import {
   loadCompletedBookingsAsync,
   resetBookingState,
   postBookingAsync,
-  putBookingAsync
+  putBookingAsync,
+  resetBookingErrors
 } from '../actions/bookings'
 import { BookingsModel, BookingModel } from 'ch-api-client-typescript2/lib'
 import { RestException } from '../../models/exceptions'
@@ -37,6 +38,7 @@ export const isLoadingBooking = createReducer<boolean, BookingsActionTypes>(fals
 
 export const loadBookingErrors = createReducer<RestException | null, BookingsActionTypes>(null)
   .handleAction([
+    resetBookingErrors,
     loadBookingAsync.request,
     loadBookingAsync.success,
     postBookingAsync.request,
