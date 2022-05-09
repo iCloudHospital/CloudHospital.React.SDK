@@ -39,7 +39,8 @@ const notificationsState = combineReducers({
   notificationsErrors,
   notifications,
   isCheckingNotification,
-  checkNotificationSuccess
+  checkNotificationSuccess,
+  receivedNotification
 })
 
 export default notificationsState
