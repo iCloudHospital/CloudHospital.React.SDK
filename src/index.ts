@@ -63,6 +63,7 @@ export * from './store/actions/languageSelectOption'
 export * from './store/actions/serviceReviewsSurgery'
 export * from './store/actions/serviceReviewsRealStory'
 export * from './store/actions/serviceReviewsPhoto'
+export * from './store/actions/modals'
 
 export * from './store/reducers'
 
