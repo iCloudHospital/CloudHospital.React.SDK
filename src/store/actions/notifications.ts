@@ -1,4 +1,4 @@
-import { CheckNotificationsCommand, NotificationsModel } from 'ch-api-client-typescript2/lib'
+import { CheckNotificationsCommand, NotificationModel, NotificationsModel } from 'ch-api-client-typescript2/lib'
 import { createAsyncAction, ActionType, createAction } from 'typesafe-actions'
 import { RestException } from '../../models/exceptions'
 import { NotificationsSearchOption } from '../../models/notifications'
@@ -15,6 +15,9 @@ export const checkNotificationAsync = createAsyncAction(
   'CHECK_NOTIFICATION_FAILURE'
 )<CheckNotificationsCommand, boolean, RestException>()
 
+export const setReceivedNotification = createAction('RECEIVED_NOTIFICATION')<NotificationModel>()
+
 export type NotificationsActionTypes =
   | ActionType<typeof loadNotificationsAsync>
   | ActionType<typeof checkNotificationAsync>
+  | ActionType<typeof setReceivedNotification>
