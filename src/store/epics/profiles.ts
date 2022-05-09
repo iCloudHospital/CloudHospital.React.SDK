@@ -24,7 +24,7 @@ export const changeEmailEpic: RootEpic = (action$, state$, { apis }) =>
     switchMap((action) =>
       from(apis.profiles.changeEmail(action.payload)).pipe(
         map(changeEmailAsync.success),
-        catchError((identityErrors: RestException) => of(changeEmailAsync.failure(identityErrors)))
+        catchError((restException: RestException) => of(changeEmailAsync.failure(restException)))
       )
     )
   )
