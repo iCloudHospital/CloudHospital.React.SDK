@@ -1,9 +1,14 @@
-import { NotificationsModel } from 'ch-api-client-typescript2/lib'
+import { NotificationModel, NotificationsModel } from 'ch-api-client-typescript2/lib'
 import { combineReducers } from 'redux'
 import { createReducer } from 'typesafe-actions'
 
 import { RestException } from '../../models/exceptions'
-import { checkNotificationAsync, loadNotificationsAsync, NotificationsActionTypes } from '../actions/notifications'
+import {
+  checkNotificationAsync,
+  loadNotificationsAsync,
+  NotificationsActionTypes,
+  setReceivedNotification
+} from '../actions/notifications'
 
 export const isLoadingNotifications = createReducer<boolean, NotificationsActionTypes>(true as boolean)
   .handleAction([loadNotificationsAsync.success, loadNotificationsAsync.failure], (state, action) => false)
@@ -24,6 +29,10 @@ export const isCheckingNotification = createReducer<boolean, NotificationsAction
 export const checkNotificationSuccess = createReducer<boolean, NotificationsActionTypes>(false as boolean)
   .handleAction([checkNotificationAsync.request, checkNotificationAsync.failure], (state, action) => false)
   .handleAction([checkNotificationAsync.success], (state, action) => action.payload)
+
+export const receivedNotification = createReducer<NotificationModel | null, NotificationsActionTypes>(
+  null
+).handleAction([setReceivedNotification], (state, action) => action.payload)
 
 const notificationsState = combineReducers({
   isLoadingNotifications,
