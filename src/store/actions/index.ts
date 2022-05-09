@@ -49,6 +49,7 @@ import * as navs from './navs'
 import * as languageSelectOption from './languageSelectOption'
 import * as groupChannels from './groupChannels'
 import * as aboutUs from './aboutUs'
+import * as modals from './modals'
 
 const rootAction = {
   aboutUs,
@@ -100,7 +101,8 @@ const rootAction = {
   toastMessages,
   navs,
   signInRequest,
-  languageSelectOption
+  languageSelectOption,
+  modals
 }
 
 export type RootAction = ActionType<typeof rootAction>
