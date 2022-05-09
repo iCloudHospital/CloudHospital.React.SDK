@@ -9,7 +9,10 @@ export const modalConfirmContents = createReducer<ModalContents | null, ModalAct
   (state, action) => action.payload
 )
 
-export const isModalOpened = createReducer<boolean, ModalActionType>(false as boolean).handleAction([showModal], (state, action) => action.payload)
+export const isModalOpened = createReducer<boolean, ModalActionType>(false as boolean).handleAction(
+  [showModal],
+  (state, action) => action.payload
+)
 
 const modalState = combineReducers({
   modalConfirmContents,
