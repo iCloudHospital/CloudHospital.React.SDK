@@ -6,6 +6,7 @@ import {
   changeEmailAsync,
   loadProfileAsync,
   ProfilesActionTypes,
+  resetChangeEmailSuccessState,
   resetProfileState,
   resetUpdateProfileErrors,
   updateProfileAsync
@@ -20,29 +21,32 @@ export const isLoadingProfile = createReducer<boolean, ProfilesActionTypes>(fals
       changeEmailAsync.failure,
       changeEmailAsync.success
     ],
-    (state, action) => false
+    (_, __) => false
   )
-  .handleAction([loadProfileAsync.request, changeEmailAsync.request], (state, action) => true)
+  .handleAction([loadProfileAsync.request, changeEmailAsync.request], (_, __) => true)
 
 export const loadProfileErrors = createReducer<RestException | null, ProfilesActionTypes>(null)
-  .handleAction([resetProfileState, loadProfileAsync.request, loadProfileAsync.success], (state, action) => null)
-  .handleAction([loadProfileAsync.failure], (state, action) => action.payload)
+  .handleAction([resetProfileState, loadProfileAsync.request, loadProfileAsync.success], (_, __) => null)
+  .handleAction([loadProfileAsync.failure], (_, action) => action.payload)
 
 export const profile = createReducer<UserModel | null, ProfilesActionTypes>(null)
-  .handleAction([resetProfileState, loadProfileAsync.request, loadProfileAsync.failure], (state, action) => null)
-  .handleAction([loadProfileAsync.success], (state, action) => action.payload)
+  .handleAction([resetProfileState, loadProfileAsync.request, loadProfileAsync.failure], (_, __) => null)
+  .handleAction([loadProfileAsync.success], (_, action) => action.payload)
 
 export const changeEmailErrors = createReducer<RestException | null, ProfilesActionTypes>(null)
-  .handleAction([resetProfileState, changeEmailAsync.request, changeEmailAsync.success], (state, action) => null)
-  .handleAction([changeEmailAsync.failure], (state, action) => action.payload)
+  .handleAction([resetProfileState, changeEmailAsync.request, changeEmailAsync.success], (_, __) => null)
+  .handleAction([changeEmailAsync.failure], (_, action) => action.payload)
 
 export const changeEmailSuccess = createReducer<boolean, ProfilesActionTypes>(false as boolean)
-  .handleAction([resetProfileState, changeEmailAsync.request, changeEmailAsync.failure], (state, action) => false)
-  .handleAction([changeEmailAsync.success], (state, action) => true)
+  .handleAction(
+    [resetProfileState, resetChangeEmailSuccessState, changeEmailAsync.request, changeEmailAsync.failure],
+    (_, __) => false
+  )
+  .handleAction([changeEmailAsync.success], (_, __) => true)
 
 export const isUpdatingProfile = createReducer<boolean, ProfilesActionTypes>(false)
-  .handleAction([updateProfileAsync.request], (_, __) => true)
-  .handleAction([updateProfileAsync.success, updateProfileAsync.failure, resetProfileState], (_, __) => false)
+  .handleAction([resetProfileState, updateProfileAsync.request], (_, __) => true)
+  .handleAction([updateProfileAsync.success, updateProfileAsync.failure], (_, __) => false)
 
 export const updateProfileErrors = createReducer<RestException | null, ProfilesActionTypes>(null)
   .handleAction([resetUpdateProfileErrors, updateProfileAsync.request, updateProfileAsync.success], (_, __) => null)

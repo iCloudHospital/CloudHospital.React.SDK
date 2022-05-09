@@ -23,6 +23,7 @@ export const updateProfileAsync = createAsyncAction(
 
 export const resetProfileState = createAction('RESET_PROFILE_STATE')()
 export const resetUpdateProfileErrors = createAction('RESET_UPDATE_PROFILE_ERRORS')()
+export const resetChangeEmailSuccessState = createAction('RESET_CHANGE_EMAIL_SUCCESS_STATE')()
 
 export type ProfilesActionTypes =
   | ActionType<typeof loadProfileAsync>
@@ -30,3 +31,4 @@ export type ProfilesActionTypes =
   | ActionType<typeof updateProfileAsync>
   | ActionType<typeof resetProfileState>
   | ActionType<typeof resetUpdateProfileErrors>
+  | ActionType<typeof resetChangeEmailSuccessState>
