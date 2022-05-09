@@ -41,8 +41,8 @@ export const changeEmailSuccess = createReducer<boolean, ProfilesActionTypes>(fa
   .handleAction([changeEmailAsync.success], (state, action) => true)
 
 export const isUpdatingProfile = createReducer<boolean, ProfilesActionTypes>(false)
-  .handleAction([resetProfileState, updateProfileAsync.request], (_, __) => true)
-  .handleAction([updateProfileAsync.success, updateProfileAsync.failure], (_, __) => false)
+  .handleAction([updateProfileAsync.request], (_, __) => true)
+  .handleAction([updateProfileAsync.success, updateProfileAsync.failure, resetProfileState], (_, __) => false)
 
 export const updateProfileErrors = createReducer<RestException | null, ProfilesActionTypes>(null)
   .handleAction([resetUpdateProfileErrors, updateProfileAsync.request, updateProfileAsync.success], (_, __) => null)
