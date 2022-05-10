@@ -54,6 +54,7 @@ export const resetPasswordAsync = createAsyncAction(
 export const initializeAccount = createAction('INITIALIZE_ACCOUNT')<undefined>()
 export const resetChangePasswordErrors = createAction('RESET_CHANGE_PASSWORD_ERRORS')()
 export const resetConfirmAccountErrors = createAction('RESET_CONFIRM_ACCOUNT_ERRORS')()
+export const resetChangePasswordSuccessState = createAction('RESET_CHANGE_PASSWORD_SUCCESS_STATE')()
 
 export type AccountsActionTypes =
   | ActionType<typeof postAccountAsync>
@@ -66,3 +67,4 @@ export type AccountsActionTypes =
   | ActionType<typeof initializeAccount>
   | ActionType<typeof resetChangePasswordErrors>
   | ActionType<typeof resetConfirmAccountErrors>
+  | ActionType<typeof resetChangePasswordSuccessState>
