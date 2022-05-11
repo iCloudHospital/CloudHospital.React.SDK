@@ -15,7 +15,7 @@ export const checkNotificationAsync = createAsyncAction(
   'CHECK_NOTIFICATION_FAILURE'
 )<CheckNotificationsCommand, boolean, RestException>()
 
-export const setReceivedNotification = createAction('RECEIVED_NOTIFICATION')<NotificationModel>()
+export const setReceivedNotification = createAction('RECEIVED_NOTIFICATION')<NotificationModel | null>()
 
 export type NotificationsActionTypes =
   | ActionType<typeof loadNotificationsAsync>
