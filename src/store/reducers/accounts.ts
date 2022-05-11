@@ -11,7 +11,8 @@ import {
   resetPasswordAsync,
   initializeAccount,
   resetConfirmAccountErrors,
-  resetChangePasswordSuccessState
+  resetChangePasswordSuccessState,
+  resetPostAccountErrors
 } from '../actions/accounts'
 import { AccountModel } from '../../models/accounts'
 import { IdentityError } from '../../models/exceptions'
@@ -51,7 +52,10 @@ export const isLoadingAccount = createReducer<boolean, AccountsActionTypes>(fals
   )
 
 export const postAccountErrors = createReducer<IdentityError[] | null, AccountsActionTypes>(null)
-  .handleAction([initializeAccount, postAccountAsync.request, postAccountAsync.success], (_, __) => null)
+  .handleAction(
+    [initializeAccount, resetPostAccountErrors, postAccountAsync.request, postAccountAsync.success],
+    (_, __) => null
+  )
   .handleAction([postAccountAsync.failure], (_, action) => action.payload)
 
 export const postAccountSuccess = createReducer<boolean, AccountsActionTypes>(false)
