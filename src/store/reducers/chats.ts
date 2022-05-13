@@ -6,8 +6,9 @@ import {
   postChatUserAsync,
   putChatUserAsync,
   showChat,
+  showDefaultChat,
   resetChatUserState,
-  showDefaultChat
+  resetPostChatUserCompletedState
 } from '../actions/chats'
 import { ChatUserModel } from 'ch-api-client-typescript2/lib'
 import { RestException } from '../../models/exceptions'
@@ -32,11 +33,17 @@ export const isUpdatingChatUser = createReducer<boolean, ChatsActionTypes>(false
   )
 
 export const postChatUserErrors = createReducer<RestException | null, ChatsActionTypes>(null)
-  .handleAction([postChatUserAsync.failure], (state, action) => action.payload)
   .handleAction([postChatUserAsync.request, postChatUserAsync.success], (state, action) => null)
+  .handleAction([postChatUserAsync.failure], (state, action) => action.payload)
 
 export const postChatUserCompleted = createReducer<ChatUserModel | null, ChatsActionTypes>(null)
-  .handleAction([resetChatUserState, postChatUserAsync.request, postChatUserAsync.failure], (state, action) => null)
+  .handleAction(
+    [
+      resetPostChatUserCompletedState,
+      resetChatUserState,
+      postChatUserAsync.request,
+      postChatUserAsync.failure
+    ], (state, action) => null)
   .handleAction([postChatUserAsync.success], (state, action) => action.payload)
 
 export const putChatUserErrors = createReducer<RestException | null, ChatsActionTypes>(null)
