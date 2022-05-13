@@ -20,7 +20,8 @@ export const putChatUserAsync = createAsyncAction(
   'PUT_CHATUSER_FAILURE'
 )<{ userId: string; updateChatUserCommand?: UpdateChatUserCommand | undefined }, ChatUserModel, RestException>()
 
-export const resetChatUserState = createAction('RESET_CHATUSER-STATE')<undefined>()
+export const resetChatUserState = createAction('RESET_CHATUSER_STATE')<undefined>()
+export const resetPostChatUserCompletedState = createAction('RESET_POST_CHATUSER_COMPLETED_STATE')<undefined>()
 
 export const showChat = createAction('SHOW_CHAT')<boolean>()
 
@@ -31,5 +32,6 @@ export type ChatsActionTypes =
   | ActionType<typeof postChatUserAsync>
   | ActionType<typeof putChatUserAsync>
   | ActionType<typeof resetChatUserState>
+  | ActionType<typeof resetPostChatUserCompletedState>
   | ActionType<typeof showChat>
   | ActionType<typeof showDefaultChat>
