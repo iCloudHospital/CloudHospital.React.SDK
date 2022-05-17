@@ -17,14 +17,8 @@ export const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootR
 // configure middlewares
 const middlewares = [epicMiddleware]
 // compose enhancers
-const enhancer =
-  process.env.NODE_ENV && process.env.NODE_ENV === 'production'
-    ? (() => {
-        return compose(applyMiddleware(...middlewares))
-      })()
-    : (() => {
-        return composeWithDevTools(applyMiddleware(...middlewares))
-      })()
+const enhancer = composeWithDevTools(applyMiddleware(...middlewares))
+
 // rehydrate state on app start
 const initialState = {}
 
