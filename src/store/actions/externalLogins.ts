@@ -21,7 +21,10 @@ export const deleteExternalLoginAsync = createAsyncAction(
   'DELETE_EXTERNAL_LOGIN_FAILURE'
 )<CurrentLogin, boolean, IdentityError[]>()
 
+export const resetExternalLoginErrorsState = createAction('RESET_EXTERNAL_LOGIN_ERRORS_STATE')()
+
 export type ExternalLoginsActionTypes =
   | ActionType<typeof loadExternalLoginsAsync>
   | ActionType<typeof postExternalLoginAsync>
   | ActionType<typeof deleteExternalLoginAsync>
+  | ActionType<typeof resetExternalLoginErrorsState>

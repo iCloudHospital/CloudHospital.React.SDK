@@ -6,7 +6,8 @@ import {
   deleteExternalLoginAsync,
   ExternalLoginsActionTypes,
   loadExternalLoginsAsync,
-  postExternalLoginAsync
+  postExternalLoginAsync,
+  resetExternalLoginErrorsState
 } from '../actions/externalLogins'
 
 export const isLoadingExternalLogins = createReducer<boolean, ExternalLoginsActionTypes>(false as boolean)
@@ -29,6 +30,7 @@ export const isLoadingExternalLogins = createReducer<boolean, ExternalLoginsActi
 export const externalLoginErrors = createReducer<IdentityError[] | null, ExternalLoginsActionTypes>(null)
   .handleAction(
     [
+      resetExternalLoginErrorsState,
       postExternalLoginAsync.request,
       postExternalLoginAsync.success,
       deleteExternalLoginAsync.request,
