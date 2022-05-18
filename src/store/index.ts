@@ -1,5 +1,5 @@
 // import { RootAction, RootReducer, Services } from 'CHTypes'
-import { createStore, applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { createEpicMiddleware } from 'redux-observable'
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
 import { StateType } from 'typesafe-actions'

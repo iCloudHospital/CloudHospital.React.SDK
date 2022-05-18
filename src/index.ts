@@ -2,6 +2,7 @@ import store from './store'
 import actions from './store/actions'
 import reducers from './store/reducers'
 import rootServices from './services'
+import rootEpic from './store/epics'
 
 export type { Store } from './store'
 export type { RootAction } from './store/actions'
@@ -67,4 +68,4 @@ export * from './store/actions/modals'
 
 export * from './store/reducers'
 
-export { store, actions, reducers, rootServices }
+export { store, actions, reducers, rootServices, rootEpic }
