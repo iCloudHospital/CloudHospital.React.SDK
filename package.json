@@ -30,7 +30,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.26.1",
-    "ch-api-client-typescript2": "^3.0.3",
+    "ch-api-client-typescript2": "^3.1.4",
     "moment-timezone": "^0.5.34",
     "qs": "^6.10.3",
     "redux": "^4.1.2",
