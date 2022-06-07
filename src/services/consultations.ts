@@ -71,6 +71,17 @@ export function putConsultation(
     })
 }
 
+export const postConsultationPaid = async (consultationId: string): Promise<string> => {
+  return new ConsultationsApi(configuration, apiRoot, instance)
+    .apiV2ConsultationsConsultationIdPaidPost(consultationId)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
 
 export const postConsultationPaymentKey = async (consultationId: string): Promise<string> => {
   return new ConsultationsApi(configuration, apiRoot, instance)
@@ -89,5 +100,6 @@ export default {
   loadConsultation,
   postConsultation,
   putConsultation,
+  postConsultationPaid,
   postConsultationPaymentKey
 }
