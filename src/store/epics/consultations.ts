@@ -10,7 +10,8 @@ import {
   loadCompletedConsultationsAsync,
   postConsultationAsync,
   putConsultationAsync,
-  postConsultationPaymentKeyAsync
+  postConsultationPaymentKeyAsync,
+  postConsultationPaidAsync
 } from '../actions/consultations'
 import { setToastMessage } from '../actions/toastMessages'
 
@@ -69,6 +70,17 @@ export const putConsultationEpic: RootEpic = (action$, state$, { apis }) =>
     )
   )
 
+export const postConsultationPaidEpic: RootEpic = (action$, state$, { apis }) =>
+  action$.pipe(
+    filter(isActionOf(postConsultationPaidAsync.request)),
+    switchMap((action) =>
+      from(apis.consultations.postConsultationPaid(action.payload)).pipe(
+        map(postConsultationPaidAsync.success),
+        catchError((restException: RestException) => of(postConsultationPaidAsync.failure(restException)))
+      )
+    )
+  )
+
 export const postConsultationPaymentKeyEpic: RootEpic = (action$, state$, { apis }) =>
   action$.pipe(
     filter(isActionOf(postConsultationPaymentKeyAsync.request)),
@@ -86,6 +98,7 @@ const consultationsEpic = combineEpics(
   loadCompletedConsultationsEpic,
   postConsultationEpic,
   putConsultationEpic,
+  postConsultationPaidEpic,
   postConsultationPaymentKeyEpic
 )
 
