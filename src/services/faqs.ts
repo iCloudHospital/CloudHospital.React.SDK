@@ -3,7 +3,7 @@ import { RestException } from '../models/exceptions'
 import { FaqsApi, FaqsModel, FaqModel, MediaModel, MediasModel } from 'ch-api-client-typescript2/lib'
 import { FaqMediasSearchOption, FaqSearchOption, FaqsSearchOption } from '../models/faqs'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region Faqs
 export function loadFaqs(faqsSearchOption: FaqsSearchOption): Promise<FaqsModel> {

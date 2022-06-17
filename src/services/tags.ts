@@ -3,7 +3,7 @@ import { RestException } from '../models/exceptions'
 import { TagsApi, TagsModel, TagModel } from 'ch-api-client-typescript2/lib'
 import { TagsSearchOption } from '../models/tags'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 export const loadTags = (tagsSearchOption: TagsSearchOption): Promise<TagsModel> => {
   const { tagId, page, limit, lastRetrieved } = tagsSearchOption

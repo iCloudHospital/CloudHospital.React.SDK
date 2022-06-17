@@ -4,7 +4,7 @@ import { HospitalServiceModel, HospitalServicesModel, ServicesApi } from 'ch-api
 import {} from '../models/hospitals'
 import { ServiceSearchOption, ServicesSearchOption } from '../models/services'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region Services
 export function loadServices(servicesSearchOption: ServicesSearchOption): Promise<HospitalServicesModel> {

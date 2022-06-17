@@ -13,7 +13,7 @@ import {
   SpecialtyTypesSearchOption
 } from '../models/specialtyTypes'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region SpecialtyTypes
 export function loadSpecialtyTypes(

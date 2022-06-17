@@ -10,7 +10,7 @@ import {
 import { ConsultationsSearchOption, ConsultationSearchOption } from '../models/consultations'
 import { log } from '../utils/log'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 export function loadConsultations(consultationsSearchOption: ConsultationsSearchOption): Promise<ConsultationsModel> {
   const { searchString, isOpen, isCompleted, status, consultationType, hospitalId, page, limit, lastRetrieved } =

@@ -16,7 +16,7 @@ import {
   DoctorsSimpleModel
 } from 'ch-api-client-typescript2/lib'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region Doctors
 export function loadDoctors(doctorsSearchOption: DoctorsSearchOption): Promise<DoctorsModel> {

@@ -3,7 +3,7 @@ import { RestException } from '../models/exceptions'
 import { NotificationsSearchOption } from '../models/notifications'
 import { CheckNotificationsCommand, NotificationsApi, NotificationsModel } from 'ch-api-client-typescript2/lib'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 export function loadNotifications(notificationsSearchOption: NotificationsSearchOption): Promise<NotificationsModel> {
   const { notificationCode, unreadCountOnly, page, limit, lastRetrieved } = notificationsSearchOption
