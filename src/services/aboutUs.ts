@@ -3,7 +3,7 @@ import { AboutUsApi, AboutUsPageModel, AboutUsPagesModel } from 'ch-api-client-t
 import { AboutUsPageSearchOption, AboutUsPagesSearchOption } from '../models/aboutUs'
 import { RestException } from '../models'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = process.env.API_ROOT
 
 export function loadAboutUsPages(aboutUsPagesSearchOption: AboutUsPagesSearchOption): Promise<AboutUsPagesModel> {
   const {
