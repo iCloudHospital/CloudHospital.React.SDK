@@ -18,7 +18,7 @@ import {
 } from '../models/serviceReviews'
 import { configuration, instance } from './HttpClient'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 // #region ServiceReview
 

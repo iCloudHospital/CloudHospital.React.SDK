@@ -3,7 +3,7 @@ import { RestException } from '../models/exceptions'
 import { MembershipModel, MembershipsApi, MembershipsModel, MembersModel } from 'ch-api-client-typescript2/lib'
 import { MembershipSearchOption, MembershipsSearchOption } from '../models/memberships'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 export const loadMemberships = (membershipsSearchOption: MembershipsSearchOption): Promise<MembershipsModel> => {
   const { id, planId, planName, ownerId, ownerName, isActive, page, limit, lastRetrieved } = membershipsSearchOption

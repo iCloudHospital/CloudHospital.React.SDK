@@ -12,7 +12,7 @@ import {
   HospitalSpecialtySearchOption
 } from '../models/hospitalSpecialties'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 // #region HospitalSpecialties
 export function loadHospitalSpecialties(

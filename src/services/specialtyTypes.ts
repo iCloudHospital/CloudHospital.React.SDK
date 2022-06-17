@@ -13,7 +13,7 @@ import {
   SpecialtyTypesSearchOption
 } from '../models/specialtyTypes'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 // #region SpecialtyTypes
 export function loadSpecialtyTypes(

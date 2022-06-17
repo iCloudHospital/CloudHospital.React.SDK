@@ -3,7 +3,7 @@ import { RestException } from '../models/exceptions'
 import { ArticlesApi, ArticlesModel, ArticleModel } from 'ch-api-client-typescript2/lib'
 import { ArticleSearchOption, ArticlesSearchOption } from '../models/articles'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 // #region Articles
 export function loadArticles(articlesSearchOption: ArticlesSearchOption): Promise<ArticlesModel> {

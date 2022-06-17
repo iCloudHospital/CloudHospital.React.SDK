@@ -3,7 +3,7 @@ import { RestException } from '../models/exceptions'
 import { LanguageModel, LanguagesApi, LanguagesModel } from 'ch-api-client-typescript2/lib'
 import { LanguageSearchOption, LanguagesSearchOption } from '../models/langauges'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 export const loadLanguages = (languagesSearchOption: LanguagesSearchOption): Promise<LanguagesModel> => {
   const { id, name, code, description, page, limit, lastRetrieved } = languagesSearchOption

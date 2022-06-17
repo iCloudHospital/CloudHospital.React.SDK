@@ -6,7 +6,7 @@ import {
   InviteSendBirdGroupChannelCommand
 } from 'ch-api-client-typescript2/lib'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 export function postInviteGroupChannel(channelUrl: string, userIds: string[]): Promise<boolean> {
   const data = {
@@ -37,10 +37,7 @@ export function loadHospitalGroupChannel(hospitalId: string): Promise<SendBirdGr
     })
 }
 
-export function loadDoctorGroupChannel(
-  doctorId: string,
-  hospitalId?: string | undefined
-): Promise<SendBirdGroupChannelModel> {
+export function loadDoctorGroupChannel(doctorId: string, hospitalId?: string | undefined): Promise<SendBirdGroupChannelModel> {
   return new GroupChannelsApi(configuration, apiRoot, instance)
     .apiV2GroupchannelsDoctorDoctorIdGet(doctorId, hospitalId)
     .then((res) => {
@@ -52,10 +49,7 @@ export function loadDoctorGroupChannel(
     })
 }
 
-export function loadDealGroupChannel(
-  dealId: string,
-  hospitalId?: string | undefined
-): Promise<SendBirdGroupChannelModel> {
+export function loadDealGroupChannel(dealId: string, hospitalId?: string | undefined): Promise<SendBirdGroupChannelModel> {
   return new GroupChannelsApi(configuration, apiRoot, instance)
     .apiV2GroupchannelsDealDealIdGet(dealId, hospitalId)
     .then((res) => {

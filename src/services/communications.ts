@@ -3,7 +3,7 @@ import { CommunicationsApi, CommunicationUserTokenModel } from 'ch-api-client-ty
 import { RestException } from '../models/exceptions'
 import { log } from '../utils/log'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 export function loadCommunicationUser(): Promise<CommunicationUserTokenModel> {
   log('loadCommunicationUser')
