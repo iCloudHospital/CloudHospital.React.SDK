@@ -16,7 +16,7 @@ import {
   ServiceReviewSearchOption,
   ServiceReviewMediasSearchOption
 } from '../models/serviceReviews'
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 
 const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
@@ -42,7 +42,7 @@ export function loadServiceReviews(
     lastRetrieved,
     options
   } = serviceReviewsSearchOption
-  return new ServiceReviewsApi(undefined, apiRoot, instance)
+  return new ServiceReviewsApi(configuration, apiRoot, instance)
     .apiV2ServicereviewsGet(
       hospitalId,
       serviceId,
@@ -71,7 +71,7 @@ export function loadServiceReviews(
 
 export function loadServiceReview(serviceReviewSearchOption: ServiceReviewSearchOption): Promise<ServiceReviewModel> {
   const { serviceReviewId } = serviceReviewSearchOption
-  return new ServiceReviewsApi(undefined, apiRoot, instance)
+  return new ServiceReviewsApi(configuration, apiRoot, instance)
     .apiV2ServicereviewsServiceReviewIdGet(serviceReviewId)
     .then((res) => {
       return res.data as ServiceReviewModel
@@ -85,7 +85,7 @@ export function loadServiceReview(serviceReviewSearchOption: ServiceReviewSearch
 export function postServiceReview(
   createServiceReviewCommand?: CreateServiceReviewCommand | undefined
 ): Promise<ServiceReviewModel> {
-  return new ServiceReviewsApi(undefined, apiRoot, instance)
+  return new ServiceReviewsApi(configuration, apiRoot, instance)
     .apiV2ServicereviewsPost(createServiceReviewCommand)
     .then((res) => {
       return res.data
@@ -100,7 +100,7 @@ export function putServiceReview(
   serviceReviewId: string,
   updateServiceReviewCommand?: UpdateServiceReviewCommand | undefined
 ): Promise<ServiceReviewModel> {
-  return new ServiceReviewsApi(undefined, apiRoot, instance)
+  return new ServiceReviewsApi(configuration, apiRoot, instance)
     .apiV2ServicereviewsServiceReviewIdPut(serviceReviewId, updateServiceReviewCommand)
     .then((res) => {
       return res.data
@@ -112,7 +112,7 @@ export function putServiceReview(
 }
 
 export function deleteServiceReview(serviceReviewId: string): Promise<boolean> {
-  return new ServiceReviewsApi(undefined, apiRoot, instance)
+  return new ServiceReviewsApi(configuration, apiRoot, instance)
     .apiV2ServicereviewsServiceReviewIdDelete(serviceReviewId)
     .then((res) => {
       return res.data as boolean
@@ -129,7 +129,7 @@ export function loadServiceReviewMedias(
   serviceReviewMediasSearchOption: ServiceReviewMediasSearchOption
 ): Promise<MediasModel> {
   const { serviceReviewId, id, mediaType, page, limit, lastRetrieved } = serviceReviewMediasSearchOption
-  return new ServiceReviewsApi(undefined, apiRoot, instance)
+  return new ServiceReviewsApi(configuration, apiRoot, instance)
     .apiV2ServicereviewsServiceReviewIdMediasGet(serviceReviewId, id, mediaType, page, limit, lastRetrieved)
     .then((res) => {
       return res.data
@@ -141,7 +141,7 @@ export function loadServiceReviewMedias(
 }
 
 export function loadServiceReviewMedia(serviceReviewId: string, mediaId: string): Promise<MediaModel> {
-  return new ServiceReviewsApi(undefined, apiRoot, instance)
+  return new ServiceReviewsApi(configuration, apiRoot, instance)
     .apiV2ServicereviewsServiceReviewIdMediasMediaIdGet(serviceReviewId, mediaId)
     .then((res) => {
       return res.data
@@ -156,7 +156,7 @@ export function postServiceReviewMedia(
   serviceReviewId: string,
   createMediaCommand?: CreateMediaCommand
 ): Promise<MediaModel> {
-  return new ServiceReviewsApi(undefined, apiRoot, instance)
+  return new ServiceReviewsApi(configuration, apiRoot, instance)
     .apiV2ServicereviewsServiceReviewIdMediasPost(serviceReviewId, createMediaCommand)
     .then((res) => {
       return res.data
@@ -172,7 +172,7 @@ export function putServiceReviewMedia(
   mediaId: string,
   updateMediaCommand?: UpdateMediaCommand
 ): Promise<MediaModel> {
-  return new ServiceReviewsApi(undefined, apiRoot, instance)
+  return new ServiceReviewsApi(configuration, apiRoot, instance)
     .apiV2ServicereviewsServiceReviewIdMediasMediaIdPut(serviceReviewId, mediaId, updateMediaCommand)
     .then((res) => {
       return res.data
@@ -184,7 +184,7 @@ export function putServiceReviewMedia(
 }
 
 export function deleteServiceReviewMedia(serviceReviewId: string, mediaId: string): Promise<boolean> {
-  return new ServiceReviewsApi(undefined, apiRoot, instance)
+  return new ServiceReviewsApi(configuration, apiRoot, instance)
     .apiV2ServicereviewsServiceReviewIdMediasMediaIdDelete(serviceReviewId, mediaId)
     .then((res) => {
       return res.data

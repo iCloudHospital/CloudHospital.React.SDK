@@ -1,4 +1,4 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { AccreditationsApi, AccreditationsModel, AccreditationModel } from 'ch-api-client-typescript2/lib'
 import { AccreditationSearchOption, AccreditationsSearchOption } from '../models/accreditations'
@@ -9,7 +9,7 @@ export function loadAccreditations(
   accreditationsSearchOption: AccreditationsSearchOption
 ): Promise<AccreditationsModel> {
   const { name, logo, country, page, limit, lastRetrieved } = accreditationsSearchOption
-  return new AccreditationsApi(undefined, apiRoot, instance)
+  return new AccreditationsApi(configuration, apiRoot, instance)
     .apiV2AccreditationsGet(name, logo, country, page, limit, lastRetrieved)
     .then((res) => {
       return res.data as AccreditationsModel
@@ -22,7 +22,7 @@ export function loadAccreditations(
 
 export function loadAccreditation(accreditationSearchOption: AccreditationSearchOption): Promise<AccreditationModel> {
   const { accreditationId, options } = accreditationSearchOption
-  return new AccreditationsApi(undefined, apiRoot, instance)
+  return new AccreditationsApi(configuration, apiRoot, instance)
     .apiV2AccreditationsAccreditationIdGet(accreditationId, options)
     .then((res) => {
       return res.data as AccreditationModel

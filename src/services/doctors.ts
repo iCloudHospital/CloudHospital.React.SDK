@@ -1,4 +1,4 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import {
   DoctorAffiliationSearchOption,
@@ -38,7 +38,7 @@ export function loadDoctors(doctorsSearchOption: DoctorsSearchOption): Promise<D
     limit,
     lastRetrieved
   } = doctorsSearchOption
-  return new DoctorsApi(undefined, apiRoot, instance)
+  return new DoctorsApi(configuration, apiRoot, instance)
     .apiV2DoctorsGet(
       hospitalId,
       languageCode,
@@ -85,7 +85,7 @@ export function loadDoctorsSimple(doctorsSearchOption: DoctorsSimpleSearchOption
     limit,
     lastRetrieved
   } = doctorsSearchOption
-  return new DoctorsApi(undefined, apiRoot, instance)
+  return new DoctorsApi(configuration, apiRoot, instance)
     .apiV2DoctorsSimpleGet(
       hospitalId,
       languageCode,
@@ -118,7 +118,7 @@ export function loadDoctor(doctorSearchOption: DoctorSearchOption): Promise<Doct
 
   console.log('doctorSearchOption: ', doctorSearchOption)
   if (slug) {
-    return new DoctorsApi(undefined, apiRoot, instance)
+    return new DoctorsApi(configuration, apiRoot, instance)
       .apiV2DoctorsSlugGet(slug, languageCode, returnDefaultValue)
       .then((res) => {
         return res.data as DoctorModel
@@ -128,7 +128,7 @@ export function loadDoctor(doctorSearchOption: DoctorSearchOption): Promise<Doct
         throw restException
       })
   } else {
-    return new DoctorsApi(undefined, apiRoot, instance)
+    return new DoctorsApi(configuration, apiRoot, instance)
       .apiV2DoctorsDoctorIdGet(doctorId, languageCode, returnDefaultValue)
       .then((res) => {
         return res.data as DoctorModel
@@ -146,7 +146,7 @@ export function loadDoctorAffiliations(
   doctorAffiliationsSearchOption: DoctorAffiliationsSearchOption
 ): Promise<DoctorAffiliationsModel> {
   const { doctorId, hospitalName, page, limit, lastRetrieved } = doctorAffiliationsSearchOption
-  return new DoctorsApi(undefined, apiRoot, instance)
+  return new DoctorsApi(configuration, apiRoot, instance)
     .apiV2DoctorsDoctorIdAffiliationsGet(doctorId, hospitalName, page, limit, lastRetrieved)
     .then((res) => {
       return res.data as DoctorAffiliationsModel
@@ -161,7 +161,7 @@ export function loadDoctorAffiliation(
   doctorAffiliationSearchOption: DoctorAffiliationSearchOption
 ): Promise<DoctorAffiliationModel> {
   const { doctorId, hospitalId, options } = doctorAffiliationSearchOption
-  return new DoctorsApi(undefined, apiRoot, instance)
+  return new DoctorsApi(configuration, apiRoot, instance)
     .apiV2DoctorsDoctorIdAffiliationsHospitalIdGet(doctorId, hospitalId, options)
     .then((res) => {
       return res.data as DoctorAffiliationModel

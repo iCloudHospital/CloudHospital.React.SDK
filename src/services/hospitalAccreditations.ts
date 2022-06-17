@@ -1,4 +1,4 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { HospitalsApi, HospitalAccreditationModel, HospitalAccreditationsModel } from 'ch-api-client-typescript2/lib'
 
@@ -12,7 +12,7 @@ export function loadHospitalAccreditations(
 ): Promise<HospitalAccreditationsModel> {
   const { hospitalId, hospitalName, accreditationId, accreditationName, page, limit, lastRetrieved } =
     hospitalAccreditationsSearchOption
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdAccreditationsGet(
       hospitalId,
       hospitalName,
@@ -35,7 +35,7 @@ export function loadHospitalAccreditation(
   hospitalId: string,
   accreditationId: string
 ): Promise<HospitalAccreditationModel> {
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdAccreditationsAccreditationIdGet(hospitalId, accreditationId)
     .then((res: any) => {
       return res.data

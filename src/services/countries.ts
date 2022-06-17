@@ -1,4 +1,4 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { CountriesApi, CountriesModel, CountryModel, MediaModel, MediasModel } from 'ch-api-client-typescript2/lib'
 import { CountriesSearchOption, CountrySearchOption } from '../models/countries'
@@ -21,7 +21,7 @@ export function loadCountries(countriesSearchOption: CountriesSearchOption): Pro
     lastRetrieved
   } = countriesSearchOption
 
-  return new CountriesApi(undefined, apiRoot, instance)
+  return new CountriesApi(configuration, apiRoot, instance)
     .apiV2CountriesGet(
       id,
       name,
@@ -47,7 +47,7 @@ export function loadCountry(countrySearchOption: CountrySearchOption): Promise<C
   const { countryId, slug, languageCode, returnDefaultValue, options } = countrySearchOption
 
   if (slug) {
-    return new CountriesApi(undefined, apiRoot, instance)
+    return new CountriesApi(configuration, apiRoot, instance)
       .apiV2CountriesSlugGet(slug, languageCode, returnDefaultValue, options)
       .then((res) => {
         return res.data as CountryModel
@@ -57,7 +57,7 @@ export function loadCountry(countrySearchOption: CountrySearchOption): Promise<C
         throw restException
       })
   } else {
-    return new CountriesApi(undefined, apiRoot, instance)
+    return new CountriesApi(configuration, apiRoot, instance)
       .apiV2CountriesCountryIdGet(countryId, languageCode, returnDefaultValue, options)
       .then((res) => {
         return res.data as CountryModel
@@ -74,7 +74,7 @@ export function loadCountry(countrySearchOption: CountrySearchOption): Promise<C
 export function loadCountryMedias(countryMediasSearchOption: CountryMediasSearchOption): Promise<MediasModel> {
   const { countryId, id, mediaType, page, limit, lastRetrieved } = countryMediasSearchOption
 
-  return new CountriesApi(undefined, apiRoot, instance)
+  return new CountriesApi(configuration, apiRoot, instance)
     .apiV2CountriesCountryIdMediasGet(countryId, id, mediaType, page, limit, lastRetrieved)
     .then((res) => {
       return res.data as MediasModel
@@ -88,7 +88,7 @@ export function loadCountryMedias(countryMediasSearchOption: CountryMediasSearch
 export function loadCountryMedia(countryMediaSearchOption: CountryMediaSearchOption): Promise<MediaModel> {
   const { countryId, mediaId, options } = countryMediaSearchOption
 
-  return new CountriesApi(undefined, apiRoot, instance)
+  return new CountriesApi(configuration, apiRoot, instance)
     .apiV2CountriesCountryIdMediasMediaIdGet(countryId, mediaId, options)
     .then((res) => {
       return res.data as MediaModel

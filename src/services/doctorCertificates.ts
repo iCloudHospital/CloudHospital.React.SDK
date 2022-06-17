@@ -1,4 +1,4 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { DoctorCertificatesModel, DoctorCertificateModel, DoctorsApi } from 'ch-api-client-typescript2/lib'
 import { DoctorCertificatesSearchOption } from '../models/doctorCertificates'
@@ -10,7 +10,7 @@ export function loadDoctorCertificates(
 ): Promise<DoctorCertificatesModel> {
   const { doctorId, doctorName, certificateId, certificate, activeFrom, activeTo, page, limit, lastRetrieved } =
     doctorCertificatesSearchOption
-  return new DoctorsApi(undefined, apiRoot, instance)
+  return new DoctorsApi(configuration, apiRoot, instance)
     .apiV2DoctorsDoctorIdCertificatesGet(
       doctorId,
       doctorName,
@@ -32,7 +32,7 @@ export function loadDoctorCertificates(
 }
 
 export function loadDoctorCertificate(doctorId: string, certificateId: string): Promise<DoctorCertificateModel> {
-  return new DoctorsApi(undefined, apiRoot, instance)
+  return new DoctorsApi(configuration, apiRoot, instance)
     .apiV2DoctorsDoctorIdCertificatesCertificateIdGet(doctorId, certificateId)
     .then((res) => {
       return res.data

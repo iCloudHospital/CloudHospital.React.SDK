@@ -1,4 +1,4 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import {
   DealPackageSearchOption,
@@ -45,7 +45,7 @@ export function loadDeals(dealsSearchOption: DealsSearchOption): Promise<DealsMo
     limit,
     lastRetrieved
   } = dealsSearchOption
-  return new DealsApi(undefined, apiRoot, instance)
+  return new DealsApi(configuration, apiRoot, instance)
     .apiV2DealsGet(
       id,
       name,
@@ -98,7 +98,7 @@ export function loadDealsSimple(dealsSimpleSearchOption: DealsSimpleSearchOption
     limit,
     lastRetrieved
   } = dealsSimpleSearchOption
-  return new DealsApi(undefined, apiRoot, instance)
+  return new DealsApi(configuration, apiRoot, instance)
     .apiV2DealsSimpleGet(
       id,
       name,
@@ -132,7 +132,7 @@ export function loadDealsSimple(dealsSimpleSearchOption: DealsSimpleSearchOption
 export function loadDeal(dealSearchOption: DealSearchOption): Promise<DealModel> {
   const { dealId, slug, languageCode, returnDefaultValue, options } = dealSearchOption
   if (slug) {
-    return new DealsApi(undefined, apiRoot, instance)
+    return new DealsApi(configuration, apiRoot, instance)
       .apiV2DealsSlugGet(slug, languageCode, returnDefaultValue, options)
       .then((res) => {
         return res.data as DealModel
@@ -142,7 +142,7 @@ export function loadDeal(dealSearchOption: DealSearchOption): Promise<DealModel>
         throw restException
       })
   } else {
-    return new DealsApi(undefined, apiRoot, instance)
+    return new DealsApi(configuration, apiRoot, instance)
       .apiV2DealsDealIdGet(dealId, languageCode, returnDefaultValue, options)
       .then((res) => {
         return res.data as DealModel
@@ -171,7 +171,7 @@ export function loadDealPackages(dealPackagesSearchOption: DealPackagesSearchOpt
   } = dealPackagesSearchOption
   // log('dealId: ', dealId)
   // log('relatedDealPackageId: ', relatedDealPackageId)
-  return new DealsApi(undefined, apiRoot, instance)
+  return new DealsApi(configuration, apiRoot, instance)
     .apiV2DealsDealIdPackagesGet(
       dealId,
       relatedDealPackageId,
@@ -197,7 +197,7 @@ export function loadDealPackage(dealPackageSearchOption: DealPackageSearchOption
   const { dealId, packageId, options } = dealPackageSearchOption
   log('dealId: ', dealId)
   log('packageId: ', packageId)
-  return new DealsApi(undefined, apiRoot, instance)
+  return new DealsApi(configuration, apiRoot, instance)
     .apiV2DealsDealIdPackagesPackageIdGet(dealId, packageId, options)
     .then((res) => {
       return res.data as DealPackageModel
@@ -212,7 +212,7 @@ export function loadDealPackage(dealPackageSearchOption: DealPackageSearchOption
 // #region Deal Services
 export function loadDealServices(dealServicesSearchOption: DealServicesSearchOption): Promise<DealServicesModel> {
   const { dealId, page, limit, lastRetrieved } = dealServicesSearchOption
-  return new DealsApi(undefined, apiRoot, instance)
+  return new DealsApi(configuration, apiRoot, instance)
     .apiV2DealsDealIdServicesGet(dealId, page, limit, lastRetrieved)
     .then((res) => {
       return res.data as DealServicesModel
@@ -225,7 +225,7 @@ export function loadDealServices(dealServicesSearchOption: DealServicesSearchOpt
 
 export function loadDealService(dealServiceSearchOption: DealServiceSearchOption): Promise<DealServiceModel> {
   const { dealId, serviceId, options } = dealServiceSearchOption
-  return new DealsApi(undefined, apiRoot, instance)
+  return new DealsApi(configuration, apiRoot, instance)
     .apiV2DealsDealIdServicesServiceIdGet(dealId, serviceId, options)
     .then((res) => {
       return res.data as DealServiceModel

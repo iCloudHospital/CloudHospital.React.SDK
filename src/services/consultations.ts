@@ -1,4 +1,4 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import {
   ConsultationsApi,
@@ -15,7 +15,7 @@ const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 export function loadConsultations(consultationsSearchOption: ConsultationsSearchOption): Promise<ConsultationsModel> {
   const { searchString, isOpen, isCompleted, status, consultationType, hospitalId, page, limit, lastRetrieved } =
     consultationsSearchOption
-  return new ConsultationsApi(undefined, apiRoot, instance)
+  return new ConsultationsApi(configuration, apiRoot, instance)
     .apiV2ConsultationsGet(
       searchString,
       isOpen,
@@ -38,7 +38,7 @@ export function loadConsultations(consultationsSearchOption: ConsultationsSearch
 
 export function loadConsultation(consultationSearchOption: ConsultationSearchOption): Promise<ConsultationModel> {
   const { consultationId, options } = consultationSearchOption
-  return new ConsultationsApi(undefined, apiRoot, instance)
+  return new ConsultationsApi(configuration, apiRoot, instance)
     .apiV2ConsultationsConsultationIdGet(consultationId, options)
     .then((res) => {
       return res.data as ConsultationModel
@@ -59,7 +59,7 @@ export function postConsultation(
   requestId: string,
   createConsultationCommand?: CreateConsultationCommand
 ): Promise<ConsultationModel> {
-  return new ConsultationsApi(undefined, apiRoot, instance)
+  return new ConsultationsApi(configuration, apiRoot, instance)
     .apiV2ConsultationsRequestIdPost(requestId, createConsultationCommand)
     .then((res) => {
       log('post consultation: ', res.data)
@@ -75,7 +75,7 @@ export function putConsultation(
   consultationId: string,
   updateConsultationCommand?: UpdateConsultationCommand
 ): Promise<ConsultationModel> {
-  return new ConsultationsApi(undefined, apiRoot, instance)
+  return new ConsultationsApi(configuration, apiRoot, instance)
     .apiV2ConsultationsConsultationIdPut(consultationId, updateConsultationCommand)
     .then((res) => {
       log('put consultation: ', res.data)
@@ -88,7 +88,7 @@ export function putConsultation(
 }
 
 export const postConsultationPaymentKey = async (consultationId: string): Promise<string> => {
-  return new ConsultationsApi(undefined, apiRoot, instance)
+  return new ConsultationsApi(configuration, apiRoot, instance)
     .apiV2ConsultationsConsultationIdPayPost(consultationId)
     .then((res) => {
       return res.data

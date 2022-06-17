@@ -1,4 +1,4 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { SpecialtiesApi, SpecialtiesModel, SpecialtyModel } from 'ch-api-client-typescript2/lib'
 import { SpecialtiesSearchOption, SpecialtySearchOption } from '../models/specialties'
@@ -21,7 +21,7 @@ export function loadSpecialties(specialtiesSearchOption: SpecialtiesSearchOption
     limit,
     lastRetrieved
   } = specialtiesSearchOption
-  return new SpecialtiesApi(undefined, apiRoot, instance)
+  return new SpecialtiesApi(configuration, apiRoot, instance)
     .apiV2SpecialtiesGet(
       id,
       name,
@@ -48,7 +48,7 @@ export function loadSpecialties(specialtiesSearchOption: SpecialtiesSearchOption
 export function loadSpecialty(specialtySearchOption: SpecialtySearchOption): Promise<SpecialtyModel> {
   const { specialtyId, slug, languageCode, returnDefaultValue } = specialtySearchOption
   if (slug) {
-    return new SpecialtiesApi(undefined, apiRoot, instance)
+    return new SpecialtiesApi(configuration, apiRoot, instance)
       .apiV2SpecialtiesSlugGet(slug, languageCode, returnDefaultValue)
       .then((res) => {
         return res.data as SpecialtyModel
@@ -58,7 +58,7 @@ export function loadSpecialty(specialtySearchOption: SpecialtySearchOption): Pro
         throw restException
       })
   } else {
-    return new SpecialtiesApi(undefined, apiRoot, instance)
+    return new SpecialtiesApi(configuration, apiRoot, instance)
       .apiV2SpecialtiesSpecialtyIdGet(specialtyId, languageCode, returnDefaultValue)
       .then((res) => {
         return res.data as SpecialtyModel

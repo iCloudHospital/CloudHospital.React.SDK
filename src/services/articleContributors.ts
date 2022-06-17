@@ -1,4 +1,4 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { ArticlesApi, ArticleContributorsModel, ArticleContributorModel } from 'ch-api-client-typescript2/lib'
 import { ArticleContributorsSearchOption } from '../models/articleContributors'
@@ -23,7 +23,7 @@ export function loadArticleContributors(
     lastRetrieved
   } = articleContributorsSearchOption
 
-  return new ArticlesApi(undefined, apiRoot, instance)
+  return new ArticlesApi(configuration, apiRoot, instance)
     .apiV2ArticlesArticleIdContributorsGet(
       articleId,
       articleName,
@@ -47,7 +47,7 @@ export function loadArticleContributors(
 }
 
 export function loadArticleContributor(articleId: string, contributorId: string): Promise<ArticleContributorModel> {
-  return new ArticlesApi(undefined, apiRoot, instance)
+  return new ArticlesApi(configuration, apiRoot, instance)
     .apiV2ArticlesArticleIdContributorsContributorIdGet(articleId, contributorId)
     .then((res) => {
       return res.data

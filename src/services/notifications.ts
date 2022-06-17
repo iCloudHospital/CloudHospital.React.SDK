@@ -1,4 +1,4 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { NotificationsSearchOption } from '../models/notifications'
 import { CheckNotificationsCommand, NotificationsApi, NotificationsModel } from 'ch-api-client-typescript2/lib'
@@ -7,7 +7,7 @@ const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 export function loadNotifications(notificationsSearchOption: NotificationsSearchOption): Promise<NotificationsModel> {
   const { notificationCode, unreadCountOnly, page, limit, lastRetrieved } = notificationsSearchOption
-  return new NotificationsApi(undefined, apiRoot, instance)
+  return new NotificationsApi(configuration, apiRoot, instance)
     .apiV2NotificationsGet(notificationCode, unreadCountOnly, page, limit, lastRetrieved)
     .then((res) => {
       return res.data as NotificationsModel
@@ -19,7 +19,7 @@ export function loadNotifications(notificationsSearchOption: NotificationsSearch
 }
 
 export function checkNotifications(checkNotificationsCommand: CheckNotificationsCommand): Promise<boolean> {
-  return new NotificationsApi(undefined, apiRoot, instance)
+  return new NotificationsApi(configuration, apiRoot, instance)
     .apiV2NotificationsCheckPost(checkNotificationsCommand)
     .then((res) => {
       return res.data
