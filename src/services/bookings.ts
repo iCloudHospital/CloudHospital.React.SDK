@@ -1,4 +1,4 @@
-import { configuration, instance } from './HttpClient'
+import { instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import {
   BookingModel,
@@ -10,12 +10,12 @@ import {
 import { BookingSearchOption, BookingsSearchOption } from '../models/bookings'
 import { log } from '../utils/log'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 export function loadBookings(bookingsSearchOption: BookingsSearchOption): Promise<BookingsModel> {
   const { searchString, isOpen, isCompleted, status, dealPackageId, hospitalId, page, limit, lastRetrieved } =
     bookingsSearchOption
-  return new BookingsApi(configuration, apiRoot, instance)
+  return new BookingsApi(undefined, apiRoot, instance)
     .apiV2BookingsGet(searchString, isOpen, isCompleted, status, dealPackageId, hospitalId, page, limit, lastRetrieved)
     .then((res) => {
       return res.data as BookingsModel
@@ -28,7 +28,7 @@ export function loadBookings(bookingsSearchOption: BookingsSearchOption): Promis
 
 export function loadBooking(bookingSearchOption: BookingSearchOption): Promise<BookingModel> {
   const { bookingId, options } = bookingSearchOption
-  return new BookingsApi(configuration, apiRoot, instance)
+  return new BookingsApi(undefined, apiRoot, instance)
     .apiV2BookingsBookingIdGet(bookingId, options)
     .then((res) => {
       return res.data as BookingModel
@@ -40,7 +40,7 @@ export function loadBooking(bookingSearchOption: BookingSearchOption): Promise<B
 }
 
 export function postBooking(requestId: string, createBookingCommand?: CreateBookingCommand): Promise<BookingModel> {
-  return new BookingsApi(configuration, apiRoot, instance)
+  return new BookingsApi(undefined, apiRoot, instance)
     .apiV2BookingsRequestIdPost(requestId, createBookingCommand)
     .then((res) => {
       log('post Booking: ', res.data)
@@ -53,7 +53,7 @@ export function postBooking(requestId: string, createBookingCommand?: CreateBook
 }
 
 export function putBooking(bookingId: string, updateBookingCommand?: UpdateBookingCommand): Promise<BookingModel> {
-  return new BookingsApi(configuration, apiRoot, instance)
+  return new BookingsApi(undefined, apiRoot, instance)
     .apiV2BookingsBookingIdPut(bookingId, updateBookingCommand)
     .then((res) => {
       log('put Booking: ', res.data)

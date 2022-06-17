@@ -1,13 +1,13 @@
-import { configuration, instance } from './HttpClient'
+import { instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { TagsApi, TagsModel, TagModel } from 'ch-api-client-typescript2/lib'
 import { TagsSearchOption } from '../models/tags'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 export const loadTags = (tagsSearchOption: TagsSearchOption): Promise<TagsModel> => {
   const { tagId, page, limit, lastRetrieved } = tagsSearchOption
-  return new TagsApi(configuration, apiRoot, instance)
+  return new TagsApi(undefined, apiRoot, instance)
     .apiV2TagsGet(tagId, page, limit, lastRetrieved)
     .then((res) => {
       return res.data
@@ -19,7 +19,7 @@ export const loadTags = (tagsSearchOption: TagsSearchOption): Promise<TagsModel>
 }
 
 export const loadTag = (tagId: string, releatedTags?: boolean | undefined): Promise<TagModel> => {
-  return new TagsApi(configuration, apiRoot, instance)
+  return new TagsApi(undefined, apiRoot, instance)
     .apiV2TagsTagIdGet(tagId, releatedTags)
     .then((res) => {
       return res.data

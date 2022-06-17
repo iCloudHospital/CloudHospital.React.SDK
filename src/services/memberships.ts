@@ -1,13 +1,13 @@
-import { configuration, instance } from './HttpClient'
+import { instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { MembershipModel, MembershipsApi, MembershipsModel, MembersModel } from 'ch-api-client-typescript2/lib'
 import { MembershipSearchOption, MembershipsSearchOption } from '../models/memberships'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 export const loadMemberships = (membershipsSearchOption: MembershipsSearchOption): Promise<MembershipsModel> => {
   const { id, planId, planName, ownerId, ownerName, isActive, page, limit, lastRetrieved } = membershipsSearchOption
-  return new MembershipsApi(configuration, apiRoot, instance)
+  return new MembershipsApi(undefined, apiRoot, instance)
     .apiV2MembershipsGet(id, planId, planName, ownerId, ownerName, isActive, page, limit, lastRetrieved)
     .then((res) => {
       return res.data
@@ -20,7 +20,7 @@ export const loadMemberships = (membershipsSearchOption: MembershipsSearchOption
 
 export const loadMembership = (membershipSearchOption: MembershipSearchOption): Promise<MembershipModel> => {
   const { membershipId } = membershipSearchOption
-  return new MembershipsApi(configuration, apiRoot, instance)
+  return new MembershipsApi(undefined, apiRoot, instance)
     .apiV2MembershipsMembershipIdGet(membershipId)
     .then((res) => {
       return res.data
@@ -33,7 +33,7 @@ export const loadMembership = (membershipSearchOption: MembershipSearchOption): 
 
 export const loadMembershipMembers = (membershipSearchOption: MembershipSearchOption): Promise<MembersModel> => {
   const { membershipId } = membershipSearchOption
-  return new MembershipsApi(configuration, apiRoot, instance)
+  return new MembershipsApi(undefined, apiRoot, instance)
     .apiV2MembershipsMembershipIdMembersGet(membershipId)
     .then((res) => {
       return res.data

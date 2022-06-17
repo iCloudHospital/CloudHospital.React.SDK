@@ -1,9 +1,9 @@
-import { configuration, instance } from './HttpClient'
+import { instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { ArticlesApi, ArticlesModel, ArticleModel } from 'ch-api-client-typescript2/lib'
 import { ArticleSearchOption, ArticlesSearchOption } from '../models/articles'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 // #region Articles
 export function loadArticles(articlesSearchOption: ArticlesSearchOption): Promise<ArticlesModel> {
@@ -29,7 +29,7 @@ export function loadArticles(articlesSearchOption: ArticlesSearchOption): Promis
     limit,
     lastRetrieved
   } = articlesSearchOption
-  return new ArticlesApi(configuration, apiRoot, instance)
+  return new ArticlesApi(undefined, apiRoot, instance)
     .apiV2ArticlesGet(
       id,
       title,
@@ -64,7 +64,7 @@ export function loadArticles(articlesSearchOption: ArticlesSearchOption): Promis
 export function loadArticle(articleSearchOption: ArticleSearchOption): Promise<ArticleModel> {
   const { articleId, slug, languageCode, returnDefaultValue, options } = articleSearchOption
   if (slug) {
-    return new ArticlesApi(configuration, apiRoot, instance)
+    return new ArticlesApi(undefined, apiRoot, instance)
       .apiV2ArticlesSlugGet(slug, languageCode, returnDefaultValue, options)
       .then((res) => {
         return res.data as ArticleModel
@@ -74,7 +74,7 @@ export function loadArticle(articleSearchOption: ArticleSearchOption): Promise<A
         throw restException
       })
   } else {
-    return new ArticlesApi(configuration, apiRoot, instance)
+    return new ArticlesApi(undefined, apiRoot, instance)
       .apiV2ArticlesArticleIdGet(articleId, languageCode, returnDefaultValue)
       .then((res) => {
         return res.data as ArticleModel

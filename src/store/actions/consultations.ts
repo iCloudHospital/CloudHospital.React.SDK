@@ -1,7 +1,12 @@
 import { createAsyncAction, ActionType, createAction } from 'typesafe-actions'
 import { RestException } from '../../models/exceptions'
 import { ConsultationsSearchOption, ConsultationSearchOption } from '../../models/consultations'
-import { ConsultationsModel, ConsultationModel, CreateConsultationCommand, UpdateConsultationCommand } from 'ch-api-client-typescript2/lib'
+import {
+  ConsultationsModel,
+  ConsultationModel,
+  CreateConsultationCommand,
+  UpdateConsultationCommand
+} from 'ch-api-client-typescript2/lib'
 
 export const loadConsultationsAsync = createAsyncAction(
   'LOAD_CONSULTATIONS_REQUEST',
@@ -33,13 +38,6 @@ export const putConsultationAsync = createAsyncAction(
   'PUT_CONSULTATION_FAILURE'
 )<{ consultationId: string; command?: UpdateConsultationCommand }, ConsultationModel, RestException>()
 
-
-export const postConsultationPaidAsync = createAsyncAction(
-  'POST_CONSULTATION_PAID_REQUEST',
-  'POST_CONSULTATION_PAID_SUCCESS',
-  'POST_CONSULTATION_PAID_FAILURE'
-)<string, string, RestException>()
-
 export const postConsultationPaymentKeyAsync = createAsyncAction(
   'POST_CONSULTATION_PAYMENT_KEY_REQUEST',
   'POST_CONSULTATION_PAYMENT_KEY_SUCCESS',
@@ -60,7 +58,6 @@ export type ConsultationsActionTypes =
   | ActionType<typeof loadConsultationAsync>
   | ActionType<typeof postConsultationAsync>
   | ActionType<typeof putConsultationAsync>
-  | ActionType<typeof postConsultationPaidAsync>
   | ActionType<typeof postConsultationPaymentKeyAsync>
   | ActionType<typeof resetConsultationsState>
   | ActionType<typeof resetConsultationState>
