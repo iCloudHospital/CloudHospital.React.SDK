@@ -1,9 +1,9 @@
-import { configuration, instance } from './HttpClient'
+import { instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { FaqsApi, FaqsModel, FaqModel, MediaModel, MediasModel } from 'ch-api-client-typescript2/lib'
 import { FaqMediasSearchOption, FaqSearchOption, FaqsSearchOption } from '../models/faqs'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 // #region Faqs
 export function loadFaqs(faqsSearchOption: FaqsSearchOption): Promise<FaqsModel> {
@@ -20,7 +20,7 @@ export function loadFaqs(faqsSearchOption: FaqsSearchOption): Promise<FaqsModel>
     limit,
     lastRetrieved
   } = faqsSearchOption
-  return new FaqsApi(configuration, apiRoot, instance)
+  return new FaqsApi(undefined, apiRoot, instance)
     .apiV2FaqsGet(
       id,
       title,
@@ -46,7 +46,7 @@ export function loadFaqs(faqsSearchOption: FaqsSearchOption): Promise<FaqsModel>
 export function loadFaq(faqSearchOption: FaqSearchOption): Promise<FaqModel> {
   const { faqId, slug, languageCode } = faqSearchOption
   if (slug) {
-    return new FaqsApi(configuration, apiRoot, instance)
+    return new FaqsApi(undefined, apiRoot, instance)
       .apiV2FaqsSlugGet(slug, languageCode)
       .then((res) => {
         return res.data as FaqModel
@@ -56,7 +56,7 @@ export function loadFaq(faqSearchOption: FaqSearchOption): Promise<FaqModel> {
         throw restException
       })
   } else {
-    return new FaqsApi(configuration, apiRoot, instance)
+    return new FaqsApi(undefined, apiRoot, instance)
       .apiV2FaqsFaqIdGet(faqId, languageCode)
       .then((res) => {
         return res.data as FaqModel
@@ -72,7 +72,7 @@ export function loadFaq(faqSearchOption: FaqSearchOption): Promise<FaqModel> {
 // #region FaqMedias
 export function getFaqMedias(faqMediasSearchOption: FaqMediasSearchOption): Promise<MediasModel> {
   const { faqId, id, mediaType, page, limit, lastRetrieved } = faqMediasSearchOption
-  return new FaqsApi(configuration, apiRoot, instance)
+  return new FaqsApi(undefined, apiRoot, instance)
     .apiV2FaqsFaqIdMediasGet(faqId, id, mediaType, page, limit, lastRetrieved)
     .then((res) => {
       return res.data
@@ -84,7 +84,7 @@ export function getFaqMedias(faqMediasSearchOption: FaqMediasSearchOption): Prom
 }
 
 export function getFaqMedia(faqId: string, mediaId: string): Promise<MediaModel> {
-  return new FaqsApi(configuration, apiRoot, instance)
+  return new FaqsApi(undefined, apiRoot, instance)
     .apiV2FaqsFaqIdMediasMediaIdGet(faqId, mediaId)
     .then((res) => {
       return res.data

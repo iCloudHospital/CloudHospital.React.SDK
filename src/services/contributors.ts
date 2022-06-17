@@ -1,4 +1,4 @@
-import { configuration, instance } from './HttpClient'
+import { instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import {
   ContributorsApi,
@@ -14,7 +14,7 @@ import {
   ContributorSnsHnadleSearchOption
 } from '../models/contributors'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 // #region Contributors
 export function loadContributors(contributorsSearchOption: ContributorsSearchOption): Promise<ContributorsModel> {
@@ -32,7 +32,7 @@ export function loadContributors(contributorsSearchOption: ContributorsSearchOpt
     limit,
     lastRetrieved
   } = contributorsSearchOption
-  return new ContributorsApi(configuration, apiRoot, instance)
+  return new ContributorsApi(undefined, apiRoot, instance)
     .apiV2ContributorsGet(
       id,
       name,
@@ -60,7 +60,7 @@ export function loadContributors(contributorsSearchOption: ContributorsSearchOpt
 export function loadContributor(contributorSearchOption: ContributorSearchOption): Promise<ContributorModel> {
   const { contributorId, slug, languageCode } = contributorSearchOption
   if (slug) {
-    return new ContributorsApi(configuration, apiRoot, instance)
+    return new ContributorsApi(undefined, apiRoot, instance)
       .apiV2ContributorsSlugGet(slug, languageCode)
       .then((res) => {
         return res.data
@@ -70,7 +70,7 @@ export function loadContributor(contributorSearchOption: ContributorSearchOption
         throw restException
       })
   } else {
-    return new ContributorsApi(configuration, apiRoot, instance)
+    return new ContributorsApi(undefined, apiRoot, instance)
       .apiV2ContributorsContributorIdGet(contributorId, languageCode)
       .then((res) => {
         return res.data
@@ -89,7 +89,7 @@ export function loadContributorSnsHandles(
 ): Promise<ContributorSnsHandlesModel> {
   const { contributorId, contributorId2, id, snsType, handle, page, limit, lastRetrieved } =
     contributorSnsHandlesSearchOption
-  return new ContributorsApi(configuration, apiRoot, instance)
+  return new ContributorsApi(undefined, apiRoot, instance)
     .apiV2ContributorsContributorIdHandlesGet(
       contributorId,
       contributorId2,
@@ -113,7 +113,7 @@ export function loadContributorSnsHandle(
   contributorSnsHandleSearchOption: ContributorSnsHnadleSearchOption
 ): Promise<SnsHandleModel> {
   const { contributorId, handleId } = contributorSnsHandleSearchOption
-  return new ContributorsApi(configuration, apiRoot, instance)
+  return new ContributorsApi(undefined, apiRoot, instance)
     .apiV2ContributorsContributorIdGet(contributorId, handleId)
     .then((res) => {
       return res.data

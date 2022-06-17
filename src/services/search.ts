@@ -1,4 +1,4 @@
-import { configuration, instance } from './HttpClient'
+import { instance } from './HttpClient'
 import { AutoCompleteOption, SearchCountModel, SearchOption } from '../models/search'
 import { RestException } from '../models/exceptions'
 
@@ -12,13 +12,13 @@ import {
   SpecialtyTypesModel
 } from 'ch-api-client-typescript2/lib'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 export function azSearchAutocomplete(
   autoCompleteOption: AutoCompleteOption
 ): Promise<AzureSearchServiceAutocompleteModel> {
   const { keyword, mode, fuzzy, highlight, size, minimumCoverage } = autoCompleteOption
-  return new SearchApi(configuration, apiRoot, instance)
+  return new SearchApi(undefined, apiRoot, instance)
     .apiV2SearchAutocompleteGet(keyword, mode, fuzzy, highlight, size, minimumCoverage)
     .then((res) => {
       return res.data as AzureSearchServiceAutocompleteModel
@@ -32,7 +32,7 @@ export function azSearchAutocomplete(
 export function searchHospitals(searchOption: SearchOption): Promise<HospitalsModel> {
   const { searchTerm, countOnly, countryId, hospitalId, marketingType, languageCode, page, limit, lastRetrieved } =
     searchOption
-  return new SearchApi(configuration, apiRoot, instance)
+  return new SearchApi(undefined, apiRoot, instance)
     .apiV2SearchHospitalsGet(
       searchTerm,
       countOnly,
@@ -56,7 +56,7 @@ export function searchHospitals(searchOption: SearchOption): Promise<HospitalsMo
 export function searchDoctors(searchOption: SearchOption): Promise<DoctorsModel> {
   const { searchTerm, countOnly, countryId, hospitalId, marketingType, languageCode, page, limit, lastRetrieved } =
     searchOption
-  return new SearchApi(configuration, apiRoot, instance)
+  return new SearchApi(undefined, apiRoot, instance)
     .apiV2SearchDoctorsGet(
       searchTerm,
       countOnly,
@@ -80,7 +80,7 @@ export function searchDoctors(searchOption: SearchOption): Promise<DoctorsModel>
 export function searchDeals(searchOption: SearchOption): Promise<DealsModel> {
   const { searchTerm, countOnly, countryId, hospitalId, marketingType, languageCode, page, limit, lastRetrieved } =
     searchOption
-  return new SearchApi(configuration, apiRoot, instance)
+  return new SearchApi(undefined, apiRoot, instance)
     .apiV2SearchDealsGet(
       searchTerm,
       countOnly,
@@ -104,7 +104,7 @@ export function searchDeals(searchOption: SearchOption): Promise<DealsModel> {
 export function searchSpecialties(searchOption: SearchOption): Promise<SpecialtiesModel> {
   const { searchTerm, countOnly, countryId, hospitalId, marketingType, languageCode, page, limit, lastRetrieved } =
     searchOption
-  return new SearchApi(configuration, apiRoot, instance)
+  return new SearchApi(undefined, apiRoot, instance)
     .apiV2SearchSpecialtiesGet(
       searchTerm,
       countOnly,
@@ -128,7 +128,7 @@ export function searchSpecialties(searchOption: SearchOption): Promise<Specialti
 export function searchSpecialtyTypes(searchOption: SearchOption): Promise<SpecialtyTypesModel> {
   const { searchTerm, countOnly, countryId, hospitalId, marketingType, languageCode, page, limit, lastRetrieved } =
     searchOption
-  return new SearchApi(configuration, apiRoot, instance)
+  return new SearchApi(undefined, apiRoot, instance)
     .apiV2SearchSpecialtytypesGet(
       searchTerm,
       countOnly,
@@ -152,7 +152,7 @@ export function searchSpecialtyTypes(searchOption: SearchOption): Promise<Specia
 export function getSearchCount(searchOption: SearchOption): Promise<SearchCountModel> {
   const { searchTerm, countOnly, countryId, hospitalId, marketingType, languageCode, page, limit, lastRetrieved } =
     searchOption
-  return new SearchApi(configuration, apiRoot, instance)
+  return new SearchApi(undefined, apiRoot, instance)
     .apiV2SearchGetcountGet(
       searchTerm,
       countOnly,

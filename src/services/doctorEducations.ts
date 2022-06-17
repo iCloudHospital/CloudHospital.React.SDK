@@ -1,16 +1,16 @@
-import { configuration, instance } from './HttpClient'
+import { instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { DoctorsApi, DoctorEducationsModel, DoctorEducationModel } from 'ch-api-client-typescript2/lib'
 import { DoctorEducationsSearchOption } from '../models/doctorEducations'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 export function loadDoctorEducations(
   doctorEducationsSearchOption: DoctorEducationsSearchOption
 ): Promise<DoctorEducationsModel> {
   const { doctorId, doctorId2, doctorName, institution, qualification, graduationDate, page, limit, lastRetrieved } =
     doctorEducationsSearchOption
-  return new DoctorsApi(configuration, apiRoot, instance)
+  return new DoctorsApi(undefined, apiRoot, instance)
     .apiV2DoctorsDoctorIdEducationsGet(
       doctorId,
       doctorId2,
@@ -32,7 +32,7 @@ export function loadDoctorEducations(
 }
 
 export function loadDoctorEducation(doctorId: string, educationId: string): Promise<DoctorEducationModel> {
-  return new DoctorsApi(configuration, apiRoot, instance)
+  return new DoctorsApi(undefined, apiRoot, instance)
     .apiV2DoctorsDoctorIdEducationsEducationIdGet(doctorId, educationId)
     .then((res) => {
       return res.data
