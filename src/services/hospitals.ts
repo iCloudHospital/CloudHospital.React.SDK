@@ -1,4 +1,4 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import {
   HospitalsApi,
@@ -15,7 +15,7 @@ import {
   HospitalsSimpleSearchOption
 } from '../models/hospitals'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region Hospitals
 export function loadHospitals(hospitalSearchOption: HospitalsSearchOption): Promise<HospitalsModel> {
@@ -37,7 +37,7 @@ export function loadHospitals(hospitalSearchOption: HospitalsSearchOption): Prom
     limit,
     lastRetrieved
   } = hospitalSearchOption
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsGet(
       hospitalId,
       name,
@@ -86,7 +86,7 @@ export function loadHospitalsSimple(
     limit,
     lastRetrieved
   } = hospitalsSimpleSearchOption
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsSimpleGet(
       hospitalId,
       name,
@@ -117,7 +117,7 @@ export function loadHospitalsSimple(
 export function loadHospital(hospitalDetailSearchOption: HospitalSearchOption): Promise<HospitalModel> {
   const { hospitalId, slug, languageCode, returnDefaultValue } = hospitalDetailSearchOption
   if (slug) {
-    return new HospitalsApi(undefined, apiRoot, instance)
+    return new HospitalsApi(configuration, apiRoot, instance)
       .apiV2HospitalsSlugGet(slug, languageCode, returnDefaultValue)
       .then((res) => {
         return res.data as HospitalModel
@@ -127,7 +127,7 @@ export function loadHospital(hospitalDetailSearchOption: HospitalSearchOption): 
         throw restException
       })
   } else {
-    return new HospitalsApi(undefined, apiRoot, instance)
+    return new HospitalsApi(configuration, apiRoot, instance)
       .apiV2HospitalsHospitalIdGet(hospitalId, languageCode, returnDefaultValue)
       .then((res) => {
         return res.data as HospitalModel
@@ -143,7 +143,7 @@ export function loadHospital(hospitalDetailSearchOption: HospitalSearchOption): 
 // #region HospitalMedias
 export function loadHospitalMedias(hospitalMediasSearchOption: HospitalMediasSearchOption): Promise<MediasModel> {
   const { hospitalId, id, mediaType, page, limit, lastRetrieved } = hospitalMediasSearchOption
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdMediasGet(hospitalId, id, mediaType, page, limit, lastRetrieved)
     .then((res) => {
       return res.data
@@ -155,7 +155,7 @@ export function loadHospitalMedias(hospitalMediasSearchOption: HospitalMediasSea
 }
 
 export function loadHospitalMedia(hospitalId: string, mediaId: string): Promise<MediaModel> {
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdMediasMediaIdGet(hospitalId, mediaId)
     .then((res) => {
       return res.data

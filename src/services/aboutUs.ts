@@ -1,9 +1,9 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { AboutUsApi, AboutUsPageModel, AboutUsPagesModel } from 'ch-api-client-typescript2/lib'
 import { AboutUsPageSearchOption, AboutUsPagesSearchOption } from '../models/aboutUs'
 import { RestException } from '../models'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 export function loadAboutUsPages(aboutUsPagesSearchOption: AboutUsPagesSearchOption): Promise<AboutUsPagesModel> {
   const {
@@ -24,7 +24,7 @@ export function loadAboutUsPages(aboutUsPagesSearchOption: AboutUsPagesSearchOpt
     limit,
     lastRetrieved
   } = aboutUsPagesSearchOption
-  return new AboutUsApi(undefined, apiRoot, instance)
+  return new AboutUsApi(configuration, apiRoot, instance)
     .apiV2AboutusGet(
       hospitalId,
       hospitalName,
@@ -55,7 +55,7 @@ export function loadAboutUsPages(aboutUsPagesSearchOption: AboutUsPagesSearchOpt
 export function loadAboutUsPage(aboutUsPageSearchOption: AboutUsPageSearchOption): Promise<AboutUsPageModel> {
   const { hospitalId, languageCode, returnDefaultValue, slug } = aboutUsPageSearchOption
   if (slug) {
-    return new AboutUsApi(undefined, apiRoot, instance)
+    return new AboutUsApi(configuration, apiRoot, instance)
       .apiV2AboutusSlugGet(slug, languageCode, returnDefaultValue)
       .then((res) => {
         return res.data as AboutUsPageModel
@@ -65,7 +65,7 @@ export function loadAboutUsPage(aboutUsPageSearchOption: AboutUsPageSearchOption
         throw restException
       })
   } else {
-    return new AboutUsApi(undefined, apiRoot, instance)
+    return new AboutUsApi(configuration, apiRoot, instance)
       .apiV2AboutusHospitalIdGet(hospitalId, languageCode, returnDefaultValue)
       .then((res) => {
         return res.data as AboutUsPageModel

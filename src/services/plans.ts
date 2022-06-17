@@ -1,4 +1,4 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { PlansApi, PlansModel, PlanModel, PlanHospitalsModel, PlanHospitalModel } from 'ch-api-client-typescript2/lib'
 import {
@@ -8,12 +8,12 @@ import {
   PlanHospitalSearchOption
 } from '../models/plans'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region Plans
 export function loadPlans(plansSearchOption: PlansSearchOption): Promise<PlansModel> {
   const { id, name, page, limit, lastRetrieved } = plansSearchOption
-  return new PlansApi(undefined, apiRoot, instance)
+  return new PlansApi(configuration, apiRoot, instance)
     .apiV2PlansGet(id, name, page, limit, lastRetrieved)
     .then((res) => {
       return res.data as PlansModel
@@ -26,7 +26,7 @@ export function loadPlans(plansSearchOption: PlansSearchOption): Promise<PlansMo
 
 export function loadPlan(planSearchOption: PlanSearchOption): Promise<PlanModel> {
   const { planId, options } = planSearchOption
-  return new PlansApi(undefined, apiRoot, instance)
+  return new PlansApi(configuration, apiRoot, instance)
     .apiV2PlansPlanIdGet(planId, options)
     .then((res) => {
       return res.data as PlanModel
@@ -41,7 +41,7 @@ export function loadPlan(planSearchOption: PlanSearchOption): Promise<PlanModel>
 // #region Plan Hospitals
 export function loadPlanHospitals(planHospitalsSearchOption: PlanHospitalsSearchOption): Promise<PlanHospitalsModel> {
   const { planId, page, limit, lastRetrieved } = planHospitalsSearchOption
-  return new PlansApi(undefined, apiRoot, instance)
+  return new PlansApi(configuration, apiRoot, instance)
     .apiV2PlansPlanIdHospitalsGet(planId, page, limit, lastRetrieved)
     .then((res) => {
       return res.data as PlanHospitalsModel
@@ -54,7 +54,7 @@ export function loadPlanHospitals(planHospitalsSearchOption: PlanHospitalsSearch
 
 export function loadPlanHospital(planHospitalSearchOption: PlanHospitalSearchOption): Promise<PlanHospitalModel> {
   const { planId, options } = planHospitalSearchOption
-  return new PlansApi(undefined, apiRoot, instance)
+  return new PlansApi(configuration, apiRoot, instance)
     .apiV2PlansPlanIdHospitalsHospitalIdGet(planId, options)
     .then((res) => {
       return res.data as PlanHospitalModel

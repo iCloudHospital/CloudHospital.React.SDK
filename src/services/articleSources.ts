@@ -1,9 +1,9 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { ArticlesApi, ArticleSourcesModel, SourceModel } from 'ch-api-client-typescript2/lib'
 import { ArticleSourcesSearchOption } from '../models/articleSources'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region ArticleSources
 export function loadArticleSources(
@@ -11,7 +11,7 @@ export function loadArticleSources(
 ): Promise<ArticleSourcesModel> {
   const { articleId, page, limit, lastRetrieved } = articleSourcesSearchOption
 
-  return new ArticlesApi(undefined, apiRoot, instance)
+  return new ArticlesApi(configuration, apiRoot, instance)
     .apiV2ArticlesArticleIdSourcesGet(articleId, page, limit, lastRetrieved)
     .then((res) => {
       return res.data as ArticleSourcesModel
@@ -23,7 +23,7 @@ export function loadArticleSources(
 }
 
 export function loadArticleSource(articleId: string, sourceId: string): Promise<SourceModel> {
-  return new ArticlesApi(undefined, apiRoot, instance)
+  return new ArticlesApi(configuration, apiRoot, instance)
     .apiV2ArticlesArticleIdSourcesSourceIdGet(articleId, sourceId)
     .then((res) => {
       return res.data

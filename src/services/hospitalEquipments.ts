@@ -1,4 +1,4 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import {
   HospitalsApi,
@@ -13,7 +13,7 @@ import {
   HospitalEquipmentMediasSearchOption
 } from '../models/hospitalEquipments'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region HospitalEquipments
 export function loadHospitalEquipments(
@@ -22,7 +22,7 @@ export function loadHospitalEquipments(
   const { hospitalId, id, name, hospitalId2, hospitalName, description, created, page, limit, lastRetrieved } =
     equipmentSearchOption
 
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdEquipmentsGet(
       hospitalId,
       id,
@@ -45,7 +45,7 @@ export function loadHospitalEquipments(
 }
 
 export function loadHospitalEquipment(hospitalId: string, equipmentId: string): Promise<HospitalEquipmentModel> {
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdEquipmentsEquipmentIdGet(hospitalId, equipmentId)
     .then((res) => {
       return res.data
@@ -62,7 +62,7 @@ export function loadHospitalEquipmentMedias(
   hospitalEquipmentMediasSearchOption: HospitalEquipmentMediasSearchOption
 ): Promise<MediasModel> {
   const { hospitalId, equipmentId, id, mediaType, page, limit, lastRetrieved } = hospitalEquipmentMediasSearchOption
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdEquipmentsEquipmentIdMediasGet(
       hospitalId,
       equipmentId,
@@ -85,7 +85,7 @@ export function loadHospitalEquipmentMedia(
   hospitalEquipmentMediaSearchOption: HospitalEquipmentMediaSearchOption
 ): Promise<MediaModel> {
   const { hospitalId, equipmentId, mediaId } = hospitalEquipmentMediaSearchOption
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdEquipmentsEquipmentIdMediasMediaIdGet(hospitalId, equipmentId, mediaId)
     .then((res) => {
       return res.data

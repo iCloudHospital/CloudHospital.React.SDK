@@ -1,10 +1,10 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { HospitalServiceModel, HospitalServicesModel, ServicesApi } from 'ch-api-client-typescript2/lib'
 import {} from '../models/hospitals'
 import { ServiceSearchOption, ServicesSearchOption } from '../models/services'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region Services
 export function loadServices(servicesSearchOption: ServicesSearchOption): Promise<HospitalServicesModel> {
@@ -29,7 +29,7 @@ export function loadServices(servicesSearchOption: ServicesSearchOption): Promis
     limit,
     lastRetrieved
   } = servicesSearchOption
-  return new ServicesApi(undefined, apiRoot, instance)
+  return new ServicesApi(configuration, apiRoot, instance)
     .apiV2ServicesGet(
       hospitalId,
       hospitalName,
@@ -62,7 +62,7 @@ export function loadServices(servicesSearchOption: ServicesSearchOption): Promis
 export function loadService(serviceSearchOption: ServiceSearchOption): Promise<HospitalServiceModel> {
   const { serviceId, languageCode, slug } = serviceSearchOption
   if (slug) {
-    return new ServicesApi(undefined, apiRoot, instance)
+    return new ServicesApi(configuration, apiRoot, instance)
       .apiV2ServicesSlugGet(slug, languageCode)
       .then((res) => {
         return res.data
@@ -72,7 +72,7 @@ export function loadService(serviceSearchOption: ServiceSearchOption): Promise<H
         throw restException
       })
   } else {
-    return new ServicesApi(undefined, apiRoot, instance)
+    return new ServicesApi(configuration, apiRoot, instance)
       .apiV2ServicesServiceIdGet(serviceId, languageCode)
       .then((res) => {
         return res.data

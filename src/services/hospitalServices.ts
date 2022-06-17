@@ -1,4 +1,4 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import {
   HospitalsApi,
@@ -14,7 +14,7 @@ import {
   HospitalServiceMediaSearchOption
 } from '../models/hospitalServices'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region HospitalServices
 export function loadHospitalServices(
@@ -41,7 +41,7 @@ export function loadHospitalServices(
     limit,
     lastRetrieved
   } = hospitalServicesSearchOption
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesGet(
       hospitalId,
       specialtyId,
@@ -76,7 +76,7 @@ export function loadHospitalService(
   hospitalServiceSearchOption: HospitalServiceSearchOption
 ): Promise<HospitalServiceModel> {
   const { hospitalId, specialtyId, serviceId, languageCode } = hospitalServiceSearchOption
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesServiceIdGet(
       hospitalId,
       specialtyId,
@@ -99,7 +99,7 @@ export function loadHospitalServiceMedias(
 ): Promise<MediasModel> {
   const { hospitalId, specialtyId, serviceId, id, mediaType, page, limit, lastRetrieved } =
     hospitalServiceMediasSearchOption
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesServiceIdMediasGet(
       hospitalId,
       specialtyId,
@@ -123,7 +123,7 @@ export function loadHospitalServiceMedia(
   hospitalServiceMediaSearchOption: HospitalServiceMediaSearchOption
 ): Promise<MediaModel> {
   const { hospitalId, specialtyId, serviceId, mediaId } = hospitalServiceMediaSearchOption
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesServiceIdMediasMediaIdGet(
       hospitalId,
       specialtyId,

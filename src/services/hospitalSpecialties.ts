@@ -1,4 +1,4 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import {
   HospitalsApi,
@@ -12,7 +12,7 @@ import {
   HospitalSpecialtySearchOption
 } from '../models/hospitalSpecialties'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region HospitalSpecialties
 export function loadHospitalSpecialties(
@@ -37,7 +37,7 @@ export function loadHospitalSpecialties(
     lastRetrieved,
     options
   } = hospitalSpecialtiesSearchOption
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdSpecialtiesGet(
       hospitalId,
       hospitalName,
@@ -70,7 +70,7 @@ export function loadHospitalSpecialty(
   HospitalSpecialtySearchOption: HospitalSpecialtySearchOption
 ): Promise<HospitalSpecialtyModel> {
   const { hospitalId, specialtyId, languageCode, returnDefaultValue, includeServices } = HospitalSpecialtySearchOption
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdGet(
       hospitalId,
       specialtyId,
@@ -109,7 +109,7 @@ export function loadHospitalSpecialtiesSimple(
     lastRetrieved,
     options
   } = hospitalSpecialtiesSimpleSearchOption
-  return new HospitalsApi(undefined, apiRoot, instance)
+  return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdSpecialtiesSimpleGet(
       hospitalId,
       hospitalName,

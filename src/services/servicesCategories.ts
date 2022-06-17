@@ -1,15 +1,15 @@
-import { instance } from './HttpClient'
+import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { ServiceCategoriesModel, ServiceCategoryModel, ServicesCategoriesApi } from 'ch-api-client-typescript2/lib'
 import { ServicesCategoriesSearchOption, ServicesCategorySearchOption } from '../models/servicesCategories'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 export function loadServicesCategories(
   servicesCategoriesSearchOption: ServicesCategoriesSearchOption
 ): Promise<ServiceCategoriesModel> {
   const { id, name, page, limit, lastRetrieved } = servicesCategoriesSearchOption
-  return new ServicesCategoriesApi(undefined, apiRoot, instance)
+  return new ServicesCategoriesApi(configuration, apiRoot, instance)
     .apiV2ServicescategoriesGet(id, name, page, limit, lastRetrieved)
     .then((res) => {
       return res.data as ServiceCategoriesModel
@@ -24,7 +24,7 @@ export function loadServicesCategory(
   servicesCategorySearchOption: ServicesCategorySearchOption
 ): Promise<ServiceCategoryModel> {
   const { serviceCategoryId } = servicesCategorySearchOption
-  return new ServicesCategoriesApi(undefined, apiRoot, instance)
+  return new ServicesCategoriesApi(configuration, apiRoot, instance)
     .apiV2ServicescategoriesServiceCategoryIdGet(serviceCategoryId)
     .then((res) => {
       return res.data as ServiceCategoryModel
