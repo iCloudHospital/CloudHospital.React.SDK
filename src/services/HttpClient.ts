@@ -1,8 +1,5 @@
 import axios, { AxiosInstance } from 'axios'
 import { Configuration } from 'ch-api-client-typescript2/lib'
-
-const apiRoot = process.env.API_ROOT
-
 export class HttpClient {
   private static instance: AxiosInstance | null = null
 
@@ -16,7 +13,7 @@ export class HttpClient {
 }
 
 export const configuration = new Configuration({
-  basePath: apiRoot
+  basePath: HttpClient.getInstance().defaults.baseURL
 })
 
 export const instance = HttpClient.getInstance()
