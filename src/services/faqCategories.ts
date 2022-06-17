@@ -3,7 +3,7 @@ import { RestException } from '../models/exceptions'
 import { FaqCategoriesModel, FaqCategoryModel, FaqCategoriesApi } from 'ch-api-client-typescript2/lib'
 import { FaqCategoriesSearchOption, FaqCategorySearchOption } from '../models/faqCategories'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = process.env.API_ROOT
 
 export function loadFaqCategories(faqCategoriesSearchOption: FaqCategoriesSearchOption): Promise<FaqCategoriesModel> {
   const { id, parentId, name, description, languageCode, page, limit, lastRetrieved } = faqCategoriesSearchOption
