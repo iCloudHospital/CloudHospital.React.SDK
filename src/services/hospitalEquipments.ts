@@ -13,7 +13,7 @@ import {
   HospitalEquipmentMediasSearchOption
 } from '../models/hospitalEquipments'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region HospitalEquipments
 export function loadHospitalEquipments(

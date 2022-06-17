@@ -14,7 +14,7 @@ import {
   ContributorSnsHnadleSearchOption
 } from '../models/contributors'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region Contributors
 export function loadContributors(contributorsSearchOption: ContributorsSearchOption): Promise<ContributorsModel> {

@@ -15,7 +15,7 @@ import {
   HospitalsSimpleSearchOption
 } from '../models/hospitals'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region Hospitals
 export function loadHospitals(hospitalSearchOption: HospitalsSearchOption): Promise<HospitalsModel> {

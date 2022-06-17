@@ -3,7 +3,7 @@ import { RestException } from '../models/exceptions'
 import { ArticlesApi, ArticleContributorsModel, ArticleContributorModel } from 'ch-api-client-typescript2/lib'
 import { ArticleContributorsSearchOption } from '../models/articleContributors'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region ArticleContributors
 export function loadArticleContributors(

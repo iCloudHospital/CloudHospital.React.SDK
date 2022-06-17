@@ -3,7 +3,7 @@ import { RestException } from '../models/exceptions'
 import { ServiceCategoriesModel, ServiceCategoryModel, ServicesCategoriesApi } from 'ch-api-client-typescript2/lib'
 import { ServicesCategoriesSearchOption, ServicesCategorySearchOption } from '../models/servicesCategories'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 export function loadServicesCategories(
   servicesCategoriesSearchOption: ServicesCategoriesSearchOption

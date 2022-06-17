@@ -8,7 +8,7 @@ import {
   PlanHospitalSearchOption
 } from '../models/plans'
 
-const apiRoot = process.env.API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region Plans
 export function loadPlans(plansSearchOption: PlansSearchOption): Promise<PlansModel> {
