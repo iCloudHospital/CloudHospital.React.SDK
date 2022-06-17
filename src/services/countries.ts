@@ -4,7 +4,7 @@ import { CountriesApi, CountriesModel, CountryModel, MediaModel, MediasModel } f
 import { CountriesSearchOption, CountrySearchOption } from '../models/countries'
 import { CountryMediaSearchOption, CountryMediasSearchOption } from '../models/countryMedias'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.API_ROOT
 
 // #region Countries
 export function loadCountries(countriesSearchOption: CountriesSearchOption): Promise<CountriesModel> {

@@ -3,7 +3,7 @@ import { RestException } from '../models/exceptions'
 import { DoctorsApi, DoctorPortfoliosModel, DoctorPortfolioModel } from 'ch-api-client-typescript2/lib'
 import { DoctorPortfoliosSearchOption } from '../models/doctorPortfolios'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.API_ROOT
 
 export function loadDoctorPortfolios(
   doctorPortfoliosSearchOption: DoctorPortfoliosSearchOption

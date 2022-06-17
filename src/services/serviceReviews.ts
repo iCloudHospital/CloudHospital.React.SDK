@@ -18,7 +18,7 @@ import {
 } from '../models/serviceReviews'
 import { configuration, instance } from './HttpClient'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.API_ROOT
 
 // #region ServiceReview
 

@@ -21,7 +21,7 @@ import {
 } from 'ch-api-client-typescript2/lib'
 import { log } from '../utils/log'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.API_ROOT
 // #region Deals
 export function loadDeals(dealsSearchOption: DealsSearchOption): Promise<DealsModel> {
   const {

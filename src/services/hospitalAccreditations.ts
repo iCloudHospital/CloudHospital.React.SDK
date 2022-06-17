@@ -4,7 +4,7 @@ import { HospitalsApi, HospitalAccreditationModel, HospitalAccreditationsModel }
 
 import { HospitalAccreditationsSearchOption } from '../models/hospitalAccreditations'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.API_ROOT
 
 // #region HospitalAccreditations
 export function loadHospitalAccreditations(

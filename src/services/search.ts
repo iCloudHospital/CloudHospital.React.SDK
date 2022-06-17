@@ -12,7 +12,7 @@ import {
   SpecialtyTypesModel
 } from 'ch-api-client-typescript2/lib'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.API_ROOT
 
 export function azSearchAutocomplete(
   autoCompleteOption: AutoCompleteOption

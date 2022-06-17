@@ -3,7 +3,7 @@ import { RestException } from '../models/exceptions'
 import { ArticlesApi, MediasModel, MediaModel } from 'ch-api-client-typescript2/lib'
 import { ArticleMediasSearchOption } from '../models/articleMedias'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.API_ROOT
 
 // #region ArticlelMedias
 export function loadArticleMedias(articleMediasSearchOption: ArticleMediasSearchOption): Promise<MediasModel> {

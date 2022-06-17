@@ -7,7 +7,7 @@ import {
   UpdateChatUserCommand
 } from 'ch-api-client-typescript2/lib'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.API_ROOT
 
 export function loadChatUser(): Promise<ChatUserModel> {
   return new ChatUsersApi(configuration, apiRoot, instance)

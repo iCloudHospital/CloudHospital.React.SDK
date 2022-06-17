@@ -3,7 +3,7 @@ import { RestException } from '../models/exceptions'
 import { AccreditationsApi, AccreditationsModel, AccreditationModel } from 'ch-api-client-typescript2/lib'
 import { AccreditationSearchOption, AccreditationsSearchOption } from '../models/accreditations'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.API_ROOT
 
 export function loadAccreditations(
   accreditationsSearchOption: AccreditationsSearchOption

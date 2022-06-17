@@ -6,7 +6,7 @@ import {
   InviteSendBirdGroupChannelCommand
 } from 'ch-api-client-typescript2/lib'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.API_ROOT
 
 export function postInviteGroupChannel(channelUrl: string, userIds: string[]): Promise<boolean> {
   const data = {

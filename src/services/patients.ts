@@ -3,7 +3,7 @@ import { RestException } from '../models/exceptions'
 import { PatientsApi, PatientModel, CreatePatientCommand, UpdatePatientCommand } from 'ch-api-client-typescript2/lib'
 import { PatientSearchOption } from '../models/patients'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.API_ROOT
 
 export function loadPatient(patientSearchOption: PatientSearchOption): Promise<PatientModel> {
   const { patientId, options } = patientSearchOption

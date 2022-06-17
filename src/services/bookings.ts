@@ -10,7 +10,7 @@ import {
 import { BookingSearchOption, BookingsSearchOption } from '../models/bookings'
 import { log } from '../utils/log'
 
-const apiRoot = HttpClient.getBaseUrl()
+const apiRoot = process.env.API_ROOT
 
 export function loadBookings(bookingsSearchOption: BookingsSearchOption): Promise<BookingsModel> {
   const { searchString, isOpen, isCompleted, status, dealPackageId, hospitalId, page, limit, lastRetrieved } =
