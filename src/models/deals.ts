@@ -14,10 +14,11 @@ export interface DealsSearchOption {
   hospitalName?: string
   specialtyId?: string
   specialtyTypeId?: string
-  ServiceId?: string
+  serviceId?: string
   exceptHospitalId?: string
   exceptDealId?: string
   ids?: Array<string>
+  serviceDuration?: number
   languageCode?: string
   showHidden?: boolean
   returnDefaultValue?: boolean
@@ -35,10 +36,11 @@ export interface DealsSimpleSearchOption {
   hospitalName?: string
   specialtyId?: string
   specialtyTypeId?: string
-  ServiceId?: string
+  serviceId?: string
   exceptHospitalId?: string
   exceptDealId?: string
   ids?: Array<string>
+  serviceDuration?: number
   languageCode?: string
   showHidden?: boolean
   returnDefaultValue?: boolean

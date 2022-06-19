@@ -1,7 +1,12 @@
 import { createAsyncAction, ActionType, createAction } from 'typesafe-actions'
 import { RestException } from '../../models/exceptions'
 import { ConsultationsSearchOption, ConsultationSearchOption } from '../../models/consultations'
-import { ConsultationsModel, ConsultationModel, CreateConsultationCommand, UpdateConsultationCommand } from 'ch-api-client-typescript2/lib'
+import {
+  ConsultationsModel,
+  ConsultationModel,
+  CreateConsultationCommand,
+  UpdateConsultationCommand
+} from 'ch-api-client-typescript2/lib'
 
 export const loadConsultationsAsync = createAsyncAction(
   'LOAD_CONSULTATIONS_REQUEST',

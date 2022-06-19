@@ -36,8 +36,12 @@ export const isLoadingConsultation = createReducer<boolean, ConsultationsActionT
       putConsultationAsync.success,
       putConsultationAsync.failure
     ],
-     (state, action) => false)
-  .handleAction([loadConsultationAsync.request, postConsultationAsync.request, putConsultationAsync.request], (state, action) => true)
+    (state, action) => false
+  )
+  .handleAction(
+    [loadConsultationAsync.request, postConsultationAsync.request, putConsultationAsync.request],
+    (state, action) => true
+  )
 
 export const loadConsultationErrors = createReducer<RestException | null, ConsultationsActionTypes>(null)
   .handleAction(
@@ -50,14 +54,12 @@ export const loadConsultationErrors = createReducer<RestException | null, Consul
       putConsultationAsync.success,
       resetConsultationDetailErrors
     ],
-    (state, action) => null)
+    (state, action) => null
+  )
   .handleAction(
-    [
-      loadConsultationAsync.failure,
-      postConsultationAsync.failure,
-      putConsultationAsync.failure
-    ],
-    (state, action) => action.payload)
+    [loadConsultationAsync.failure, postConsultationAsync.failure, putConsultationAsync.failure],
+    (state, action) => action.payload
+  )
 
 export const consultation = createReducer<ConsultationModel | null, ConsultationsActionTypes>(null)
   .handleAction(
@@ -79,7 +81,7 @@ export const putConsultationSuccess = createReducer<ConsultationModel | null, Co
     (state, action) => null
   )
   .handleAction([putConsultationAsync.success], (state, action) => action.payload)
-  
+
 export const consultationPaymentKey = createReducer<string | null, ConsultationsActionTypes>(null)
   .handleAction(
     [resetConsultationPaymentKey, postConsultationPaymentKeyAsync.request, postConsultationPaymentKeyAsync.failure],

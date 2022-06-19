@@ -14,15 +14,8 @@ import { BookingsModel, BookingModel } from 'ch-api-client-typescript2/lib'
 import { RestException } from '../../models/exceptions'
 
 export const isLoadingBookings = createReducer<boolean, BookingsActionTypes>(false as boolean)
-  .handleAction([
-    loadBookingsAsync.success,
-    loadBookingsAsync.failure,
-    postBookingAsync.success,
-    postBookingAsync.failure,
-    putBookingAsync.success,
-    putBookingAsync.failure
-  ], (state, action) => false)
-  .handleAction([loadBookingsAsync.request, postBookingAsync.request, putBookingAsync.request], (state, action) => true)
+  .handleAction([loadBookingsAsync.success, loadBookingsAsync.failure], (state, action) => false)
+  .handleAction([loadBookingsAsync.request], (state, action) => true)
 
 export const loadBookingsErrors = createReducer<RestException | null, BookingsActionTypes>(null)
   .handleAction([loadBookingsAsync.request, loadBookingsAsync.success], (state, action) => null)
@@ -33,8 +26,15 @@ export const bookings = createReducer<BookingsModel | null, BookingsActionTypes>
   .handleAction([loadBookingsAsync.success], (state, action) => action.payload)
 
 export const isLoadingBooking = createReducer<boolean, BookingsActionTypes>(false as boolean)
-  .handleAction([loadBookingAsync.success, loadBookingAsync.failure], (state, action) => false)
-  .handleAction([loadBookingAsync.request], (state, action) => true)
+  .handleAction([
+    loadBookingAsync.success,
+    loadBookingAsync.failure,
+    postBookingAsync.success,
+    postBookingAsync.failure,
+    putBookingAsync.success,
+    putBookingAsync.failure
+  ], (state, action) => false)
+  .handleAction([loadBookingAsync.request, postBookingAsync.request, putBookingAsync.request], (state, action) => true)
 
 export const loadBookingErrors = createReducer<RestException | null, BookingsActionTypes>(null)
   .handleAction([

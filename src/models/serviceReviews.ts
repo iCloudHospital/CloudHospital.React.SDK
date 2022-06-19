@@ -16,6 +16,8 @@ export interface ServiceReviewsSearchOption {
   recommended?: boolean
   rate?: number
   reviewType?: ReviewType
+  languageCode?: string
+  returnDefaultValue?: boolean
   page?: number
   limit?: number
   lastRetrieved?: Date

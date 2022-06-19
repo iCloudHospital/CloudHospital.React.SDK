@@ -1,6 +1,12 @@
 import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
-import { ConsultationsApi, ConsultationsModel, ConsultationModel, CreateConsultationCommand, UpdateConsultationCommand } from 'ch-api-client-typescript2/lib'
+import {
+  ConsultationsApi,
+  ConsultationsModel,
+  ConsultationModel,
+  CreateConsultationCommand,
+  UpdateConsultationCommand
+} from 'ch-api-client-typescript2/lib'
 import { ConsultationsSearchOption, ConsultationSearchOption } from '../models/consultations'
 import { log } from '../utils/log'
 
@@ -10,7 +16,17 @@ export function loadConsultations(consultationsSearchOption: ConsultationsSearch
   const { searchString, isOpen, isCompleted, status, consultationType, hospitalId, page, limit, lastRetrieved } =
     consultationsSearchOption
   return new ConsultationsApi(configuration, apiRoot, instance)
-    .apiV2ConsultationsGet(searchString, isOpen, isCompleted, status, consultationType, hospitalId, page, limit, lastRetrieved)
+    .apiV2ConsultationsGet(
+      searchString,
+      isOpen,
+      isCompleted,
+      status,
+      consultationType,
+      hospitalId,
+      page,
+      limit,
+      lastRetrieved
+    )
     .then((res) => {
       return res.data as ConsultationsModel
     })
@@ -70,7 +86,6 @@ export function putConsultation(
       throw restException
     })
 }
-
 
 export const postConsultationPaymentKey = async (consultationId: string): Promise<string> => {
   return new ConsultationsApi(configuration, apiRoot, instance)
