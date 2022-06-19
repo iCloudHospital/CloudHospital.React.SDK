@@ -37,8 +37,6 @@ export function loadHospitalSpecialties(
     lastRetrieved,
     options
   } = hospitalSpecialtiesSearchOption
-  const apiRoot = HttpClient.getBaseUrl()
-
   return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdSpecialtiesGet(
       hospitalId,
