@@ -1,10 +1,10 @@
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { CountriesApi, CountriesModel, CountryModel, MediaModel, MediasModel } from 'ch-api-client-typescript2/lib'
 import { CountriesSearchOption, CountrySearchOption } from '../models/countries'
 import { CountryMediaSearchOption, CountryMediasSearchOption } from '../models/countryMedias'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region Countries
 export function loadCountries(countriesSearchOption: CountriesSearchOption): Promise<CountriesModel> {

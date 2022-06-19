@@ -1,10 +1,10 @@
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { BookingModel, BookingsApi, BookingsModel, CreateBookingCommand, UpdateBookingCommand } from 'ch-api-client-typescript2/lib'
 import { BookingSearchOption, BookingsSearchOption } from '../models/bookings'
 import { log } from '../utils/log'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 export function loadBookings(bookingsSearchOption: BookingsSearchOption): Promise<BookingsModel> {
   const { searchString, isOpen, isCompleted, status, dealPackageId, hospitalId, page, limit, lastRetrieved } = bookingsSearchOption

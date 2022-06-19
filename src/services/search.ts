@@ -1,4 +1,4 @@
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 import { AutoCompleteOption, SearchCountModel, SearchOption } from '../models/search'
 import { RestException } from '../models/exceptions'
 
@@ -12,7 +12,7 @@ import {
   SpecialtyTypesModel
 } from 'ch-api-client-typescript2/lib'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 export function azSearchAutocomplete(
   autoCompleteOption: AutoCompleteOption

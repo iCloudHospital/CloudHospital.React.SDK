@@ -1,4 +1,4 @@
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import {
   HospitalsApi,
@@ -12,7 +12,7 @@ import {
   HospitalSpecialtySearchOption
 } from '../models/hospitalSpecialties'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region HospitalSpecialties
 export function loadHospitalSpecialties(
@@ -37,6 +37,8 @@ export function loadHospitalSpecialties(
     lastRetrieved,
     options
   } = hospitalSpecialtiesSearchOption
+  const apiRoot = HttpClient.getBaseUrl()
+
   return new HospitalsApi(configuration, apiRoot, instance)
     .apiV2HospitalsHospitalIdSpecialtiesGet(
       hospitalId,

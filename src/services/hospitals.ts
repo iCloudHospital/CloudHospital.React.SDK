@@ -1,4 +1,4 @@
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import {
   HospitalsApi,
@@ -15,7 +15,7 @@ import {
   HospitalsSimpleSearchOption
 } from '../models/hospitals'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region Hospitals
 export function loadHospitals(hospitalSearchOption: HospitalsSearchOption): Promise<HospitalsModel> {

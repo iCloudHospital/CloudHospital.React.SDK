@@ -1,9 +1,9 @@
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { MembershipModel, MembershipsApi, MembershipsModel, MembersModel } from 'ch-api-client-typescript2/lib'
 import { MembershipSearchOption, MembershipsSearchOption } from '../models/memberships'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 export const loadMemberships = (membershipsSearchOption: MembershipsSearchOption): Promise<MembershipsModel> => {
   const { id, planId, planName, ownerId, ownerName, isActive, page, limit, lastRetrieved } = membershipsSearchOption

@@ -1,4 +1,4 @@
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import {
   ContributorsApi,
@@ -14,7 +14,7 @@ import {
   ContributorSnsHnadleSearchOption
 } from '../models/contributors'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region Contributors
 export function loadContributors(contributorsSearchOption: ContributorsSearchOption): Promise<ContributorsModel> {

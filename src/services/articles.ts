@@ -1,9 +1,9 @@
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { ArticlesApi, ArticlesModel, ArticleModel } from 'ch-api-client-typescript2/lib'
 import { ArticleSearchOption, ArticlesSearchOption } from '../models/articles'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region Articles
 export function loadArticles(articlesSearchOption: ArticlesSearchOption): Promise<ArticlesModel> {

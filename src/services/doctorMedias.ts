@@ -1,9 +1,9 @@
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { DoctorMediasSearchOption } from '../models/doctorMedias'
 import { DoctorsApi, MediasModel, MediaModel } from 'ch-api-client-typescript2/lib'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region DoctorMedias
 export function loadDoctorMedias(doctorMediasSearchOption: DoctorMediasSearchOption): Promise<MediasModel> {

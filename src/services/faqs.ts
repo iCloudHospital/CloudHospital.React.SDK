@@ -1,9 +1,9 @@
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { FaqsApi, FaqsModel, FaqModel, MediaModel, MediasModel } from 'ch-api-client-typescript2/lib'
 import { FaqMediasSearchOption, FaqSearchOption, FaqsSearchOption } from '../models/faqs'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region Faqs
 export function loadFaqs(faqsSearchOption: FaqsSearchOption): Promise<FaqsModel> {

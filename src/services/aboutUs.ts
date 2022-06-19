@@ -1,9 +1,9 @@
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 import { AboutUsApi, AboutUsPageModel, AboutUsPagesModel } from 'ch-api-client-typescript2/lib'
 import { AboutUsPageSearchOption, AboutUsPagesSearchOption } from '../models/aboutUs'
 import { RestException } from '../models'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 export function loadAboutUsPages(aboutUsPagesSearchOption: AboutUsPagesSearchOption): Promise<AboutUsPagesModel> {
   const {

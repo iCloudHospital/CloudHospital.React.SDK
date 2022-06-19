@@ -1,8 +1,8 @@
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 import { ChangeEmailCommand, ProfilesApi, UserModel, UpdateProfileCommand } from 'ch-api-client-typescript2/lib'
 import { RestException } from '../models/exceptions'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 export function loadProfile(): Promise<UserModel> {
   return new ProfilesApi(configuration, apiRoot, instance)

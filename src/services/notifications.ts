@@ -1,9 +1,9 @@
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { NotificationsSearchOption } from '../models/notifications'
 import { CheckNotificationsCommand, NotificationsApi, NotificationsModel } from 'ch-api-client-typescript2/lib'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 export function loadNotifications(notificationsSearchOption: NotificationsSearchOption): Promise<NotificationsModel> {
   const { notificationCode, unreadCountOnly, page, limit, lastRetrieved } = notificationsSearchOption

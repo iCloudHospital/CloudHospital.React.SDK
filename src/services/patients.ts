@@ -1,9 +1,9 @@
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { PatientsApi, PatientModel, CreatePatientCommand, UpdatePatientCommand } from 'ch-api-client-typescript2/lib'
 import { PatientSearchOption } from '../models/patients'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 export function loadPatient(patientSearchOption: PatientSearchOption): Promise<PatientModel> {
   const { patientId, options } = patientSearchOption

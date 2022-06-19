@@ -1,4 +1,4 @@
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import {
   DealPackageSearchOption,
@@ -21,7 +21,7 @@ import {
 } from 'ch-api-client-typescript2/lib'
 import { log } from '../utils/log'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 // #region Deals
 export function loadDeals(dealsSearchOption: DealsSearchOption): Promise<DealsModel> {
   const {

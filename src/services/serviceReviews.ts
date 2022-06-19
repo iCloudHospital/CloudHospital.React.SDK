@@ -16,9 +16,9 @@ import {
   ServiceReviewSearchOption,
   ServiceReviewMediasSearchOption
 } from '../models/serviceReviews'
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 // #region ServiceReview
 

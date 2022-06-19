@@ -1,9 +1,9 @@
-import { configuration, instance } from './HttpClient'
+import { configuration, instance, HttpClient } from './HttpClient'
 import { RestException } from '../models/exceptions'
 import { DoctorsApi, DoctorPortfoliosModel, DoctorPortfolioModel } from 'ch-api-client-typescript2/lib'
 import { DoctorPortfoliosSearchOption } from '../models/doctorPortfolios'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+const apiRoot = HttpClient.getBaseUrl()
 
 export function loadDoctorPortfolios(
   doctorPortfoliosSearchOption: DoctorPortfoliosSearchOption
