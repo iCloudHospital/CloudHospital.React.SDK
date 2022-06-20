@@ -1,4 +1,4 @@
-import { PlanHospitalModel, PlanHospitalsModel, PlanModel, PlansModel } from 'ch-api-client-typescript2/lib'
+import { PlanHospitalModel, PlanHospitalsModel, PlanItemModel, PlanModel, PlansModel } from 'ch-api-client-typescript2/lib'
 import { combineReducers } from 'redux'
 import { createReducer } from 'typesafe-actions'
 import { RestException } from '../../models/exceptions'
@@ -11,7 +11,8 @@ import {
   resetPlanHospitalsState,
   loadPlanHospitalsAsync,
   resetPlanHospitalState,
-  loadPlanHospitalAsync
+  loadPlanHospitalAsync,
+  selectPlan
 } from '../actions/plans'
 
 // #region Plans
@@ -38,6 +39,11 @@ export const loadPlanErrors = createReducer<RestException | null, PlansActionTyp
 export const plan = createReducer<PlanModel | null, PlansActionTypes>(null)
   .handleAction([resetPlanState, loadPlanAsync.request, loadPlanAsync.failure], (state, action) => null)
   .handleAction([loadPlanAsync.success], (state, action) => action.payload)
+
+export const selectedPlan = createReducer<PlanModel | PlanItemModel | null, PlansActionTypes>(null).handleAction(
+  [selectPlan],
+  (_, action) => action.payload
+)
 // #endregion Plans
 
 // #region Plan Hospitals
@@ -88,6 +94,7 @@ const plansState = combineReducers({
   isLoadingPlan,
   loadPlanErrors,
   plan,
+  selectedPlan,
 
   isLoadingPlanHospitals,
   loadPlanHospitalsErrors,
