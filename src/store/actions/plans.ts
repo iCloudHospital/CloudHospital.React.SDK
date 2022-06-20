@@ -1,4 +1,4 @@
-import { PlansModel, PlanModel, PlanHospitalsModel, PlanHospitalModel } from 'ch-api-client-typescript2/lib'
+import { PlansModel, PlanModel, PlanHospitalsModel, PlanHospitalModel, PlanItemModel } from 'ch-api-client-typescript2/lib'
 import { ActionType, createAction, createAsyncAction } from 'typesafe-actions'
 import { RestException } from '../../models/exceptions'
 import {
@@ -20,6 +20,9 @@ export const loadPlanAsync = createAsyncAction('LOAD_PLAN_REQUEST', 'LOAD_PLAN_S
   PlanModel,
   RestException
 >()
+
+
+export const selectPlan = createAction('SELECT_PLAN')<PlanModel | PlanItemModel | null>()
 
 export const resetPlansState = createAction('RESET_PLANS_STATE')<undefined>()
 
@@ -47,6 +50,7 @@ export const resetPlanHospitalState = createAction('RESET_PLAN_HOSPITAL_STATE')<
 export type PlansActionTypes =
   | ActionType<typeof loadPlansAsync>
   | ActionType<typeof loadPlanAsync>
+  | ActionType<typeof selectPlan>
   | ActionType<typeof resetPlansState>
   | ActionType<typeof resetPlanState>
   | ActionType<typeof loadPlanHospitalsAsync>
