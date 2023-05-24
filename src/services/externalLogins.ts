@@ -1,53 +1,21 @@
-import axios from 'axios'
 import { CurrentLogin, ExternalLogins } from '../models/auths'
 import { IdentityError } from '../models/exceptions'
 import { log } from '../utils/log'
-import { HttpClient } from './HttpClient'
 
-const stsAuthority = process.env.NEXT_PUBLIC_STS_ISSUER
+import { instance } from './HttpClient'
 
-const loadExternalLogins = async (access_token?: string, token_type?: string): Promise<ExternalLogins> => {
-  try {
-    log('CALL loadExternalLoginsAsync')
-    const action = 'api/v1/externalLogins'
-    const url = `${stsAuthority}/${action}`
+const sts_issuer = process.env.NEXT_PUBLIC_STS_ISSUER
 
-    const instance = HttpClient.getInstance()
-
-    const response = await instance({
-      method: 'GET',
-      headers: {
-        Accept: '*/*',
-        Authorization: `${token_type} ${access_token}`
-      },
-      url
-    })
-    if (response.status === 200 && response.data) {
-      return response.data as ExternalLogins
-    } else {
-      throw new Error('null response')
-    }
-  } catch (error: any) {
-    log('error: ', error.response)
-    const identityErrors = error.response.data as IdentityError[]
-    throw identityErrors
-  }
-}
-
-const postExternalLogin = async (data: CurrentLogin, access_token?: string, token_type?: string): Promise<boolean> => {
+export const postExternalLogin = async (data: CurrentLogin): Promise<boolean> => {
   try {
     log('CALL postExternalLoginAsync')
     const action = 'api/v1/externalLogins'
-    const url = `${stsAuthority}/${action}`
-
-    const instance = HttpClient.getInstance()
+    const url = `${sts_issuer}/${action}`
 
     const response = await instance({
       method: 'POST',
       headers: {
-        Accept: '*/*',
-        Authorization: `${token_type} ${access_token}`,
-        'Content-Type': 'application/json-patch+json'
+        Accept: '*/*'
       },
       url,
       data
@@ -59,29 +27,44 @@ const postExternalLogin = async (data: CurrentLogin, access_token?: string, toke
     }
   } catch (error: any) {
     log('error: ', error.response.data)
-    const identityErrors = error.response.data as IdentityError[]
-    throw identityErrors
+    throw error.response.data as IdentityError[]
   }
 }
 
-const deleteExternalLogin = async (
-  data: CurrentLogin,
-  access_token?: string,
-  token_type?: string
-): Promise<boolean> => {
+export const getExternalLogins = async (): Promise<ExternalLogins> => {
+  try {
+    log('CALL loadExternalLoginsAsync')
+    const action = 'api/v1/externalLogins'
+    const url = `${sts_issuer}/${action}`
+
+    const response = await instance({
+      method: 'GET',
+      headers: {
+        Accept: '*/*'
+      },
+      url
+    })
+    if (response.status === 200 && response.data) {
+      return response.data as ExternalLogins
+    } else {
+      throw new Error('null response')
+    }
+  } catch (error: any) {
+    log('error: ', error.response)
+    throw error.response.data as IdentityError[]
+  }
+}
+
+export const deleteExternalLogin = async (data: CurrentLogin): Promise<boolean> => {
   try {
     log('CALL deleteExternalLoginAsync')
     const action = '/api/v1/externalLogins'
-    const url = `${stsAuthority}/${action}`
-
-    const instance = HttpClient.getInstance()
+    const url = `${sts_issuer}/${action}`
 
     const response = await instance({
       method: 'DELETE',
       headers: {
-        Accept: '*/*',
-        Authorization: `${token_type} ${access_token}`,
-        'Content-Type': 'application/json-patch+json'
+        Accept: '*/*'
       },
       url,
       data
@@ -93,13 +76,14 @@ const deleteExternalLogin = async (
     }
   } catch (error: any) {
     log('error: ', error.response)
-    const identityErrors = error.response.data as IdentityError[]
-    throw identityErrors
+    throw error.response.data as IdentityError[]
   }
 }
 
-export default {
-  loadExternalLogins,
+const externalLogins = {
+  getExternalLogins,
   postExternalLogin,
   deleteExternalLogin
 }
+
+export default externalLogins

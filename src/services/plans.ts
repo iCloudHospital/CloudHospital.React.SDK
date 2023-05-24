@@ -1,22 +1,23 @@
-import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
-import { PlansApi, PlansModel, PlanModel, PlanHospitalsModel, PlanHospitalModel } from 'ch-api-client-typescript2/lib'
 import {
-  PlansSearchOption,
-  PlanSearchOption,
-  PlanHospitalsSearchOption,
-  PlanHospitalSearchOption
-} from '../models/plans'
-
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+  PlansApi,
+  PlansApiApiV2PlansGetRequest,
+  PlansApiApiV2PlansPlanIdGetRequest,
+  PlansApiApiV2PlansPlanIdHospitalsGetRequest,
+  PlansApiApiV2PlansPlanIdHospitalsHospitalIdGetRequest
+} from 'ch-api-client-typescript2/lib/api/plans-api'
+import { PlanHospitalModel } from 'ch-api-client-typescript2/lib/models/plan-hospital-model'
+import { PlanHospitalsModel } from 'ch-api-client-typescript2/lib/models/plan-hospitals-model'
+import { PlanModel } from 'ch-api-client-typescript2/lib/models/plan-model'
+import { PlansModel } from 'ch-api-client-typescript2/lib/models/plans-model'
+import { RestException } from '../models/exceptions'
+import { configuration, instance } from './HttpClient'
 
 // #region Plans
-export function loadPlans(plansSearchOption: PlansSearchOption): Promise<PlansModel> {
-  const { id, name, page, limit, lastRetrieved } = plansSearchOption
-  return new PlansApi(configuration, apiRoot, instance)
-    .apiV2PlansGet(id, name, page, limit, lastRetrieved)
+export const loadPlans = async (payload?: PlansApiApiV2PlansGetRequest): Promise<PlansModel> => {
+  return new PlansApi(configuration, undefined, instance)
+    .apiV2PlansGet(payload)
     .then((res) => {
-      return res.data as PlansModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -24,12 +25,11 @@ export function loadPlans(plansSearchOption: PlansSearchOption): Promise<PlansMo
     })
 }
 
-export function loadPlan(planSearchOption: PlanSearchOption): Promise<PlanModel> {
-  const { planId, options } = planSearchOption
-  return new PlansApi(configuration, apiRoot, instance)
-    .apiV2PlansPlanIdGet(planId, options)
+export const loadPlan = async (payload: PlansApiApiV2PlansPlanIdGetRequest): Promise<PlanModel> => {
+  return new PlansApi(configuration, undefined, instance)
+    .apiV2PlansPlanIdGet(payload)
     .then((res) => {
-      return res.data as PlanModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -39,12 +39,13 @@ export function loadPlan(planSearchOption: PlanSearchOption): Promise<PlanModel>
 // #endregion Plans
 
 // #region Plan Hospitals
-export function loadPlanHospitals(planHospitalsSearchOption: PlanHospitalsSearchOption): Promise<PlanHospitalsModel> {
-  const { planId, page, limit, lastRetrieved } = planHospitalsSearchOption
-  return new PlansApi(configuration, apiRoot, instance)
-    .apiV2PlansPlanIdHospitalsGet(planId, page, limit, lastRetrieved)
+export const loadPlanHospitals = async (
+  payload: PlansApiApiV2PlansPlanIdHospitalsGetRequest
+): Promise<PlanHospitalsModel> => {
+  return new PlansApi(configuration, undefined, instance)
+    .apiV2PlansPlanIdHospitalsGet(payload)
     .then((res) => {
-      return res.data as PlanHospitalsModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -52,12 +53,13 @@ export function loadPlanHospitals(planHospitalsSearchOption: PlanHospitalsSearch
     })
 }
 
-export function loadPlanHospital(planHospitalSearchOption: PlanHospitalSearchOption): Promise<PlanHospitalModel> {
-  const { planId, options } = planHospitalSearchOption
-  return new PlansApi(configuration, apiRoot, instance)
-    .apiV2PlansPlanIdHospitalsHospitalIdGet(planId, options)
+export const loadPlanHospital = async (
+  payload: PlansApiApiV2PlansPlanIdHospitalsHospitalIdGetRequest
+): Promise<PlanHospitalModel> => {
+  return new PlansApi(configuration, undefined, instance)
+    .apiV2PlansPlanIdHospitalsHospitalIdGet(payload)
     .then((res) => {
-      return res.data as PlanHospitalModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -66,10 +68,11 @@ export function loadPlanHospital(planHospitalSearchOption: PlanHospitalSearchOpt
 }
 // #endregion Plan Hospitals
 
-export default {
+const plans = {
   loadPlans,
   loadPlan,
-
   loadPlanHospitals,
   loadPlanHospital
 }
+
+export default plans

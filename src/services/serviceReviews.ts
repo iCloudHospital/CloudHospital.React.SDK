@@ -1,92 +1,22 @@
 import {
-  CreateMediaCommand,
-  CreateServiceReviewCommand,
-  MediaModel,
-  MediasModel,
-  ServiceReviewModel,
   ServiceReviewsApi,
-  ServiceReviewsModel,
-  UpdateMediaCommand,
-  UpdateServiceReviewCommand
-} from 'ch-api-client-typescript2/lib'
+  ServiceReviewsApiApiV2ServicereviewsGetRequest,
+  ServiceReviewsApiApiV2ServicereviewsPostRequest,
+  ServiceReviewsApiApiV2ServicereviewsServiceReviewIdDeleteRequest,
+  ServiceReviewsApiApiV2ServicereviewsServiceReviewIdGetRequest,
+  ServiceReviewsApiApiV2ServicereviewsServiceReviewIdPutRequest
+} from 'ch-api-client-typescript2/lib/api/service-reviews-api'
+import { ServiceReviewModel } from 'ch-api-client-typescript2/lib/models/service-review-model'
+import { ServiceReviewsModel } from 'ch-api-client-typescript2/lib/models/service-reviews-model'
 import { RestException } from '../models/exceptions'
-
-import {
-  ServiceReviewsSearchOption,
-  ServiceReviewSearchOption,
-  ServiceReviewMediasSearchOption
-} from '../models/serviceReviews'
 import { configuration, instance } from './HttpClient'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-// #region ServiceReview
-
-export function loadServiceReviews(
-  serviceReviewsSearchOption: ServiceReviewsSearchOption
-): Promise<ServiceReviewsModel> {
-  const {
-    hospitalId,
-    serviceId,
-    serviceName,
-    patientId,
-    patientName,
-    gender,
-    recommended,
-    rate,
-    reviewType,
-    languageCode,
-    returnDefaultValue,
-    page,
-    limit,
-    lastRetrieved,
-    options
-  } = serviceReviewsSearchOption
-  return new ServiceReviewsApi(configuration, apiRoot, instance)
-    .apiV2ServicereviewsGet(
-      hospitalId,
-      serviceId,
-      serviceName,
-      patientId,
-      patientName,
-      gender,
-      recommended,
-      rate,
-      reviewType,
-      languageCode,
-      returnDefaultValue,
-      page,
-      limit,
-      lastRetrieved,
-      options
-    )
-    .then((res) => {
-      return res.data as ServiceReviewsModel
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-
-export function loadServiceReview(serviceReviewSearchOption: ServiceReviewSearchOption): Promise<ServiceReviewModel> {
-  const { serviceReviewId } = serviceReviewSearchOption
-  return new ServiceReviewsApi(configuration, apiRoot, instance)
-    .apiV2ServicereviewsServiceReviewIdGet(serviceReviewId)
-    .then((res) => {
-      return res.data as ServiceReviewModel
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-
-export function postServiceReview(
-  createServiceReviewCommand?: CreateServiceReviewCommand | undefined
-): Promise<ServiceReviewModel> {
-  return new ServiceReviewsApi(configuration, apiRoot, instance)
-    .apiV2ServicereviewsPost(createServiceReviewCommand)
+// #region ServiceReviews
+export const postServiceReview = async (
+  payload?: ServiceReviewsApiApiV2ServicereviewsPostRequest
+): Promise<ServiceReviewModel> => {
+  return new ServiceReviewsApi(configuration, undefined, instance)
+    .apiV2ServicereviewsPost(payload)
     .then((res) => {
       return res.data
     })
@@ -96,12 +26,11 @@ export function postServiceReview(
     })
 }
 
-export function putServiceReview(
-  serviceReviewId: string,
-  updateServiceReviewCommand?: UpdateServiceReviewCommand | undefined
-): Promise<ServiceReviewModel> {
-  return new ServiceReviewsApi(configuration, apiRoot, instance)
-    .apiV2ServicereviewsServiceReviewIdPut(serviceReviewId, updateServiceReviewCommand)
+export const getServiceReviews = async (
+  payload?: ServiceReviewsApiApiV2ServicereviewsGetRequest
+): Promise<ServiceReviewsModel> => {
+  return new ServiceReviewsApi(configuration, undefined, instance)
+    .apiV2ServicereviewsGet(payload)
     .then((res) => {
       return res.data
     })
@@ -111,26 +40,11 @@ export function putServiceReview(
     })
 }
 
-export function deleteServiceReview(serviceReviewId: string): Promise<boolean> {
-  return new ServiceReviewsApi(configuration, apiRoot, instance)
-    .apiV2ServicereviewsServiceReviewIdDelete(serviceReviewId)
-    .then((res) => {
-      return res.data as boolean
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-// #endregion ServiceReview
-
-// #region ServiceReviewMedias
-export function loadServiceReviewMedias(
-  serviceReviewMediasSearchOption: ServiceReviewMediasSearchOption
-): Promise<MediasModel> {
-  const { serviceReviewId, id, mediaType, page, limit, lastRetrieved } = serviceReviewMediasSearchOption
-  return new ServiceReviewsApi(configuration, apiRoot, instance)
-    .apiV2ServicereviewsServiceReviewIdMediasGet(serviceReviewId, id, mediaType, page, limit, lastRetrieved)
+export const getServiceReviewByServiceReviewId = async (
+  payload: ServiceReviewsApiApiV2ServicereviewsServiceReviewIdGetRequest
+): Promise<ServiceReviewModel> => {
+  return new ServiceReviewsApi(configuration, undefined, instance)
+    .apiV2ServicereviewsServiceReviewIdGet(payload)
     .then((res) => {
       return res.data
     })
@@ -140,9 +54,11 @@ export function loadServiceReviewMedias(
     })
 }
 
-export function loadServiceReviewMedia(serviceReviewId: string, mediaId: string): Promise<MediaModel> {
-  return new ServiceReviewsApi(configuration, apiRoot, instance)
-    .apiV2ServicereviewsServiceReviewIdMediasMediaIdGet(serviceReviewId, mediaId)
+export const putServiceReview = async (
+  payload: ServiceReviewsApiApiV2ServicereviewsServiceReviewIdPutRequest
+): Promise<ServiceReviewModel> => {
+  return new ServiceReviewsApi(configuration, undefined, instance)
+    .apiV2ServicereviewsServiceReviewIdPut(payload)
     .then((res) => {
       return res.data
     })
@@ -152,12 +68,11 @@ export function loadServiceReviewMedia(serviceReviewId: string, mediaId: string)
     })
 }
 
-export function postServiceReviewMedia(
-  serviceReviewId: string,
-  createMediaCommand?: CreateMediaCommand
-): Promise<MediaModel> {
-  return new ServiceReviewsApi(configuration, apiRoot, instance)
-    .apiV2ServicereviewsServiceReviewIdMediasPost(serviceReviewId, createMediaCommand)
+export const deleteServiceReview = async (
+  payload: ServiceReviewsApiApiV2ServicereviewsServiceReviewIdDeleteRequest
+): Promise<boolean> => {
+  return new ServiceReviewsApi(configuration, undefined, instance)
+    .apiV2ServicereviewsServiceReviewIdDelete(payload)
     .then((res) => {
       return res.data
     })
@@ -166,46 +81,14 @@ export function postServiceReviewMedia(
       throw restException
     })
 }
+// #endregion ServiceReviews
 
-export function putServiceReviewMedia(
-  serviceReviewId: string,
-  mediaId: string,
-  updateMediaCommand?: UpdateMediaCommand
-): Promise<MediaModel> {
-  return new ServiceReviewsApi(configuration, apiRoot, instance)
-    .apiV2ServicereviewsServiceReviewIdMediasMediaIdPut(serviceReviewId, mediaId, updateMediaCommand)
-    .then((res) => {
-      return res.data
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-
-export function deleteServiceReviewMedia(serviceReviewId: string, mediaId: string): Promise<boolean> {
-  return new ServiceReviewsApi(configuration, apiRoot, instance)
-    .apiV2ServicereviewsServiceReviewIdMediasMediaIdDelete(serviceReviewId, mediaId)
-    .then((res) => {
-      return res.data
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-// #endregion ServiceReviewMedias
-
-export default {
-  loadServiceReviews,
-  loadServiceReview,
+const serviceReviews = {
+  getServiceReviews,
+  getServiceReviewByServiceReviewId,
   postServiceReview,
   putServiceReview,
-  deleteServiceReview,
-
-  loadServiceReviewMedias,
-  loadServiceReviewMedia,
-  postServiceReviewMedia,
-  putServiceReviewMedia,
-  deleteServiceReviewMedia
+  deleteServiceReview
 }
+
+export default serviceReviews

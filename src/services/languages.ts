@@ -1,14 +1,16 @@
-import { configuration, instance } from './HttpClient'
+import {
+  LanguagesApi,
+  LanguagesApiApiV2LanguagesCodeGetRequest,
+  LanguagesApiApiV2LanguagesGetRequest
+} from 'ch-api-client-typescript2/lib/api/languages-api'
+import { LanguageModel } from 'ch-api-client-typescript2/lib/models/language-model'
+import { LanguagesModel } from 'ch-api-client-typescript2/lib/models/languages-model'
 import { RestException } from '../models/exceptions'
-import { LanguageModel, LanguagesApi, LanguagesModel } from 'ch-api-client-typescript2/lib'
-import { LanguageSearchOption, LanguagesSearchOption } from '../models/langauges'
+import { configuration, instance } from './HttpClient'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export const loadLanguages = (languagesSearchOption: LanguagesSearchOption): Promise<LanguagesModel> => {
-  const { id, name, code, description, page, limit, lastRetrieved } = languagesSearchOption
-  return new LanguagesApi(configuration, apiRoot, instance)
-    .apiV2LanguagesGet(id, name, code, description, page, limit, lastRetrieved)
+export const getLanguages = async (payload?: LanguagesApiApiV2LanguagesGetRequest): Promise<LanguagesModel> => {
+  return new LanguagesApi(configuration, undefined, instance)
+    .apiV2LanguagesGet(payload)
     .then((res) => {
       return res.data
     })
@@ -18,33 +20,21 @@ export const loadLanguages = (languagesSearchOption: LanguagesSearchOption): Pro
     })
 }
 
-export const loadLanguage = (languageSearchOption: LanguageSearchOption): Promise<LanguageModel> => {
-  const { id, code } = languageSearchOption
-
-  if (code) {
-    return new LanguagesApi(configuration, apiRoot, instance)
-      .apiV2LanguagesCodeGet(code)
-      .then((res) => {
-        return res.data
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  } else {
-    return new LanguagesApi(configuration, apiRoot, instance)
-      .apiV2LanguagesIdGet(id!)
-      .then((res) => {
-        return res.data
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  }
+export const getLanguageByCode = async (payload: LanguagesApiApiV2LanguagesCodeGetRequest): Promise<LanguageModel> => {
+  return new LanguagesApi(configuration, undefined, instance)
+    .apiV2LanguagesCodeGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
 }
 
-export default {
-  loadLanguages,
-  loadLanguage
+const languages = {
+  getLanguages,
+  getLanguageByCode
 }
+
+export default languages

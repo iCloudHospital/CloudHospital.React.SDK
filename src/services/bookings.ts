@@ -1,46 +1,24 @@
-import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
-import { BookingModel, BookingsApi, BookingsModel, CreateBookingCommand, UpdateBookingCommand } from 'ch-api-client-typescript2/lib'
-import { BookingSearchOption, BookingsSearchOption } from '../models/bookings'
+import { configuration, instance } from './HttpClient'
+
+import {
+  BookingsApi,
+  BookingsApiApiV2BookingsBookingIdGetRequest,
+  BookingsApiApiV2BookingsBookingIdPayPostRequest,
+  BookingsApiApiV2BookingsBookingIdPutRequest,
+  BookingsApiApiV2BookingsGetRequest,
+  BookingsApiApiV2BookingsRequestIdPostRequest
+} from 'ch-api-client-typescript2/lib/api/bookings-api'
+import { BookingModel } from 'ch-api-client-typescript2/lib/models/booking-model'
+import { BookingsModel } from 'ch-api-client-typescript2/lib/models/bookings-model'
 import { log } from '../utils/log'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export function loadBookings(bookingsSearchOption: BookingsSearchOption): Promise<BookingsModel> {
-  const { searchString, isOpen, isCompleted, status, dealPackageId, hospitalId, page, limit, lastRetrieved } = bookingsSearchOption
-  return new BookingsApi(configuration, apiRoot, instance)
-    .apiV2BookingsGet(searchString, isOpen, isCompleted, status, dealPackageId, hospitalId, page, limit, lastRetrieved)
-    .then((res) => {
-      return res.data as BookingsModel
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-
-export function loadBooking(bookingSearchOption: BookingSearchOption): Promise<BookingModel> {
-  const { bookingId, options } = bookingSearchOption
-  return new BookingsApi(configuration, apiRoot, instance)
-    .apiV2BookingsBookingIdGet(bookingId, options)
-    .then((res) => {
-      return res.data as BookingModel
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-
-export function postBooking(
-  requestId: string,
-  createBookingCommand?: CreateBookingCommand
-): Promise<BookingModel> {
-  return new BookingsApi(configuration, apiRoot, instance)
-    .apiV2BookingsRequestIdPost(requestId, createBookingCommand)
+export const postBooking = async (payload: BookingsApiApiV2BookingsRequestIdPostRequest): Promise<BookingModel> => {
+  return new BookingsApi(configuration, undefined, instance)
+    .apiV2BookingsRequestIdPost(payload)
     .then((res) => {
       log('post Booking: ', res.data)
-      return res.data as BookingModel
+      return res.data
     })
     .catch((error) => {
       const restException = error.response.data as RestException
@@ -48,15 +26,36 @@ export function postBooking(
     })
 }
 
-export function putBooking(
-  bookingId: string,
-  updateBookingCommand?: UpdateBookingCommand
-): Promise<BookingModel> {
-  return new BookingsApi(configuration, apiRoot, instance)
-    .apiV2BookingsBookingIdPut(bookingId, updateBookingCommand)
+export const getBookings = async (payload?: BookingsApiApiV2BookingsGetRequest): Promise<BookingsModel> => {
+  return new BookingsApi(configuration, undefined, instance)
+    .apiV2BookingsGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
+export const getBookingById = async (payload: BookingsApiApiV2BookingsBookingIdGetRequest): Promise<BookingModel> => {
+  return new BookingsApi(configuration, undefined, instance)
+    .apiV2BookingsBookingIdGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
+export const putBooking = async (payload: BookingsApiApiV2BookingsBookingIdPutRequest): Promise<BookingModel> => {
+  return new BookingsApi(configuration, undefined, instance)
+    .apiV2BookingsBookingIdPut(payload)
     .then((res) => {
       log('put Booking: ', res.data)
-      return res.data as BookingModel
+      return res.data
     })
     .catch((error) => {
       const restException = error.response.data as RestException
@@ -64,9 +63,26 @@ export function putBooking(
     })
 }
 
-export default {
-  loadBookings,
-  loadBooking,
-  postBooking,
-  putBooking
+export const postBookingPaymentKey = async (
+  payload: BookingsApiApiV2BookingsBookingIdPayPostRequest
+): Promise<string> => {
+  return new BookingsApi(configuration, undefined, instance)
+    .apiV2BookingsBookingIdPayPost(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
 }
+
+const bookings = {
+  getBookings,
+  getBookingById,
+  postBooking,
+  putBooking,
+  postBookingPaymentKey
+}
+
+export default bookings

@@ -1,16 +1,21 @@
-import { configuration, instance } from './HttpClient'
+import {
+  FaqCategoriesApi,
+  FaqCategoriesApiApiV2FaqcategoriesFaqCategoryIdGetRequest,
+  FaqCategoriesApiApiV2FaqcategoriesGetRequest,
+  FaqCategoriesApiApiV2FaqcategoriesSlugGetRequest
+} from 'ch-api-client-typescript2/lib/api/faq-categories-api'
+import { FaqCategoriesModel } from 'ch-api-client-typescript2/lib/models/faq-categories-model'
+import { FaqCategoryModel } from 'ch-api-client-typescript2/lib/models/faq-category-model'
 import { RestException } from '../models/exceptions'
-import { FaqCategoriesModel, FaqCategoryModel, FaqCategoriesApi } from 'ch-api-client-typescript2/lib'
-import { FaqCategoriesSearchOption, FaqCategorySearchOption } from '../models/faqCategories'
+import { configuration, instance } from './HttpClient'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export function loadFaqCategories(faqCategoriesSearchOption: FaqCategoriesSearchOption): Promise<FaqCategoriesModel> {
-  const { id, parentId, name, description, languageCode, page, limit, lastRetrieved } = faqCategoriesSearchOption
-  return new FaqCategoriesApi(configuration, apiRoot, instance)
-    .apiV2FaqcategoriesGet(id, parentId, name, description, languageCode, page, limit, lastRetrieved)
+export const loadFaqCategories = async (
+  payload?: FaqCategoriesApiApiV2FaqcategoriesGetRequest
+): Promise<FaqCategoriesModel> => {
+  return new FaqCategoriesApi(configuration, undefined, instance)
+    .apiV2FaqcategoriesGet(payload)
     .then((res) => {
-      return res.data as FaqCategoriesModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -18,33 +23,37 @@ export function loadFaqCategories(faqCategoriesSearchOption: FaqCategoriesSearch
     })
 }
 
-export function loadFaqCategory(faqCategorySearchOption: FaqCategorySearchOption): Promise<FaqCategoryModel> {
-  const { faqCategoryId, slug, languageCode } = faqCategorySearchOption
-
-  if (slug) {
-    return new FaqCategoriesApi(configuration, apiRoot, instance)
-      .apiV2FaqcategoriesSlugGet(slug, languageCode)
-      .then((res) => {
-        return res.data as FaqCategoryModel
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  } else {
-    return new FaqCategoriesApi(configuration, apiRoot, instance)
-      .apiV2FaqcategoriesFaqCategoryIdGet(faqCategoryId, languageCode)
-      .then((res) => {
-        return res.data as FaqCategoryModel
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  }
+export const loadFaqCategory = async (
+  payload: FaqCategoriesApiApiV2FaqcategoriesFaqCategoryIdGetRequest
+): Promise<FaqCategoryModel> => {
+  return new FaqCategoriesApi(configuration, undefined, instance)
+    .apiV2FaqcategoriesFaqCategoryIdGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
 }
 
-export default {
+export const loadFaqCategoryBySlug = async (
+  payload: FaqCategoriesApiApiV2FaqcategoriesSlugGetRequest
+): Promise<FaqCategoryModel> => {
+  return new FaqCategoriesApi(configuration, undefined, instance)
+    .apiV2FaqcategoriesSlugGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
+const faqCategories = {
   loadFaqCategories,
   loadFaqCategory
 }
+
+export default faqCategories

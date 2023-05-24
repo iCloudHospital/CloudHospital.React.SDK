@@ -1,39 +1,57 @@
-import { configuration, instance } from './HttpClient'
-import { ChangeEmailCommand, ProfilesApi, UserModel, UpdateProfileCommand } from 'ch-api-client-typescript2/lib'
+import {
+  ProfilesApi,
+  ProfilesApiApiV2ProfilesChangeemailPostRequest,
+  ProfilesApiApiV2ProfilesPostRequest,
+  ProfilesApiApiV2ProfilesProfileIdDeleteRequest,
+  ProfilesApiApiV2ProfilesPutRequest
+} from 'ch-api-client-typescript2/lib/api/profiles-api'
+import { PatientModel } from 'ch-api-client-typescript2/lib/models/patient-model'
+import { UserModel } from 'ch-api-client-typescript2/lib/models/user-model'
 import { RestException } from '../models/exceptions'
+import { configuration, instance } from './HttpClient'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+export const postProfile = async (payload: ProfilesApiApiV2ProfilesPostRequest): Promise<UserModel> => {
+  return new ProfilesApi(configuration, undefined, instance)
+    .apiV2ProfilesPost(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
 
-export function loadProfile(): Promise<UserModel> {
-  return new ProfilesApi(configuration, apiRoot, instance)
+export const changeEmail = async (payload: ProfilesApiApiV2ProfilesChangeemailPostRequest): Promise<boolean> => {
+  return new ProfilesApi(configuration, undefined, instance)
+    .apiV2ProfilesChangeemailPost(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
+export const getProfile = async (): Promise<PatientModel> => {
+  return new ProfilesApi(configuration, undefined, instance)
     .apiV2ProfilesGet()
     .then((res) => {
-      return res.data as UserModel
+      return res.data as PatientModel
     })
     .catch((error: any) => {
-      const restException = error.response.data as RestException
+      const restException = error.response?.data as RestException
       throw restException
     })
 }
 
-export function changeEmail(changeEmailCommand: ChangeEmailCommand): Promise<boolean> {
-  return new ProfilesApi(configuration, apiRoot, instance)
-    .apiV2ProfilesChangeemailPost(changeEmailCommand)
-    .then((res) => {
-      return res.data as boolean
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-
-export function updateProfile(updateProfileCommand: UpdateProfileCommand): Promise<UserModel> {
+export const putProfile = async (payload: ProfilesApiApiV2ProfilesPutRequest): Promise<PatientModel> => {
   // TODO: remove chadmin
-  return new ProfilesApi(configuration, apiRoot, instance)
-    .apiV2ProfilesPut(updateProfileCommand)
+  return new ProfilesApi(configuration, undefined, instance)
+    .apiV2ProfilesPut(payload)
     .then((res) => {
-      return res.data as UserModel
+      return res.data as PatientModel
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -41,8 +59,24 @@ export function updateProfile(updateProfileCommand: UpdateProfileCommand): Promi
     })
 }
 
-export default {
-  loadProfile,
-  changeEmail,
-  updateProfile
+export const deleteProfile = async (payload: ProfilesApiApiV2ProfilesProfileIdDeleteRequest): Promise<boolean> => {
+  // TODO: remove chadmin
+  return new ProfilesApi(configuration, undefined, instance)
+    .apiV2ProfilesProfileIdDelete(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
 }
+
+const profiles = {
+  postProfile,
+  changeEmail,
+  getProfile,
+  putProfile
+}
+
+export default profiles

@@ -1,40 +1,23 @@
-import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
 import {
   HospitalsApi,
-  HospitalEquipmentsModel,
-  HospitalEquipmentModel,
-  MediasModel,
-  MediaModel
-} from 'ch-api-client-typescript2/lib'
-import {
-  HospitalEquipmentsSearchOption,
-  HospitalEquipmentMediaSearchOption,
-  HospitalEquipmentMediasSearchOption
-} from '../models/hospitalEquipments'
-
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+  HospitalsApiApiV2HospitalsHospitalIdEquipmentsEquipmentIdGetRequest,
+  HospitalsApiApiV2HospitalsHospitalIdEquipmentsEquipmentIdMediasGetRequest,
+  HospitalsApiApiV2HospitalsHospitalIdEquipmentsEquipmentIdMediasMediaIdGetRequest,
+  HospitalsApiApiV2HospitalsHospitalIdEquipmentsGetRequest
+} from 'ch-api-client-typescript2/lib/api/hospitals-api'
+import { HospitalEquipmentModel } from 'ch-api-client-typescript2/lib/models/hospital-equipment-model'
+import { HospitalEquipmentsModel } from 'ch-api-client-typescript2/lib/models/hospital-equipments-model'
+import { MediaModel } from 'ch-api-client-typescript2/lib/models/media-model'
+import { MediasModel } from 'ch-api-client-typescript2/lib/models/medias-model'
+import { RestException } from '../models/exceptions'
+import { configuration, instance } from './HttpClient'
 
 // #region HospitalEquipments
-export function loadHospitalEquipments(
-  equipmentSearchOption: HospitalEquipmentsSearchOption
-): Promise<HospitalEquipmentsModel> {
-  const { hospitalId, id, name, hospitalId2, hospitalName, description, created, page, limit, lastRetrieved } =
-    equipmentSearchOption
-
-  return new HospitalsApi(configuration, apiRoot, instance)
-    .apiV2HospitalsHospitalIdEquipmentsGet(
-      hospitalId,
-      id,
-      name,
-      hospitalId2,
-      hospitalName,
-      description,
-      created,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const getHospitalEquipments = async (
+  payload: HospitalsApiApiV2HospitalsHospitalIdEquipmentsGetRequest
+): Promise<HospitalEquipmentsModel> => {
+  return new HospitalsApi(configuration, undefined, instance)
+    .apiV2HospitalsHospitalIdEquipmentsGet(payload)
     .then((res) => {
       return res.data
     })
@@ -44,9 +27,11 @@ export function loadHospitalEquipments(
     })
 }
 
-export function loadHospitalEquipment(hospitalId: string, equipmentId: string): Promise<HospitalEquipmentModel> {
-  return new HospitalsApi(configuration, apiRoot, instance)
-    .apiV2HospitalsHospitalIdEquipmentsEquipmentIdGet(hospitalId, equipmentId)
+export const getHospitalEquipmentByEquipmentId = async (
+  payload: HospitalsApiApiV2HospitalsHospitalIdEquipmentsEquipmentIdGetRequest
+): Promise<HospitalEquipmentModel> => {
+  return new HospitalsApi(configuration, undefined, instance)
+    .apiV2HospitalsHospitalIdEquipmentsEquipmentIdGet(payload)
     .then((res) => {
       return res.data
     })
@@ -58,20 +43,11 @@ export function loadHospitalEquipment(hospitalId: string, equipmentId: string): 
 // #endregion HospitalEquipments
 
 // #region HospitalEquipmentMedias
-export function loadHospitalEquipmentMedias(
-  hospitalEquipmentMediasSearchOption: HospitalEquipmentMediasSearchOption
-): Promise<MediasModel> {
-  const { hospitalId, equipmentId, id, mediaType, page, limit, lastRetrieved } = hospitalEquipmentMediasSearchOption
-  return new HospitalsApi(configuration, apiRoot, instance)
-    .apiV2HospitalsHospitalIdEquipmentsEquipmentIdMediasGet(
-      hospitalId,
-      equipmentId,
-      id,
-      mediaType,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const getHospitalEquipmentMedias = async (
+  payload: HospitalsApiApiV2HospitalsHospitalIdEquipmentsEquipmentIdMediasGetRequest
+): Promise<MediasModel> => {
+  return new HospitalsApi(configuration, undefined, instance)
+    .apiV2HospitalsHospitalIdEquipmentsEquipmentIdMediasGet(payload)
     .then((res) => {
       return res.data
     })
@@ -81,12 +57,11 @@ export function loadHospitalEquipmentMedias(
     })
 }
 
-export function loadHospitalEquipmentMedia(
-  hospitalEquipmentMediaSearchOption: HospitalEquipmentMediaSearchOption
-): Promise<MediaModel> {
-  const { hospitalId, equipmentId, mediaId } = hospitalEquipmentMediaSearchOption
-  return new HospitalsApi(configuration, apiRoot, instance)
-    .apiV2HospitalsHospitalIdEquipmentsEquipmentIdMediasMediaIdGet(hospitalId, equipmentId, mediaId)
+export const getHospitalEquipmentMediaByMediaId = async (
+  payload: HospitalsApiApiV2HospitalsHospitalIdEquipmentsEquipmentIdMediasMediaIdGetRequest
+): Promise<MediaModel> => {
+  return new HospitalsApi(configuration, undefined, instance)
+    .apiV2HospitalsHospitalIdEquipmentsEquipmentIdMediasMediaIdGet(payload)
     .then((res) => {
       return res.data
     })
@@ -97,10 +72,11 @@ export function loadHospitalEquipmentMedia(
 }
 // #endregion HospitalEquipmentMedias
 
-export default {
-  loadHospitalEquipments,
-  loadHospitalEquipment,
-
-  loadHospitalEquipmentMedias,
-  loadHospitalEquipmentMedia
+const hospitalEquipments = {
+  getHospitalEquipments,
+  getHospitalEquipmentByEquipmentId,
+  getHospitalEquipmentMedias,
+  getHospitalEquipmentMediaByMediaId
 }
+
+export default hospitalEquipments

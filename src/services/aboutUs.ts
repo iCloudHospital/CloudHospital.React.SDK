@@ -1,83 +1,43 @@
-import { configuration, instance } from './HttpClient'
-import { AboutUsApi, AboutUsPageModel, AboutUsPagesModel } from 'ch-api-client-typescript2/lib'
-import { AboutUsPageSearchOption, AboutUsPagesSearchOption } from '../models/aboutUs'
+import {
+  AboutUsApi,
+  AboutUsApiApiV2AboutusHospitalIdGetRequest,
+  AboutUsApiApiV2AboutusSlugGetRequest
+} from 'ch-api-client-typescript2/lib/api/about-us-api'
+import { AboutUsPageModel } from 'ch-api-client-typescript2/lib/models/about-us-page-model'
 import { RestException } from '../models'
+import { configuration, instance } from './HttpClient'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export function loadAboutUsPages(aboutUsPagesSearchOption: AboutUsPagesSearchOption): Promise<AboutUsPagesModel> {
-  const {
-    hospitalId,
-    hospitalName,
-    hospitalSlug,
-    overviewTitle,
-    normalizedOverviewTitle,
-    overview,
-    content,
-    customStyle,
-    background,
-    backgroundThumbnail,
-    languageCode,
-    returnDefaultValue,
-    confirmed,
-    page,
-    limit,
-    lastRetrieved
-  } = aboutUsPagesSearchOption
-  return new AboutUsApi(configuration, apiRoot, instance)
-    .apiV2AboutusGet(
-      hospitalId,
-      hospitalName,
-      hospitalSlug,
-      overviewTitle,
-      normalizedOverviewTitle,
-      overview,
-      content,
-      customStyle,
-      background,
-      backgroundThumbnail,
-      languageCode,
-      returnDefaultValue,
-      confirmed,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const getAboutUsPageById = async (
+  payload: AboutUsApiApiV2AboutusHospitalIdGetRequest
+): Promise<AboutUsPageModel> => {
+  return new AboutUsApi(configuration, undefined, instance)
+    .apiV2AboutusHospitalIdGet(payload)
     .then((res) => {
-      return res.data as AboutUsPagesModel
+      return res.data
     })
-    .catch((error: any) => {
+    .catch((error) => {
       const restException = error.response.data as RestException
       throw restException
     })
 }
 
-export function loadAboutUsPage(aboutUsPageSearchOption: AboutUsPageSearchOption): Promise<AboutUsPageModel> {
-  const { hospitalId, languageCode, returnDefaultValue, slug } = aboutUsPageSearchOption
-  if (slug) {
-    return new AboutUsApi(configuration, apiRoot, instance)
-      .apiV2AboutusSlugGet(slug, languageCode, returnDefaultValue)
-      .then((res) => {
-        return res.data as AboutUsPageModel
-      })
-      .catch((error) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  } else {
-    return new AboutUsApi(configuration, apiRoot, instance)
-      .apiV2AboutusHospitalIdGet(hospitalId, languageCode, returnDefaultValue)
-      .then((res) => {
-        return res.data as AboutUsPageModel
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  }
+export const getAboutUsPageBySlug = async (
+  payload: AboutUsApiApiV2AboutusSlugGetRequest
+): Promise<AboutUsPageModel> => {
+  return new AboutUsApi(configuration, undefined, instance)
+    .apiV2AboutusSlugGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
 }
 
-export default {
-  loadAboutUsPages,
-  loadAboutUsPage
+const aboutUs = {
+  getAboutUsPageById,
+  getAboutUsPageBySlug
 }
+
+export default aboutUs

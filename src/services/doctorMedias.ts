@@ -1,15 +1,19 @@
-import { configuration, instance } from './HttpClient'
+import {
+  DoctorsApi,
+  DoctorsApiApiV2DoctorsDoctorIdMediasGetRequest,
+  DoctorsApiApiV2DoctorsDoctorIdMediasMediaIdGetRequest
+} from 'ch-api-client-typescript2/lib/api/doctors-api'
+import { MediaModel } from 'ch-api-client-typescript2/lib/models/media-model'
+import { MediasModel } from 'ch-api-client-typescript2/lib/models/medias-model'
 import { RestException } from '../models/exceptions'
-import { DoctorMediasSearchOption } from '../models/doctorMedias'
-import { DoctorsApi, MediasModel, MediaModel } from 'ch-api-client-typescript2/lib'
-
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+import { configuration, instance } from './HttpClient'
 
 // #region DoctorMedias
-export function loadDoctorMedias(doctorMediasSearchOption: DoctorMediasSearchOption): Promise<MediasModel> {
-  const { doctorId, id, mediaType, page, limit, lastRetrieved } = doctorMediasSearchOption
-  return new DoctorsApi(configuration, apiRoot, instance)
-    .apiV2DoctorsDoctorIdMediasGet(doctorId, id, mediaType, page, limit, lastRetrieved)
+export const getDoctorMedias = async (
+  payload: DoctorsApiApiV2DoctorsDoctorIdMediasGetRequest
+): Promise<MediasModel> => {
+  return new DoctorsApi(configuration, undefined, instance)
+    .apiV2DoctorsDoctorIdMediasGet(payload)
     .then((res) => {
       return res.data
     })
@@ -19,9 +23,11 @@ export function loadDoctorMedias(doctorMediasSearchOption: DoctorMediasSearchOpt
     })
 }
 
-export function loadDoctorMedia(doctorId: string, mediaId: string): Promise<MediaModel> {
-  return new DoctorsApi(configuration, apiRoot, instance)
-    .apiV2DoctorsDoctorIdMediasMediaIdGet(doctorId, mediaId)
+export const getDoctorMediaByMediaId = async (
+  payload: DoctorsApiApiV2DoctorsDoctorIdMediasMediaIdGetRequest
+): Promise<MediaModel> => {
+  return new DoctorsApi(configuration, undefined, instance)
+    .apiV2DoctorsDoctorIdMediasMediaIdGet(payload)
     .then((res) => {
       return res.data
     })
@@ -32,7 +38,9 @@ export function loadDoctorMedia(doctorId: string, mediaId: string): Promise<Medi
 }
 // #endregion DoctorMedias
 
-export default {
-  loadDoctorMedias,
-  loadDoctorMedia
+const doctorMedias = {
+  getDoctorMedias,
+  getDoctorMediaByMediaId
 }
+
+export default doctorMedias

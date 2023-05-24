@@ -1,19 +1,29 @@
-import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
 import {
   ChatUsersApi,
-  ChatUserModel,
-  CreateChatUserCommand,
-  UpdateChatUserCommand
-} from 'ch-api-client-typescript2/lib'
+  ChatUsersApiApiV2ChatusersPostRequest,
+  ChatUsersApiApiV2ChatusersPutRequest
+} from 'ch-api-client-typescript2/lib/api/chat-users-api'
+import { ChatUserModel } from 'ch-api-client-typescript2/lib/models/chat-user-model'
+import { RestException } from '../models/exceptions'
+import { configuration, instance } from './HttpClient'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+export const postChatUser = async (payload?: ChatUsersApiApiV2ChatusersPostRequest): Promise<ChatUserModel> => {
+  return new ChatUsersApi(configuration, undefined, instance)
+    .apiV2ChatusersPost(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
 
-export function loadChatUser(): Promise<ChatUserModel> {
-  return new ChatUsersApi(configuration, apiRoot, instance)
+export const getChatUser = async (): Promise<ChatUserModel> => {
+  return new ChatUsersApi(configuration, undefined, instance)
     .apiV2ChatusersCurrentGet()
     .then((res) => {
-      return res.data as ChatUserModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -21,9 +31,9 @@ export function loadChatUser(): Promise<ChatUserModel> {
     })
 }
 
-export function postChatUser(createChatUserCommand?: CreateChatUserCommand | undefined): Promise<ChatUserModel> {
-  return new ChatUsersApi(configuration, apiRoot, instance)
-    .apiV2ChatusersPost(createChatUserCommand)
+export const putChatUser = async (payload?: ChatUsersApiApiV2ChatusersPutRequest): Promise<ChatUserModel> => {
+  return new ChatUsersApi(configuration, undefined, instance)
+    .apiV2ChatusersPut(payload)
     .then((res) => {
       return res.data
     })
@@ -33,12 +43,9 @@ export function postChatUser(createChatUserCommand?: CreateChatUserCommand | und
     })
 }
 
-export function putChatUser(
-  userId: string,
-  updateChatUserCommand?: UpdateChatUserCommand | undefined
-): Promise<ChatUserModel> {
-  return new ChatUsersApi(configuration, apiRoot, instance)
-    .apiV2ChatusersUserIdPut(userId, updateChatUserCommand)
+export const deleteChatUser = async (): Promise<boolean> => {
+  return new ChatUsersApi(configuration, undefined, instance)
+    .apiV2ChatusersDelete()
     .then((res) => {
       return res.data
     })
@@ -48,21 +55,11 @@ export function putChatUser(
     })
 }
 
-export function deleteChatUser(userId: string): Promise<boolean> {
-  return new ChatUsersApi(configuration, apiRoot, instance)
-    .apiV2ChatusersUserIdDelete(userId)
-    .then((res) => {
-      return res.data as boolean
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-
-export default {
-  loadChatUser,
+const chats = {
+  getChatUser,
   postChatUser,
   putChatUser,
   deleteChatUser
 }
+
+export default chats

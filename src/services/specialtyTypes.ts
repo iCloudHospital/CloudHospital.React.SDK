@@ -1,57 +1,22 @@
-import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
 import {
   SpecialtyTypesApi,
-  SpecialtyTypesModel,
-  SpecialtyTypeModel,
-  MediaModel,
-  MediasModel
-} from 'ch-api-client-typescript2/lib'
-import {
-  SpecialtyTypeMediasSearchOption,
-  SpecialtyTypeSearchOption,
-  SpecialtyTypesSearchOption
-} from '../models/specialtyTypes'
-
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+  SpecialtyTypesApiApiV2SpecialtytypesGetRequest,
+  SpecialtyTypesApiApiV2SpecialtytypesSlugGetRequest,
+  SpecialtyTypesApiApiV2SpecialtytypesSpecialtyTypeIdGetRequest
+} from 'ch-api-client-typescript2/lib/api/specialty-types-api'
+import { SpecialtyTypeModel } from 'ch-api-client-typescript2/lib/models/specialty-type-model'
+import { SpecialtyTypesModel } from 'ch-api-client-typescript2/lib/models/specialty-types-model'
+import { RestException } from '../models/exceptions'
+import { configuration, instance } from './HttpClient'
 
 // #region SpecialtyTypes
-export function loadSpecialtyTypes(
-  specialtyTypesSearchOption: SpecialtyTypesSearchOption
-): Promise<SpecialtyTypesModel> {
-  const {
-    id,
-    name,
-    description,
-    marketingType,
-    hospitalId,
-    created,
-    languageCode,
-    ids,
-    specialtyTypeCategoryId,
-    returnDefaultValue,
-    page,
-    limit,
-    lastRetrieved
-  } = specialtyTypesSearchOption
-  return new SpecialtyTypesApi(configuration, apiRoot, instance)
-    .apiV2SpecialtytypesGet(
-      id,
-      name,
-      description,
-      marketingType,
-      hospitalId,
-      created,
-      languageCode,
-      ids,
-      specialtyTypeCategoryId,
-      returnDefaultValue,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const getSpecialtyTypes = async (
+  payload?: SpecialtyTypesApiApiV2SpecialtytypesGetRequest
+): Promise<SpecialtyTypesModel> => {
+  return new SpecialtyTypesApi(configuration, undefined, instance)
+    .apiV2SpecialtytypesGet(payload)
     .then((res) => {
-      return res.data as SpecialtyTypesModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -59,65 +24,39 @@ export function loadSpecialtyTypes(
     })
 }
 
-export function loadSpecialtyType(specialtyTypeSearchOption: SpecialtyTypeSearchOption): Promise<SpecialtyTypeModel> {
-  const { specialtyTypeId, slug, languageCode, returnDefaultValue } = specialtyTypeSearchOption
-  if (slug) {
-    return new SpecialtyTypesApi(configuration, apiRoot, instance)
-      .apiV2SpecialtytypesSlugGet(slug, languageCode, returnDefaultValue)
-      .then((res) => {
-        return res.data as SpecialtyTypeModel
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  } else {
-    return new SpecialtyTypesApi(configuration, apiRoot, instance)
-      .apiV2SpecialtytypesSpecialtyTypeIdGet(specialtyTypeId, languageCode, returnDefaultValue)
-      .then((res) => {
-        return res.data as SpecialtyTypeModel
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  }
+export const getSpecialtyTypeBySpecialtyTypeId = async (
+  payload: SpecialtyTypesApiApiV2SpecialtytypesSpecialtyTypeIdGetRequest
+): Promise<SpecialtyTypeModel> => {
+  return new SpecialtyTypesApi(configuration, undefined, instance)
+    .apiV2SpecialtytypesSpecialtyTypeIdGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
+export const getSpecialtyTypeBySlug = async (
+  payload: SpecialtyTypesApiApiV2SpecialtytypesSlugGetRequest
+): Promise<SpecialtyTypeModel> => {
+  return new SpecialtyTypesApi(configuration, undefined, instance)
+    .apiV2SpecialtytypesSlugGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
 }
 // #endregion SpecialtyTypes
 
-// #region SpecialtyTypeMedias
-export function getSpecialtyTypeMedias(
-  specialtyTypeMediasSearchOption: SpecialtyTypeMediasSearchOption
-): Promise<MediasModel> {
-  const { specialtyTypeId, id, mediaType, page, limit, lastRetrieved } = specialtyTypeMediasSearchOption
-  return new SpecialtyTypesApi(configuration, apiRoot, instance)
-    .apiV2SpecialtytypesSpecialtyTypeIdMediasGet(specialtyTypeId, id, mediaType, page, limit, lastRetrieved)
-    .then((res) => {
-      return res.data
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
+const specialtyTypes = {
+  getSpecialtyTypes,
+  getSpecialtyTypeBySpecialtyTypeId,
+  getSpecialtyTypeBySlug
 }
 
-export function getSpecialtyTypeMedia(specialtyTypeId: string, mediaId: string): Promise<MediaModel> {
-  return new SpecialtyTypesApi(configuration, apiRoot, instance)
-    .apiV2SpecialtytypesSpecialtyTypeIdMediasMediaIdGet(specialtyTypeId, mediaId)
-    .then((res) => {
-      return res.data
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-// #endregion SpecialtyTypeMedias
-
-export default {
-  loadSpecialtyTypes,
-  loadSpecialtyType,
-
-  getSpecialtyTypeMedias,
-  getSpecialtyTypeMedia
-}
+export default specialtyTypes

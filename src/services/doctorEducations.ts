@@ -1,27 +1,19 @@
-import { configuration, instance } from './HttpClient'
+import {
+  DoctorsApi,
+  DoctorsApiApiV2DoctorsDoctorIdEducationsEducationIdGetRequest,
+  DoctorsApiApiV2DoctorsDoctorIdEducationsGetRequest
+} from 'ch-api-client-typescript2/lib/api/doctors-api'
+import { DoctorEducationModel } from 'ch-api-client-typescript2/lib/models/doctor-education-model'
+import { DoctorEducationsModel } from 'ch-api-client-typescript2/lib/models/doctor-educations-model'
 import { RestException } from '../models/exceptions'
-import { DoctorsApi, DoctorEducationsModel, DoctorEducationModel } from 'ch-api-client-typescript2/lib'
-import { DoctorEducationsSearchOption } from '../models/doctorEducations'
+import { configuration, instance } from './HttpClient'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export function loadDoctorEducations(
-  doctorEducationsSearchOption: DoctorEducationsSearchOption
-): Promise<DoctorEducationsModel> {
-  const { doctorId, doctorId2, doctorName, institution, qualification, graduationDate, page, limit, lastRetrieved } =
-    doctorEducationsSearchOption
-  return new DoctorsApi(configuration, apiRoot, instance)
-    .apiV2DoctorsDoctorIdEducationsGet(
-      doctorId,
-      doctorId2,
-      doctorName,
-      institution,
-      qualification,
-      graduationDate,
-      page,
-      limit,
-      lastRetrieved
-    )
+// #endregion Doctor Educations
+export const getDoctorEducations = async (
+  payload: DoctorsApiApiV2DoctorsDoctorIdEducationsGetRequest
+): Promise<DoctorEducationsModel> => {
+  return new DoctorsApi(configuration, undefined, instance)
+    .apiV2DoctorsDoctorIdEducationsGet(payload)
     .then((res) => {
       return res.data
     })
@@ -31,9 +23,11 @@ export function loadDoctorEducations(
     })
 }
 
-export function loadDoctorEducation(doctorId: string, educationId: string): Promise<DoctorEducationModel> {
-  return new DoctorsApi(configuration, apiRoot, instance)
-    .apiV2DoctorsDoctorIdEducationsEducationIdGet(doctorId, educationId)
+export const getDoctorEducationById = async (
+  payload: DoctorsApiApiV2DoctorsDoctorIdEducationsEducationIdGetRequest
+): Promise<DoctorEducationModel> => {
+  return new DoctorsApi(configuration, undefined, instance)
+    .apiV2DoctorsDoctorIdEducationsEducationIdGet(payload)
     .then((res) => {
       return res.data
     })
@@ -43,7 +37,9 @@ export function loadDoctorEducation(doctorId: string, educationId: string): Prom
     })
 }
 
-export default {
-  loadDoctorEducations,
-  loadDoctorEducation
+const doctorEducations = {
+  getDoctorEducations,
+  getDoctorEducationById
 }
+
+export default doctorEducations

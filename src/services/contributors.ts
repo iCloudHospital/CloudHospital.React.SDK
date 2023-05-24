@@ -1,53 +1,24 @@
-import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
 import {
   ContributorsApi,
-  ContributorsModel,
-  ContributorModel,
-  ContributorSnsHandlesModel,
-  SnsHandleModel
-} from 'ch-api-client-typescript2/lib'
-import {
-  ContributorSearchOption,
-  ContributorsSearchOption,
-  ContributorSnsHandlesSearchOption,
-  ContributorSnsHnadleSearchOption
-} from '../models/contributors'
-
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+  ContributorsApiApiV2ContributorsContributorIdGetRequest,
+  ContributorsApiApiV2ContributorsContributorIdHandlesGetRequest,
+  ContributorsApiApiV2ContributorsContributorIdHandlesHandleIdGetRequest,
+  ContributorsApiApiV2ContributorsGetRequest,
+  ContributorsApiApiV2ContributorsSlugGetRequest
+} from 'ch-api-client-typescript2/lib/api/contributors-api'
+import { ContributorModel } from 'ch-api-client-typescript2/lib/models/contributor-model'
+import { ContributorSnsHandlesModel } from 'ch-api-client-typescript2/lib/models/contributor-sns-handles-model'
+import { ContributorsModel } from 'ch-api-client-typescript2/lib/models/contributors-model'
+import { SnsHandleModel } from 'ch-api-client-typescript2/lib/models/sns-handle-model'
+import { RestException } from '../models/exceptions'
+import { configuration, instance } from './HttpClient'
 
 // #region Contributors
-export function loadContributors(contributorsSearchOption: ContributorsSearchOption): Promise<ContributorsModel> {
-  const {
-    id,
-    name,
-    email,
-    description,
-    website,
-    hospitalId,
-    interviewerOnly,
-    languageCode,
-    showHidden,
-    page,
-    limit,
-    lastRetrieved
-  } = contributorsSearchOption
-  return new ContributorsApi(configuration, apiRoot, instance)
-    .apiV2ContributorsGet(
-      id,
-      name,
-      email,
-      description,
-      website,
-      hospitalId,
-      interviewerOnly,
-      showHidden,
-      languageCode,
-      showHidden,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const getContributors = async (
+  payload?: ContributorsApiApiV2ContributorsGetRequest
+): Promise<ContributorsModel> => {
+  return new ContributorsApi(configuration, undefined, instance)
+    .apiV2ContributorsGet(payload)
     .then((res) => {
       return res.data
     })
@@ -57,51 +28,13 @@ export function loadContributors(contributorsSearchOption: ContributorsSearchOpt
     })
 }
 
-export function loadContributor(contributorSearchOption: ContributorSearchOption): Promise<ContributorModel> {
-  const { contributorId, slug, languageCode } = contributorSearchOption
-  if (slug) {
-    return new ContributorsApi(configuration, apiRoot, instance)
-      .apiV2ContributorsSlugGet(slug, languageCode)
-      .then((res) => {
-        return res.data
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  } else {
-    return new ContributorsApi(configuration, apiRoot, instance)
-      .apiV2ContributorsContributorIdGet(contributorId, languageCode)
-      .then((res) => {
-        return res.data
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  }
-}
-// #endregion Contributors
-
-// #region ContributorSnsHandles
-export function loadContributorSnsHandles(
-  contributorSnsHandlesSearchOption: ContributorSnsHandlesSearchOption
-): Promise<ContributorSnsHandlesModel> {
-  const { contributorId, contributorId2, id, snsType, handle, page, limit, lastRetrieved } =
-    contributorSnsHandlesSearchOption
-  return new ContributorsApi(configuration, apiRoot, instance)
-    .apiV2ContributorsContributorIdHandlesGet(
-      contributorId,
-      contributorId2,
-      id,
-      snsType,
-      handle,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const getContributorById = async (
+  payload: ContributorsApiApiV2ContributorsContributorIdGetRequest
+): Promise<ContributorModel> => {
+  return new ContributorsApi(configuration, undefined, instance)
+    .apiV2ContributorsContributorIdGet(payload)
     .then((res) => {
-      return res.data as ContributorSnsHandlesModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -109,12 +42,41 @@ export function loadContributorSnsHandles(
     })
 }
 
-export function loadContributorSnsHandle(
-  contributorSnsHandleSearchOption: ContributorSnsHnadleSearchOption
-): Promise<SnsHandleModel> {
-  const { contributorId, handleId } = contributorSnsHandleSearchOption
-  return new ContributorsApi(configuration, apiRoot, instance)
-    .apiV2ContributorsContributorIdGet(contributorId, handleId)
+export const getContributorBySlug = async (
+  payload: ContributorsApiApiV2ContributorsSlugGetRequest
+): Promise<ContributorModel> => {
+  return new ContributorsApi(configuration, undefined, instance)
+    .apiV2ContributorsSlugGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+// #endregion Contributors
+
+// #region ContributorSnsHandles
+export const getContributorSnsHandles = async (
+  payload: ContributorsApiApiV2ContributorsContributorIdHandlesGetRequest
+): Promise<ContributorSnsHandlesModel> => {
+  return new ContributorsApi(configuration, undefined, instance)
+    .apiV2ContributorsContributorIdHandlesGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
+export const getContributorSnsHandle = async (
+  payload: ContributorsApiApiV2ContributorsContributorIdHandlesHandleIdGetRequest
+): Promise<SnsHandleModel> => {
+  return new ContributorsApi(configuration, undefined, instance)
+    .apiV2ContributorsContributorIdHandlesHandleIdGet(payload)
     .then((res) => {
       return res.data
     })
@@ -125,10 +87,12 @@ export function loadContributorSnsHandle(
 }
 // #endregion ContributorSnsHandles
 
-export default {
-  loadContributors,
-  loadContributor,
-
-  loadContributorSnsHandles,
-  loadContributorSnsHandle
+const contributors = {
+  getContributors,
+  getContributorById,
+  getContributorBySlug,
+  getContributorSnsHandles,
+  getContributorSnsHandle
 }
+
+export default contributors

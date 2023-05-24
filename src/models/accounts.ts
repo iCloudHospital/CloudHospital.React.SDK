@@ -61,6 +61,7 @@ export const ChangePasswordSchema = object().shape({
 })
 
 export interface ForgotPasswordModel {
+  policy: number,
   email: string
 }
 

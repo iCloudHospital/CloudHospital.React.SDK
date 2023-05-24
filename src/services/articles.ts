@@ -1,59 +1,20 @@
+import { RestException } from '../models'
+import {
+  ArticlesApi,
+  ArticlesApiApiV2ArticlesArticleIdGetRequest,
+  ArticlesApiApiV2ArticlesGetRequest,
+  ArticlesApiApiV2ArticlesSlugGetRequest
+} from 'ch-api-client-typescript2/lib/api/articles-api'
+import { ArticleModel } from 'ch-api-client-typescript2/lib/models/article-model'
+import { ArticlesModel } from 'ch-api-client-typescript2/lib/models/articles-model'
 import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
-import { ArticlesApi, ArticlesModel, ArticleModel } from 'ch-api-client-typescript2/lib'
-import { ArticleSearchOption, ArticlesSearchOption } from '../models/articles'
-
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 // #region Articles
-export function loadArticles(articlesSearchOption: ArticlesSearchOption): Promise<ArticlesModel> {
-  const {
-    id,
-    title,
-    description,
-    status,
-    marketingType,
-    userId,
-    userName,
-    hospitalId,
-    hospitalName,
-    countryId,
-    tag,
-    exceptArticleId,
-    exceptHospitalId,
-    contributorId,
-    languageCode,
-    showHidden,
-    returnDefaultValue,
-    page,
-    limit,
-    lastRetrieved
-  } = articlesSearchOption
-  return new ArticlesApi(configuration, apiRoot, instance)
-    .apiV2ArticlesGet(
-      id,
-      title,
-      description,
-      status,
-      marketingType,
-      userId,
-      userName,
-      hospitalId,
-      hospitalName,
-      countryId,
-      tag,
-      exceptArticleId,
-      exceptHospitalId,
-      contributorId,
-      languageCode,
-      showHidden,
-      returnDefaultValue,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const getArticles = async (payload: ArticlesApiApiV2ArticlesGetRequest): Promise<ArticlesModel> => {
+  return new ArticlesApi(configuration, undefined, instance)
+    .apiV2ArticlesGet(payload)
     .then((res) => {
-      return res.data as ArticlesModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -61,33 +22,35 @@ export function loadArticles(articlesSearchOption: ArticlesSearchOption): Promis
     })
 }
 
-export function loadArticle(articleSearchOption: ArticleSearchOption): Promise<ArticleModel> {
-  const { articleId, slug, languageCode, returnDefaultValue, options } = articleSearchOption
-  if (slug) {
-    return new ArticlesApi(configuration, apiRoot, instance)
-      .apiV2ArticlesSlugGet(slug, languageCode, returnDefaultValue, options)
-      .then((res) => {
-        return res.data as ArticleModel
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  } else {
-    return new ArticlesApi(configuration, apiRoot, instance)
-      .apiV2ArticlesArticleIdGet(articleId, languageCode, returnDefaultValue)
-      .then((res) => {
-        return res.data as ArticleModel
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  }
+export const getArticleById = async (payload: ArticlesApiApiV2ArticlesArticleIdGetRequest): Promise<ArticleModel> => {
+  return new ArticlesApi(configuration, undefined, instance)
+    .apiV2ArticlesArticleIdGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
+export const getArticleBySlug = async (payload: ArticlesApiApiV2ArticlesSlugGetRequest): Promise<ArticleModel> => {
+  return new ArticlesApi(configuration, undefined, instance)
+    .apiV2ArticlesSlugGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
 }
 // #endregion Articles
 
-export default {
-  loadArticles,
-  loadArticle
+const articles = {
+  getArticles,
+  getArticleById,
+  getArticleBySlug
 }
+
+export default articles

@@ -1,14 +1,18 @@
-import { configuration, instance } from './HttpClient'
+import {
+  MembershipsApi,
+  MembershipsApiApiV2MembershipsGetRequest,
+  MembershipsApiApiV2MembershipsMembershipIdGetRequest,
+  MembershipsApiApiV2MembershipsMembershipIdMembersGetRequest
+} from 'ch-api-client-typescript2/lib/api/memberships-api'
+import { MembersModel } from 'ch-api-client-typescript2/lib/models/members-model'
+import { MembershipModel } from 'ch-api-client-typescript2/lib/models/membership-model'
+import { MembershipsModel } from 'ch-api-client-typescript2/lib/models/memberships-model'
 import { RestException } from '../models/exceptions'
-import { MembershipModel, MembershipsApi, MembershipsModel, MembersModel } from 'ch-api-client-typescript2/lib'
-import { MembershipSearchOption, MembershipsSearchOption } from '../models/memberships'
+import { configuration, instance } from './HttpClient'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export const loadMemberships = (membershipsSearchOption: MembershipsSearchOption): Promise<MembershipsModel> => {
-  const { id, planId, planName, ownerId, ownerName, isActive, page, limit, lastRetrieved } = membershipsSearchOption
-  return new MembershipsApi(configuration, apiRoot, instance)
-    .apiV2MembershipsGet(id, planId, planName, ownerId, ownerName, isActive, page, limit, lastRetrieved)
+export const loadMemberships = async (payload: MembershipsApiApiV2MembershipsGetRequest): Promise<MembershipsModel> => {
+  return new MembershipsApi(configuration, undefined, instance)
+    .apiV2MembershipsGet(payload)
     .then((res) => {
       return res.data
     })
@@ -18,10 +22,11 @@ export const loadMemberships = (membershipsSearchOption: MembershipsSearchOption
     })
 }
 
-export const loadMembership = (membershipSearchOption: MembershipSearchOption): Promise<MembershipModel> => {
-  const { membershipId } = membershipSearchOption
-  return new MembershipsApi(configuration, apiRoot, instance)
-    .apiV2MembershipsMembershipIdGet(membershipId)
+export const loadMembership = async (
+  payload: MembershipsApiApiV2MembershipsMembershipIdGetRequest
+): Promise<MembershipModel> => {
+  return new MembershipsApi(configuration, undefined, instance)
+    .apiV2MembershipsMembershipIdGet(payload)
     .then((res) => {
       return res.data
     })
@@ -31,10 +36,11 @@ export const loadMembership = (membershipSearchOption: MembershipSearchOption): 
     })
 }
 
-export const loadMembershipMembers = (membershipSearchOption: MembershipSearchOption): Promise<MembersModel> => {
-  const { membershipId } = membershipSearchOption
-  return new MembershipsApi(configuration, apiRoot, instance)
-    .apiV2MembershipsMembershipIdMembersGet(membershipId)
+export const loadMembershipMembers = async (
+  payload: MembershipsApiApiV2MembershipsMembershipIdMembersGetRequest
+): Promise<MembersModel> => {
+  return new MembershipsApi(configuration, undefined, instance)
+    .apiV2MembershipsMembershipIdMembersGet(payload)
     .then((res) => {
       return res.data
     })
@@ -44,8 +50,10 @@ export const loadMembershipMembers = (membershipSearchOption: MembershipSearchOp
     })
 }
 
-export default {
+const memberships = {
   loadMemberships,
   loadMembership,
   loadMembershipMembers
 }
+
+export default memberships

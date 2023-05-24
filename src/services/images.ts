@@ -1,19 +1,11 @@
-import { instance } from './HttpClient'
+import { ImagesApi, ImagesApiApiV2ImagesPostRequest } from 'ch-api-client-typescript2/lib/api/images-api'
+import { MediaModel } from 'ch-api-client-typescript2/lib/models/media-model'
 import { RestException } from '../models/exceptions'
-import { MediaModel } from 'ch-api-client-typescript2/lib'
+import { configuration, instance } from './HttpClient'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export function postImages(formData: FormData): Promise<MediaModel[]> {
-  const url = apiRoot + '/api/v1/images'
-
-  const config = {
-    headers: {
-      'content-type': 'multipart/form-data'
-    }
-  }
-  return instance
-    .post(url, formData, config)
+export const postImages = async (payload: ImagesApiApiV2ImagesPostRequest): Promise<MediaModel[]> => {
+  return new ImagesApi(configuration, undefined, instance)
+    .apiV2ImagesPost(payload)
     .then((res) => {
       return res.data
     })
@@ -22,6 +14,9 @@ export function postImages(formData: FormData): Promise<MediaModel[]> {
       throw restException
     })
 }
-export default {
+
+const images = {
   postImages
 }
+
+export default images

@@ -1,74 +1,30 @@
-import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
-import {
-  DealPackageSearchOption,
-  DealPackagesSearchOption,
-  DealSearchOption,
-  DealServiceSearchOption,
-  DealServicesSearchOption,
-  DealsSearchOption,
-  DealsSimpleSearchOption
-} from '../models/deals'
 import {
   DealsApi,
-  DealsModel,
-  DealModel,
-  DealPackagesModel,
-  DealPackageModel,
-  DealServicesModel,
-  DealServiceModel,
-  DealsSimpleModel
-} from 'ch-api-client-typescript2/lib'
-import { log } from '../utils/log'
+  DealsApiApiV2DealsDealIdGetRequest,
+  DealsApiApiV2DealsDealIdPackagesGetRequest,
+  DealsApiApiV2DealsDealIdPackagesPackageIdGetRequest,
+  DealsApiApiV2DealsDealIdServicesGetRequest,
+  DealsApiApiV2DealsDealIdServicesServiceIdGetRequest,
+  DealsApiApiV2DealsGetRequest,
+  DealsApiApiV2DealsSimpleGetRequest,
+  DealsApiApiV2DealsSlugGetRequest
+} from 'ch-api-client-typescript2/lib/api/deals-api'
+import { DealModel } from 'ch-api-client-typescript2/lib/models/deal-model'
+import { DealPackageModel } from 'ch-api-client-typescript2/lib/models/deal-package-model'
+import { DealPackagesModel } from 'ch-api-client-typescript2/lib/models/deal-packages-model'
+import { DealServiceModel } from 'ch-api-client-typescript2/lib/models/deal-service-model'
+import { DealServicesModel } from 'ch-api-client-typescript2/lib/models/deal-services-model'
+import { DealsModel } from 'ch-api-client-typescript2/lib/models/deals-model'
+import { DealsSimpleModel } from 'ch-api-client-typescript2/lib/models/deals-simple-model'
+import { RestException } from '../models/exceptions'
+import { configuration, instance } from './HttpClient'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 // #region Deals
-export function loadDeals(dealsSearchOption: DealsSearchOption): Promise<DealsModel> {
-  const {
-    id,
-    name,
-    marketingType,
-    countryId,
-    hospitalId,
-    hospitalName,
-    specialtyId,
-    specialtyTypeId,
-    serviceId,
-    exceptHospitalId,
-    exceptDealId,
-    ids,
-    serviceDuration,
-    languageCode,
-    showHidden,
-    returnDefaultValue,
-    page,
-    limit,
-    lastRetrieved
-  } = dealsSearchOption
-  return new DealsApi(configuration, apiRoot, instance)
-    .apiV2DealsGet(
-      id,
-      name,
-      marketingType,
-      countryId,
-      hospitalId,
-      hospitalName,
-      specialtyId,
-      specialtyTypeId,
-      serviceId,
-      exceptHospitalId,
-      exceptDealId,
-      ids,
-      serviceDuration,
-      languageCode,
-      showHidden,
-      returnDefaultValue,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const getDeals = async (payload?: DealsApiApiV2DealsGetRequest): Promise<DealsModel> => {
+  return new DealsApi(configuration, undefined, instance)
+    .apiV2DealsGet(payload)
     .then((res) => {
-      return res.data as DealsModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -76,52 +32,11 @@ export function loadDeals(dealsSearchOption: DealsSearchOption): Promise<DealsMo
     })
 }
 
-export function loadDealsSimple(dealsSimpleSearchOption: DealsSimpleSearchOption): Promise<DealsSimpleModel> {
-  const {
-    id,
-    name,
-    marketingType,
-    countryId,
-    hospitalId,
-    hospitalName,
-    specialtyId,
-    specialtyTypeId,
-    serviceId,
-    exceptHospitalId,
-    exceptDealId,
-    ids,
-    serviceDuration,
-    languageCode,
-    showHidden,
-    returnDefaultValue,
-    page,
-    limit,
-    lastRetrieved
-  } = dealsSimpleSearchOption
-  return new DealsApi(configuration, apiRoot, instance)
-    .apiV2DealsSimpleGet(
-      id,
-      name,
-      marketingType,
-      countryId,
-      hospitalId,
-      hospitalName,
-      specialtyId,
-      specialtyTypeId,
-      serviceId,
-      exceptHospitalId,
-      exceptDealId,
-      ids,
-      serviceDuration,
-      languageCode,
-      showHidden,
-      returnDefaultValue,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const getDealsSimple = async (payload: DealsApiApiV2DealsSimpleGetRequest): Promise<DealsSimpleModel> => {
+  return new DealsApi(configuration, undefined, instance)
+    .apiV2DealsSimpleGet(payload)
     .then((res) => {
-      return res.data as DealsModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -129,63 +44,40 @@ export function loadDealsSimple(dealsSimpleSearchOption: DealsSimpleSearchOption
     })
 }
 
-export function loadDeal(dealSearchOption: DealSearchOption): Promise<DealModel> {
-  const { dealId, slug, languageCode, returnDefaultValue, options } = dealSearchOption
-  if (slug) {
-    return new DealsApi(configuration, apiRoot, instance)
-      .apiV2DealsSlugGet(slug, languageCode, returnDefaultValue, options)
-      .then((res) => {
-        return res.data as DealModel
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  } else {
-    return new DealsApi(configuration, apiRoot, instance)
-      .apiV2DealsDealIdGet(dealId, languageCode, returnDefaultValue, options)
-      .then((res) => {
-        return res.data as DealModel
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  }
+export const getDealById = async (payload: DealsApiApiV2DealsDealIdGetRequest): Promise<DealModel> => {
+  return new DealsApi(configuration, undefined, instance)
+    .apiV2DealsDealIdGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
 }
+
+export const getDealBySlug = async (payload: DealsApiApiV2DealsSlugGetRequest): Promise<DealModel> => {
+  return new DealsApi(configuration, undefined, instance)
+    .apiV2DealsSlugGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
 // #endregion Deals
 
 // #region Deal Packages
-export function loadDealPackages(dealPackagesSearchOption: DealPackagesSearchOption): Promise<DealPackagesModel> {
-  const {
-    dealId,
-    relatedDealPackageId,
-    dealName,
-    name,
-    countryId,
-    hospitalId,
-    hospitalName,
-    page,
-    limit,
-    lastRetrieved
-  } = dealPackagesSearchOption
-  // log('dealId: ', dealId)
-  // log('relatedDealPackageId: ', relatedDealPackageId)
-  return new DealsApi(configuration, apiRoot, instance)
-    .apiV2DealsDealIdPackagesGet(
-      dealId,
-      relatedDealPackageId,
-      dealName,
-      name,
-      countryId,
-      hospitalId,
-      hospitalName,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const getDealPackages = async (
+  payload: DealsApiApiV2DealsDealIdPackagesGetRequest
+): Promise<DealPackagesModel> => {
+  return new DealsApi(configuration, undefined, instance)
+    .apiV2DealsDealIdPackagesGet(payload)
     .then((res) => {
-      return res.data as DealPackagesModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -193,14 +85,13 @@ export function loadDealPackages(dealPackagesSearchOption: DealPackagesSearchOpt
     })
 }
 
-export function loadDealPackage(dealPackageSearchOption: DealPackageSearchOption): Promise<DealPackageModel> {
-  const { dealId, packageId, options } = dealPackageSearchOption
-  log('dealId: ', dealId)
-  log('packageId: ', packageId)
-  return new DealsApi(configuration, apiRoot, instance)
-    .apiV2DealsDealIdPackagesPackageIdGet(dealId, packageId, options)
+export const getDealPackageById = async (
+  payload: DealsApiApiV2DealsDealIdPackagesPackageIdGetRequest
+): Promise<DealPackageModel> => {
+  return new DealsApi(configuration, undefined, instance)
+    .apiV2DealsDealIdPackagesPackageIdGet(payload)
     .then((res) => {
-      return res.data as DealPackageModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -210,12 +101,13 @@ export function loadDealPackage(dealPackageSearchOption: DealPackageSearchOption
 // #endregion Deal Packages
 
 // #region Deal Services
-export function loadDealServices(dealServicesSearchOption: DealServicesSearchOption): Promise<DealServicesModel> {
-  const { dealId, page, limit, lastRetrieved } = dealServicesSearchOption
-  return new DealsApi(configuration, apiRoot, instance)
-    .apiV2DealsDealIdServicesGet(dealId, page, limit, lastRetrieved)
+export const getDealServices = async (
+  payload: DealsApiApiV2DealsDealIdServicesGetRequest
+): Promise<DealServicesModel> => {
+  return new DealsApi(configuration, undefined, instance)
+    .apiV2DealsDealIdServicesGet(payload)
     .then((res) => {
-      return res.data as DealServicesModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -223,12 +115,13 @@ export function loadDealServices(dealServicesSearchOption: DealServicesSearchOpt
     })
 }
 
-export function loadDealService(dealServiceSearchOption: DealServiceSearchOption): Promise<DealServiceModel> {
-  const { dealId, serviceId, options } = dealServiceSearchOption
-  return new DealsApi(configuration, apiRoot, instance)
-    .apiV2DealsDealIdServicesServiceIdGet(dealId, serviceId, options)
+export const getDealServiceById = async (
+  payload: DealsApiApiV2DealsDealIdServicesServiceIdGetRequest
+): Promise<DealServiceModel> => {
+  return new DealsApi(configuration, undefined, instance)
+    .apiV2DealsDealIdServicesServiceIdGet(payload)
     .then((res) => {
-      return res.data as DealServiceModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -237,15 +130,15 @@ export function loadDealService(dealServiceSearchOption: DealServiceSearchOption
 }
 // #endregion Deal Services
 
-export default {
-  loadDeals,
-  loadDeal,
-
-  loadDealsSimple,
-
-  loadDealPackages,
-  loadDealPackage,
-
-  loadDealServices,
-  loadDealService
+const deals = {
+  getDeals,
+  getDealById,
+  getDealBySlug,
+  getDealsSimple,
+  getDealPackages,
+  getDealPackageById,
+  getDealServices,
+  getDealServiceById
 }
+
+export default deals

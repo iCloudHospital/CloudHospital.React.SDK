@@ -1,79 +1,22 @@
-import { configuration, instance } from './HttpClient'
+import {
+  FaqsApi,
+  FaqsApiApiV2FaqsFaqIdGetRequest,
+  FaqsApiApiV2FaqsFaqIdMediasGetRequest,
+  FaqsApiApiV2FaqsFaqIdMediasMediaIdGetRequest,
+  FaqsApiApiV2FaqsGetRequest,
+  FaqsApiApiV2FaqsSlugGetRequest
+} from 'ch-api-client-typescript2/lib/api/faqs-api'
+import { FaqModel } from 'ch-api-client-typescript2/lib/models/faq-model'
+import { FaqsModel } from 'ch-api-client-typescript2/lib/models/faqs-model'
+import { MediaModel } from 'ch-api-client-typescript2/lib/models/media-model'
+import { MediasModel } from 'ch-api-client-typescript2/lib/models/medias-model'
 import { RestException } from '../models/exceptions'
-import { FaqsApi, FaqsModel, FaqModel, MediaModel, MediasModel } from 'ch-api-client-typescript2/lib'
-import { FaqMediasSearchOption, FaqSearchOption, FaqsSearchOption } from '../models/faqs'
-
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+import { configuration, instance } from './HttpClient'
 
 // #region Faqs
-export function loadFaqs(faqsSearchOption: FaqsSearchOption): Promise<FaqsModel> {
-  const {
-    id,
-    title,
-    content,
-    categoryId,
-    hospitalId,
-    hospitalName,
-    languageCode,
-    showHidden,
-    page,
-    limit,
-    lastRetrieved
-  } = faqsSearchOption
-  return new FaqsApi(configuration, apiRoot, instance)
-    .apiV2FaqsGet(
-      id,
-      title,
-      content,
-      categoryId,
-      hospitalId,
-      hospitalName,
-      languageCode,
-      showHidden,
-      page,
-      limit,
-      lastRetrieved
-    )
-    .then((res) => {
-      return res.data as FaqsModel
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-
-export function loadFaq(faqSearchOption: FaqSearchOption): Promise<FaqModel> {
-  const { faqId, slug, languageCode } = faqSearchOption
-  if (slug) {
-    return new FaqsApi(configuration, apiRoot, instance)
-      .apiV2FaqsSlugGet(slug, languageCode)
-      .then((res) => {
-        return res.data as FaqModel
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  } else {
-    return new FaqsApi(configuration, apiRoot, instance)
-      .apiV2FaqsFaqIdGet(faqId, languageCode)
-      .then((res) => {
-        return res.data as FaqModel
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  }
-}
-// #endregion Faqs
-
-// #region FaqMedias
-export function getFaqMedias(faqMediasSearchOption: FaqMediasSearchOption): Promise<MediasModel> {
-  const { faqId, id, mediaType, page, limit, lastRetrieved } = faqMediasSearchOption
-  return new FaqsApi(configuration, apiRoot, instance)
-    .apiV2FaqsFaqIdMediasGet(faqId, id, mediaType, page, limit, lastRetrieved)
+export const loadFaqs = async (payload?: FaqsApiApiV2FaqsGetRequest): Promise<FaqsModel> => {
+  return new FaqsApi(configuration, undefined, instance)
+    .apiV2FaqsGet(payload)
     .then((res) => {
       return res.data
     })
@@ -83,9 +26,46 @@ export function getFaqMedias(faqMediasSearchOption: FaqMediasSearchOption): Prom
     })
 }
 
-export function getFaqMedia(faqId: string, mediaId: string): Promise<MediaModel> {
-  return new FaqsApi(configuration, apiRoot, instance)
-    .apiV2FaqsFaqIdMediasMediaIdGet(faqId, mediaId)
+export const loadFaq = async (payload: FaqsApiApiV2FaqsFaqIdGetRequest): Promise<FaqModel> => {
+  return new FaqsApi(configuration, undefined, instance)
+    .apiV2FaqsFaqIdGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+export const loadFaqBySlug = async (payload: FaqsApiApiV2FaqsSlugGetRequest): Promise<FaqModel> => {
+  return new FaqsApi(configuration, undefined, instance)
+    .apiV2FaqsSlugGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+// #endregion Faqs
+
+// #region FaqMedias
+export const getFaqMedias = async (payload: FaqsApiApiV2FaqsFaqIdMediasGetRequest): Promise<MediasModel> => {
+  return new FaqsApi(configuration, undefined, instance)
+    .apiV2FaqsFaqIdMediasGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
+export const getFaqMedia = async (payload: FaqsApiApiV2FaqsFaqIdMediasMediaIdGetRequest): Promise<MediaModel> => {
+  return new FaqsApi(configuration, undefined, instance)
+    .apiV2FaqsFaqIdMediasMediaIdGet(payload)
     .then((res) => {
       return res.data
     })
@@ -96,10 +76,12 @@ export function getFaqMedia(faqId: string, mediaId: string): Promise<MediaModel>
 }
 // #endregion FaqMedias
 
-export default {
+const faqs = {
   loadFaqs,
   loadFaq,
-
+  loadFaqBySlug,
   getFaqMedias,
   getFaqMedia
 }
+
+export default faqs

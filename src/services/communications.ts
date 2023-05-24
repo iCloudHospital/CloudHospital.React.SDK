@@ -1,13 +1,12 @@
-import { configuration, instance } from './HttpClient'
-import { CommunicationsApi, CommunicationUserTokenModel } from 'ch-api-client-typescript2/lib'
+import { CommunicationsApi } from 'ch-api-client-typescript2/lib/api/communications-api'
+import { CommunicationUserTokenModel } from 'ch-api-client-typescript2/lib/models/communication-user-token-model'
 import { RestException } from '../models/exceptions'
 import { log } from '../utils/log'
+import { configuration, instance } from './HttpClient'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export function loadCommunicationUser(): Promise<CommunicationUserTokenModel> {
-  log('loadCommunicationUser')
-  return new CommunicationsApi(configuration, apiRoot, instance)
+export const getCommunicationUser = async (): Promise<CommunicationUserTokenModel> => {
+  log('getCommunicationUser')
+  return new CommunicationsApi(configuration, undefined, instance)
     .apiV2CommunicationsGet()
     .then((res) => {
       return res.data
@@ -18,6 +17,8 @@ export function loadCommunicationUser(): Promise<CommunicationUserTokenModel> {
     })
 }
 
-export default {
-  loadCommunicationUser
+const communications = {
+  getCommunicationUser
 }
+
+export default communications

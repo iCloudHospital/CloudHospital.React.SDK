@@ -1,18 +1,20 @@
-import { configuration, instance } from './HttpClient'
+import {
+  AccreditationsApi,
+  AccreditationsApiApiV2AccreditationsAccreditationIdGetRequest,
+  AccreditationsApiApiV2AccreditationsGetRequest
+} from 'ch-api-client-typescript2/lib/api/accreditations-api'
+import { AccreditationModel } from 'ch-api-client-typescript2/lib/models/accreditation-model'
+import { AccreditationsModel } from 'ch-api-client-typescript2/lib/models/accreditations-model'
 import { RestException } from '../models/exceptions'
-import { AccreditationsApi, AccreditationsModel, AccreditationModel } from 'ch-api-client-typescript2/lib'
-import { AccreditationSearchOption, AccreditationsSearchOption } from '../models/accreditations'
+import { configuration, instance } from './HttpClient'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export function loadAccreditations(
-  accreditationsSearchOption: AccreditationsSearchOption
-): Promise<AccreditationsModel> {
-  const { name, logo, country, page, limit, lastRetrieved } = accreditationsSearchOption
-  return new AccreditationsApi(configuration, apiRoot, instance)
-    .apiV2AccreditationsGet(name, logo, country, page, limit, lastRetrieved)
+export const getAccreditations = async (
+  payload?: AccreditationsApiApiV2AccreditationsGetRequest
+): Promise<AccreditationsModel> => {
+  return new AccreditationsApi(configuration, undefined, instance)
+    .apiV2AccreditationsGet(payload)
     .then((res) => {
-      return res.data as AccreditationsModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -20,12 +22,13 @@ export function loadAccreditations(
     })
 }
 
-export function loadAccreditation(accreditationSearchOption: AccreditationSearchOption): Promise<AccreditationModel> {
-  const { accreditationId, options } = accreditationSearchOption
-  return new AccreditationsApi(configuration, apiRoot, instance)
-    .apiV2AccreditationsAccreditationIdGet(accreditationId, options)
+export const getAccreditation = async (
+  payload: AccreditationsApiApiV2AccreditationsAccreditationIdGetRequest
+): Promise<AccreditationModel> => {
+  return new AccreditationsApi(configuration, undefined, instance)
+    .apiV2AccreditationsAccreditationIdGet(payload)
     .then((res) => {
-      return res.data as AccreditationModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -33,7 +36,9 @@ export function loadAccreditation(accreditationSearchOption: AccreditationSearch
     })
 }
 
-export default {
-  loadAccreditations,
-  loadAccreditation
+const accreditations = {
+  getAccreditations,
+  getAccreditation
 }
+
+export default accreditations

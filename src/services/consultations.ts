@@ -1,34 +1,25 @@
-import { configuration, instance } from './HttpClient'
 import { RestException } from '../models/exceptions'
+import { configuration, instance } from './HttpClient'
+
 import {
   ConsultationsApi,
-  ConsultationsModel,
-  ConsultationModel,
-  CreateConsultationCommand,
-  UpdateConsultationCommand
-} from 'ch-api-client-typescript2/lib'
-import { ConsultationsSearchOption, ConsultationSearchOption } from '../models/consultations'
+  ConsultationsApiApiV2ConsultationsConsultationIdGetRequest,
+  ConsultationsApiApiV2ConsultationsConsultationIdPayPostRequest,
+  ConsultationsApiApiV2ConsultationsConsultationIdPutRequest,
+  ConsultationsApiApiV2ConsultationsGetRequest,
+  ConsultationsApiApiV2ConsultationsRequestIdPostRequest
+} from 'ch-api-client-typescript2/lib/api/consultations-api'
+import { ConsultationModel } from 'ch-api-client-typescript2/lib/models/consultation-model'
+import { ConsultationsModel } from 'ch-api-client-typescript2/lib/models/consultations-model'
 import { log } from '../utils/log'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export function loadConsultations(consultationsSearchOption: ConsultationsSearchOption): Promise<ConsultationsModel> {
-  const { searchString, isOpen, isCompleted, status, consultationType, hospitalId, page, limit, lastRetrieved } =
-    consultationsSearchOption
-  return new ConsultationsApi(configuration, apiRoot, instance)
-    .apiV2ConsultationsGet(
-      searchString,
-      isOpen,
-      isCompleted,
-      status,
-      consultationType,
-      hospitalId,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const getConsultations = async (
+  payload: ConsultationsApiApiV2ConsultationsGetRequest
+): Promise<ConsultationsModel> => {
+  return new ConsultationsApi(configuration, undefined, instance)
+    .apiV2ConsultationsGet(payload)
     .then((res) => {
-      return res.data as ConsultationsModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -36,12 +27,13 @@ export function loadConsultations(consultationsSearchOption: ConsultationsSearch
     })
 }
 
-export function loadConsultation(consultationSearchOption: ConsultationSearchOption): Promise<ConsultationModel> {
-  const { consultationId, options } = consultationSearchOption
-  return new ConsultationsApi(configuration, apiRoot, instance)
-    .apiV2ConsultationsConsultationIdGet(consultationId, options)
+export const getConsultationById = async (
+  payload: ConsultationsApiApiV2ConsultationsConsultationIdGetRequest
+): Promise<ConsultationModel> => {
+  return new ConsultationsApi(configuration, undefined, instance)
+    .apiV2ConsultationsConsultationIdGet(payload)
     .then((res) => {
-      return res.data as ConsultationModel
+      return res.data
     })
     .catch((error: any) => {
       if (error.response.data === '') {
@@ -55,15 +47,14 @@ export function loadConsultation(consultationSearchOption: ConsultationSearchOpt
     })
 }
 
-export function postConsultation(
-  requestId: string,
-  createConsultationCommand?: CreateConsultationCommand
-): Promise<ConsultationModel> {
-  return new ConsultationsApi(configuration, apiRoot, instance)
-    .apiV2ConsultationsRequestIdPost(requestId, createConsultationCommand)
+export const postConsultation = async (
+  payload: ConsultationsApiApiV2ConsultationsRequestIdPostRequest
+): Promise<ConsultationModel> => {
+  return new ConsultationsApi(configuration, undefined, instance)
+    .apiV2ConsultationsRequestIdPost(payload)
     .then((res) => {
       log('post consultation: ', res.data)
-      return res.data as ConsultationModel
+      return res.data
     })
     .catch((error) => {
       const restException = error.response.data as RestException
@@ -71,15 +62,14 @@ export function postConsultation(
     })
 }
 
-export function putConsultation(
-  consultationId: string,
-  updateConsultationCommand?: UpdateConsultationCommand
-): Promise<ConsultationModel> {
-  return new ConsultationsApi(configuration, apiRoot, instance)
-    .apiV2ConsultationsConsultationIdPut(consultationId, updateConsultationCommand)
+export const putConsultation = async (
+  payload: ConsultationsApiApiV2ConsultationsConsultationIdPutRequest
+): Promise<ConsultationModel> => {
+  return new ConsultationsApi(configuration, undefined, instance)
+    .apiV2ConsultationsConsultationIdPut(payload)
     .then((res) => {
       log('put consultation: ', res.data)
-      return res.data as ConsultationModel
+      return res.data
     })
     .catch((error) => {
       const restException = error.response.data as RestException
@@ -87,9 +77,11 @@ export function putConsultation(
     })
 }
 
-export const postConsultationPaymentKey = async (consultationId: string): Promise<string> => {
-  return new ConsultationsApi(configuration, apiRoot, instance)
-    .apiV2ConsultationsConsultationIdPayPost(consultationId)
+export const postConsultationPaymentKey = async (
+  payload: ConsultationsApiApiV2ConsultationsConsultationIdPayPostRequest
+): Promise<string> => {
+  return new ConsultationsApi(configuration, undefined, instance)
+    .apiV2ConsultationsConsultationIdPayPost(payload)
     .then((res) => {
       return res.data
     })
@@ -99,10 +91,12 @@ export const postConsultationPaymentKey = async (consultationId: string): Promis
     })
 }
 
-export default {
-  loadConsultations,
-  loadConsultation,
+const consultations = {
+  getConsultations,
+  getConsultationById,
   postConsultation,
   putConsultation,
   postConsultationPaymentKey
 }
+
+export default consultations

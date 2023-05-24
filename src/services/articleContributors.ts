@@ -1,44 +1,21 @@
-import { configuration, instance } from './HttpClient'
+import {
+  ArticlesApi,
+  ArticlesApiApiV2ArticlesArticleIdContributorsContributorIdGetRequest,
+  ArticlesApiApiV2ArticlesArticleIdContributorsGetRequest
+} from 'ch-api-client-typescript2/lib/api/articles-api'
+import { ArticleContributorModel } from 'ch-api-client-typescript2/lib/models/article-contributor-model'
+import { ArticleContributorsModel } from 'ch-api-client-typescript2/lib/models/article-contributors-model'
 import { RestException } from '../models/exceptions'
-import { ArticlesApi, ArticleContributorsModel, ArticleContributorModel } from 'ch-api-client-typescript2/lib'
-import { ArticleContributorsSearchOption } from '../models/articleContributors'
-
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+import { configuration, instance } from './HttpClient'
 
 // #region ArticleContributors
-export function loadArticleContributors(
-  articleContributorsSearchOption: ArticleContributorsSearchOption
-): Promise<ArticleContributorsModel> {
-  const {
-    articleId,
-    articleName,
-    contributorId,
-    contributorName,
-    email,
-    description,
-    website,
-    contributionType,
-    page,
-    limit,
-    lastRetrieved
-  } = articleContributorsSearchOption
-
-  return new ArticlesApi(configuration, apiRoot, instance)
-    .apiV2ArticlesArticleIdContributorsGet(
-      articleId,
-      articleName,
-      contributorId,
-      contributorName,
-      email,
-      description,
-      website,
-      contributionType,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const loadArticleContributors = async (
+  payload: ArticlesApiApiV2ArticlesArticleIdContributorsGetRequest
+): Promise<ArticleContributorsModel> => {
+  return new ArticlesApi(configuration, undefined, instance)
+    .apiV2ArticlesArticleIdContributorsGet(payload)
     .then((res) => {
-      return res.data as ArticleContributorsModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -46,9 +23,11 @@ export function loadArticleContributors(
     })
 }
 
-export function loadArticleContributor(articleId: string, contributorId: string): Promise<ArticleContributorModel> {
-  return new ArticlesApi(configuration, apiRoot, instance)
-    .apiV2ArticlesArticleIdContributorsContributorIdGet(articleId, contributorId)
+export const loadArticleContributor = async (
+  payload: ArticlesApiApiV2ArticlesArticleIdContributorsContributorIdGetRequest
+): Promise<ArticleContributorModel> => {
+  return new ArticlesApi(configuration, undefined, instance)
+    .apiV2ArticlesArticleIdContributorsContributorIdGet(payload)
     .then((res) => {
       return res.data
     })
@@ -59,7 +38,9 @@ export function loadArticleContributor(articleId: string, contributorId: string)
 }
 // #endregion ArticleContributors
 
-export default {
+const articleContributors = {
   loadArticleContributors,
   loadArticleContributor
 }
+
+export default articleContributors
