@@ -1,29 +1,25 @@
 import {
-  PostAccountModel,
-  ForgotPasswordModel,
-  ResetPasswordModel,
-  ChangePasswordModel,
   AccountModel,
-  ConfirmAccountModel
-} from '../models/accounts'
-import { IdentityError } from '../models/exceptions'
-import { RestException, Errors } from '../models/exceptions'
-import { HttpClient } from './HttpClient'
+  ChangePasswordModel,
+  ConfirmAccountModel,
+  ForgotPasswordModel,
+  PostAccountModel,
+  ResetPasswordModel
+} from '@models/accounts'
+import { Errors, IdentityError, RestException } from '@models/exceptions'
 import { log } from '../utils/log'
+import { instance } from './HttpClient'
 
 const sts_issuer = process.env.NEXT_PUBLIC_STS_ISSUER
 
-const postAccountAsync = async (data: PostAccountModel): Promise<boolean> => {
+export const postAccount = async (data: PostAccountModel): Promise<boolean> => {
   try {
-    log('CALL postAccountAsync')
+    log('CALL postAccount')
     const action = 'api/v1/accounts'
 
     const url = `${sts_issuer}/${action}`
     log('DATA: ', data)
     log('URL > ', url)
-
-    const instance = HttpClient.getInstance()
-
     const response = await instance({
       method: 'POST',
       headers: {
@@ -89,13 +85,11 @@ const postAccountAsync = async (data: PostAccountModel): Promise<boolean> => {
   }
 }
 
-const loadAccountAsync = async (): Promise<AccountModel> => {
+export const getAccount = async (): Promise<AccountModel> => {
   try {
-    log('CALL loadAccounts')
+    log('CALL getAccounts')
     const action = 'api/v1/accounts'
     const url = `${sts_issuer}/${action}`
-
-    const instance = HttpClient.getInstance()
 
     const response = await instance({
       method: 'GET',
@@ -125,15 +119,13 @@ const loadAccountAsync = async (): Promise<AccountModel> => {
   }
 }
 
-const sendVerificationMailAsync = async (): Promise<boolean> => {
+export const sendVerificationMail = async (): Promise<boolean> => {
   try {
     log('CALL sendVerificationMail')
     const action = 'api/v1/accounts/sendVerificationEmail'
     const url = `${sts_issuer}/${action}`
 
     log('URL > ', url)
-
-    const instance = HttpClient.getInstance()
 
     const response = await instance({
       method: 'POST',
@@ -156,13 +148,11 @@ const sendVerificationMailAsync = async (): Promise<boolean> => {
   }
 }
 
-const confirmAccountAsync = async (data: ConfirmAccountModel): Promise<boolean> => {
+export const confirmAccount = async (data: ConfirmAccountModel): Promise<boolean> => {
   try {
     log('CALL confirmAccount')
     const action = 'api/v1/accounts/confirmEmail'
     const url = `${sts_issuer}/${action}`
-
-    const instance = HttpClient.getInstance()
 
     const response = await instance({
       method: 'POST',
@@ -185,13 +175,11 @@ const confirmAccountAsync = async (data: ConfirmAccountModel): Promise<boolean> 
   }
 }
 
-const forgotPasswordAsync = async (data: ForgotPasswordModel): Promise<boolean> => {
+export const forgotPassword = async (data: ForgotPasswordModel): Promise<boolean> => {
   try {
     log('CALL forgotPassword')
     const action = 'api/v1/accounts/forgotPassword'
     const url = `${sts_issuer}/${action}`
-
-    const instance = HttpClient.getInstance()
 
     const response = await instance({
       method: 'POST',
@@ -246,13 +234,11 @@ const forgotPasswordAsync = async (data: ForgotPasswordModel): Promise<boolean> 
   }
 }
 
-const resetPasswordAsync = async (data: ResetPasswordModel): Promise<boolean> => {
+export const resetPassword = async (data: ResetPasswordModel): Promise<boolean> => {
   try {
     log('CALL resetPassword')
     const action = 'api/v1/accounts/resetPassword'
     const url = `${sts_issuer}/${action}`
-
-    const instance = HttpClient.getInstance()
 
     const response = await instance({
       method: 'POST',
@@ -307,13 +293,11 @@ const resetPasswordAsync = async (data: ResetPasswordModel): Promise<boolean> =>
   }
 }
 
-const changePasswordAsync = async (data: ChangePasswordModel): Promise<boolean> => {
+export const changePassword = async (data: ChangePasswordModel): Promise<boolean> => {
   try {
     log('CALL changePassword')
     const action = 'api/v1/accounts/changePassword'
     const url = `${sts_issuer}/${action}`
-
-    const instance = HttpClient.getInstance()
 
     const response = await instance({
       method: 'POST',
@@ -376,12 +360,14 @@ const changePasswordAsync = async (data: ChangePasswordModel): Promise<boolean> 
   }
 }
 
-export default {
-  postAccountAsync,
-  loadAccountAsync,
-  sendVerificationMailAsync,
-  confirmAccountAsync,
-  forgotPasswordAsync,
-  resetPasswordAsync,
-  changePasswordAsync
+const account = {
+  postAccount,
+  getAccount,
+  sendVerificationMail,
+  confirmAccount,
+  forgotPassword,
+  resetPassword,
+  changePassword
 }
+
+export default account

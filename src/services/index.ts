@@ -1,99 +1,50 @@
-import auths from './auths'
-import accounts from './accounts'
-import externalLogins from './externalLogins'
-import accreditations from './accreditations'
-import articles from './articles'
-import articleContributors from './articleContributors'
-import articleMedias from './articleMedias'
-import articleSources from './articleSources'
-import bookings from './bookings'
-import chats from './chats'
-import communications from './communications'
-import consultations from './consultations'
-import contributors from './contributors'
-import countries from './countries'
-import deals from './deals'
-import doctors from './doctors'
-import doctorCertificates from './doctorCertificates'
-import doctorEducations from './doctorEducations'
-import doctorMedias from './doctorMedias'
-import doctorPortfolios from './doctorPortfolios'
-import doctorSpecialties from './doctorSpecialties'
-import faqCategories from './faqCategories'
-import faqs from './faqs'
-import hospitals from './hospitals'
-import hospitalAccreditations from './hospitalAccreditations'
-import hospitalEquipments from './hospitalEquipments'
-import hospitalSpecialties from './hospitalSpecialties'
-import hospitalServices from './hospitalServices'
-import images from './images'
-import languages from './languages'
-import memberships from './memberships'
-import notifications from './notifications'
-import patients from './patients'
-import plans from './plans'
-import profiles from './profiles'
-import services from './services'
-import servicesCategories from './servicesCategories'
-import specialties from './specialties'
-import specialtyTypes from './specialtyTypes'
-import tags from './tags'
-import azSearch from './search'
-import serviceReviews from './serviceReviews'
-import groupChannels from './groupChannels'
-import aboutUs from './aboutUs'
-
-const rootServices = {
-  apis: {
-    auths,
-    accounts,
-    externalLogins,
-    accreditations,
-    articles,
-    articleContributors,
-    articleMedias,
-    articleSources,
-    bookings,
-    chats,
-    communications,
-    consultations,
-    contributors,
-    countries,
-    deals,
-    doctors,
-    doctorCertificates,
-    doctorEducations,
-    doctorMedias,
-    doctorPortfolios,
-    doctorSpecialties,
-    faqCategories,
-    faqs,
-    groupChannels,
-    hospitals,
-    hospitalAccreditations,
-    hospitalEquipments,
-    hospitalSpecialties,
-    hospitalServices,
-    images,
-    languages,
-    memberships,
-    notifications,
-    patients,
-    plans,
-    profiles,
-    services,
-    servicesCategories,
-    specialties,
-    specialtyTypes,
-    tags,
-    azSearch,
-    serviceReviews,
-    aboutUs
-  }
-}
-
-export type Services = typeof rootServices
-
-export default rootServices
-
+export * from './aboutUs'
+export * from './accounts'
+export * from './accreditations'
+export * from './articleContributors'
+export * from './articleMedias'
+export * from './articles'
+export * from './articleSources'
+export * from './auths'
+export * from './bookings'
+export * from './chats'
+export * from './communications'
+export * from './consultations'
+export * from './contributors'
+export * from './countries'
+export * from './deals'
+export * from './doctorAffiliations'
+export * from './doctorCertificates'
+export * from './doctorEducations'
+export * from './doctorMedias'
+export * from './doctorPortfolios'
+export * from './doctors'
+export * from './doctorSpecialties'
+export * from './externalLogins'
+export * from './faqCategories'
+export * from './faqs'
+export * from './groupChannels'
+export * from './headerNavigations'
+export * from './hospitalAccreditations'
+export * from './hospitalConsultationTimeTables'
+export * from './hospitalEquipments'
+export * from './hospitalMedias'
+export * from './hospitals'
+export * from './hospitalServices'
+export * from './hospitalSpecialties'
 export * from './HttpClient'
+export * from './images'
+export * from './languages'
+export * from './memberships'
+export * from './notifications'
+export * from './patients'
+export * from './plans'
+export * from './profiles'
+export * from './serviceReviewMedias'
+export * from './serviceReviews'
+export * from './services'
+export * from './servicesCategories'
+export * from './specialties'
+export * from './specialtyTypeMedias'
+export * from './specialtyTypes'
+export * from './tags'

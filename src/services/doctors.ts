@@ -1,64 +1,21 @@
-import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
-import {
-  DoctorAffiliationSearchOption,
-  DoctorAffiliationsSearchOption,
-  DoctorSearchOption,
-  DoctorsSearchOption,
-  DoctorsSimpleSearchOption
-} from '../models/doctors'
 import {
   DoctorsApi,
-  DoctorsModel,
-  DoctorModel,
-  DoctorAffiliationsModel,
-  DoctorAffiliationModel,
-  DoctorsSimpleModel
-} from 'ch-api-client-typescript2/lib'
-
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+  DoctorsApiApiV2DoctorsDoctorIdGetRequest,
+  DoctorsApiApiV2DoctorsGetRequest,
+  DoctorsApiApiV2DoctorsSimpleGetRequest
+} from 'ch-api-client-typescript2/lib/api/doctors-api'
+import { DoctorModel } from 'ch-api-client-typescript2/lib/models/doctor-model'
+import { DoctorsModel } from 'ch-api-client-typescript2/lib/models/doctors-model'
+import { DoctorsSimpleModel } from 'ch-api-client-typescript2/lib/models/doctors-simple-model'
+import { RestException } from '@models/exceptions'
+import { configuration, instance } from './HttpClient'
 
 // #region Doctors
-export function loadDoctors(doctorsSearchOption: DoctorsSearchOption): Promise<DoctorsModel> {
-  const {
-    hospitalId,
-    languageCode,
-    returnDefaultValue,
-    ids,
-    specialtyId,
-    consultationEnabled,
-    id,
-    fullname,
-    email,
-    gender,
-    dateOfBirth,
-    created,
-    showHidden,
-    page,
-    limit,
-    lastRetrieved
-  } = doctorsSearchOption
-  return new DoctorsApi(configuration, apiRoot, instance)
-    .apiV2DoctorsGet(
-      hospitalId,
-      languageCode,
-      returnDefaultValue,
-      ids,
-      specialtyId,
-      consultationEnabled,
-      id,
-      fullname,
-      email,
-      gender,
-      dateOfBirth,
-      created,
-      showHidden,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const getDoctors = async (payload?: DoctorsApiApiV2DoctorsGetRequest): Promise<DoctorsModel> => {
+  return new DoctorsApi(configuration, undefined, instance)
+    .apiV2DoctorsGet(payload)
     .then((res) => {
-      return res.data as DoctorsModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -66,46 +23,13 @@ export function loadDoctors(doctorsSearchOption: DoctorsSearchOption): Promise<D
     })
 }
 
-export function loadDoctorsSimple(doctorsSearchOption: DoctorsSimpleSearchOption): Promise<DoctorsSimpleModel> {
-  const {
-    hospitalId,
-    languageCode,
-    returnDefaultValue,
-    ids,
-    specialtyId,
-    consultationEnabled,
-    id,
-    fullname,
-    email,
-    gender,
-    dateOfBirth,
-    created,
-    showHidden,
-    page,
-    limit,
-    lastRetrieved
-  } = doctorsSearchOption
-  return new DoctorsApi(configuration, apiRoot, instance)
-    .apiV2DoctorsSimpleGet(
-      hospitalId,
-      languageCode,
-      returnDefaultValue,
-      ids,
-      specialtyId,
-      consultationEnabled,
-      id,
-      fullname,
-      email,
-      gender,
-      dateOfBirth,
-      created,
-      showHidden,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const getDoctorsSimple = async (
+  payload: DoctorsApiApiV2DoctorsSimpleGetRequest
+): Promise<DoctorsSimpleModel> => {
+  return new DoctorsApi(configuration, undefined, instance)
+    .apiV2DoctorsSimpleGet(payload)
     .then((res) => {
-      return res.data as DoctorsModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -113,70 +37,23 @@ export function loadDoctorsSimple(doctorsSearchOption: DoctorsSimpleSearchOption
     })
 }
 
-export function loadDoctor(doctorSearchOption: DoctorSearchOption): Promise<DoctorModel> {
-  const { doctorId, slug, languageCode, returnDefaultValue } = doctorSearchOption
-
-  console.log('doctorSearchOption: ', doctorSearchOption)
-  if (slug) {
-    return new DoctorsApi(configuration, apiRoot, instance)
-      .apiV2DoctorsSlugGet(slug, languageCode, returnDefaultValue)
-      .then((res) => {
-        return res.data as DoctorModel
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  } else {
-    return new DoctorsApi(configuration, apiRoot, instance)
-      .apiV2DoctorsDoctorIdGet(doctorId, languageCode, returnDefaultValue)
-      .then((res) => {
-        return res.data as DoctorModel
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  }
+export const getDoctorByDoctorId = async (payload: DoctorsApiApiV2DoctorsDoctorIdGetRequest): Promise<DoctorModel> => {
+  return new DoctorsApi(configuration, undefined, instance)
+    .apiV2DoctorsDoctorIdGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
 }
 // #endregion Doctors
 
-// #region Doctor Affiliations
-export function loadDoctorAffiliations(
-  doctorAffiliationsSearchOption: DoctorAffiliationsSearchOption
-): Promise<DoctorAffiliationsModel> {
-  const { doctorId, hospitalName, page, limit, lastRetrieved } = doctorAffiliationsSearchOption
-  return new DoctorsApi(configuration, apiRoot, instance)
-    .apiV2DoctorsDoctorIdAffiliationsGet(doctorId, hospitalName, page, limit, lastRetrieved)
-    .then((res) => {
-      return res.data as DoctorAffiliationsModel
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
+const doctors = {
+  getDoctors,
+  getDoctorsSimple,
+  getDoctorByDoctorId
 }
 
-export function loadDoctorAffiliation(
-  doctorAffiliationSearchOption: DoctorAffiliationSearchOption
-): Promise<DoctorAffiliationModel> {
-  const { doctorId, hospitalId, options } = doctorAffiliationSearchOption
-  return new DoctorsApi(configuration, apiRoot, instance)
-    .apiV2DoctorsDoctorIdAffiliationsHospitalIdGet(doctorId, hospitalId, options)
-    .then((res) => {
-      return res.data as DoctorAffiliationModel
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-// #endregion Doctor Affiliations
-
-export default {
-  loadDoctors,
-  loadDoctor,
-  loadDoctorsSimple,
-  loadDoctorAffiliations,
-  loadDoctorAffiliation
-}
+export default doctors

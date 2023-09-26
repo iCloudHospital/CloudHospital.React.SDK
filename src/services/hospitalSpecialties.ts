@@ -1,83 +1,22 @@
-import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
 import {
   HospitalsApi,
-  HospitalSpecialtiesModel,
-  HospitalSpecialtiesSimpleModel,
-  HospitalSpecialtyModel
-} from 'ch-api-client-typescript2/lib'
-import {
-  HospitalSpecialtiesSearchOption,
-  HospitalSpecialtiesSimpleSearchOption,
-  HospitalSpecialtySearchOption
-} from '../models/hospitalSpecialties'
-
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+  HospitalsApiApiV2HospitalsHospitalIdSpecialtiesGetRequest,
+  HospitalsApiApiV2HospitalsHospitalIdSpecialtiesSimpleGetRequest,
+  HospitalsApiApiV2HospitalsHospitalIdSpecialtiesSlugGetRequest,
+  HospitalsApiApiV2HospitalsHospitalIdSpecialtiesSpecialtyIdGetRequest
+} from 'ch-api-client-typescript2/lib/api/hospitals-api'
+import { HospitalSpecialtiesModel } from 'ch-api-client-typescript2/lib/models/hospital-specialties-model'
+import { HospitalSpecialtiesSimpleModel } from 'ch-api-client-typescript2/lib/models/hospital-specialties-simple-model'
+import { HospitalSpecialtyModel } from 'ch-api-client-typescript2/lib/models/hospital-specialty-model'
+import { RestException } from '@models/exceptions'
+import { configuration, instance } from './HttpClient'
 
 // #region HospitalSpecialties
-export function loadHospitalSpecialties(
-  hospitalSpecialtiesSearchOption: HospitalSpecialtiesSearchOption
-): Promise<HospitalSpecialtiesModel> {
-  const {
-    hospitalId,
-    hospitalName,
-    hospitalSlug,
-    specialtyId,
-    specialtyName,
-    specialtyTypeId,
-    hospitalSpecialtySlug,
-    title,
-    marketingType,
-    languageCode,
-    showHidden,
-    returnDefaultValue,
-    includeServices,
-    page,
-    limit,
-    lastRetrieved,
-    options
-  } = hospitalSpecialtiesSearchOption
-  return new HospitalsApi(configuration, apiRoot, instance)
-    .apiV2HospitalsHospitalIdSpecialtiesGet(
-      hospitalId,
-      hospitalName,
-      hospitalSlug,
-      specialtyId,
-      specialtyName,
-      specialtyTypeId,
-      hospitalSpecialtySlug,
-      title,
-      marketingType,
-      languageCode,
-      showHidden,
-      returnDefaultValue,
-      includeServices,
-      page,
-      limit,
-      lastRetrieved,
-      options
-    )
-    .then((res) => {
-      return res.data as HospitalSpecialtiesModel
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-
-export function loadHospitalSpecialty(
-  HospitalSpecialtySearchOption: HospitalSpecialtySearchOption
-): Promise<HospitalSpecialtyModel> {
-  const { hospitalId, specialtyId, languageCode, returnDefaultValue, includeServices } = HospitalSpecialtySearchOption
-  return new HospitalsApi(configuration, apiRoot, instance)
-    .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdGet(
-      hospitalId,
-      specialtyId,
-      languageCode,
-      returnDefaultValue,
-      includeServices
-    )
+export const getHospitalSpecialties = async (
+  payload: HospitalsApiApiV2HospitalsHospitalIdSpecialtiesGetRequest
+): Promise<HospitalSpecialtiesModel> => {
+  return new HospitalsApi(configuration, undefined, instance)
+    .apiV2HospitalsHospitalIdSpecialtiesGet(payload)
     .then((res) => {
       return res.data
     })
@@ -87,60 +26,55 @@ export function loadHospitalSpecialty(
     })
 }
 
-export function loadHospitalSpecialtiesSimple(
-  hospitalSpecialtiesSimpleSearchOption: HospitalSpecialtiesSimpleSearchOption
-): Promise<HospitalSpecialtiesModel> {
-  const {
-    hospitalId,
-    hospitalName,
-    hospitalSlug,
-    specialtyId,
-    specialtyName,
-    specialtyTypeId,
-    hospitalSpecialtySlug,
-    title,
-    marketingType,
-    languageCode,
-    showHidden,
-    returnDefaultValue,
-    includeServices,
-    page,
-    limit,
-    lastRetrieved,
-    options
-  } = hospitalSpecialtiesSimpleSearchOption
-  return new HospitalsApi(configuration, apiRoot, instance)
-    .apiV2HospitalsHospitalIdSpecialtiesSimpleGet(
-      hospitalId,
-      hospitalName,
-      hospitalSlug,
-      specialtyId,
-      specialtyName,
-      specialtyTypeId,
-      hospitalSpecialtySlug,
-      title,
-      marketingType,
-      languageCode,
-      showHidden,
-      returnDefaultValue,
-      includeServices,
-      page,
-      limit,
-      lastRetrieved,
-      options
-    )
+export const getHospitalSpecialtiesSimple = async (
+  payload: HospitalsApiApiV2HospitalsHospitalIdSpecialtiesSimpleGetRequest
+): Promise<HospitalSpecialtiesSimpleModel> => {
+  return new HospitalsApi(configuration, undefined, instance)
+    .apiV2HospitalsHospitalIdSpecialtiesSimpleGet(payload)
     .then((res) => {
-      return res.data as HospitalSpecialtiesSimpleModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
       throw restException
     })
 }
+
+export const getHospitalSpecialtyBySpecialtyId = async (
+  payload: HospitalsApiApiV2HospitalsHospitalIdSpecialtiesSpecialtyIdGetRequest
+): Promise<HospitalSpecialtyModel> => {
+  return new HospitalsApi(configuration, undefined, instance)
+    .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
+export const getHospitalSpecialtyBySpecialtySlug = async (
+  payload: HospitalsApiApiV2HospitalsHospitalIdSpecialtiesSlugGetRequest
+): Promise<HospitalSpecialtyModel> => {
+  return new HospitalsApi(configuration, undefined, instance)
+    .apiV2HospitalsHospitalIdSpecialtiesSlugGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
 // #endregion HospitalSpecialties
 
-export default {
-  loadHospitalSpecialties,
-  loadHospitalSpecialty,
-  loadHospitalSpecialtiesSimple
+const hospitalSpecialties = {
+  getHospitalSpecialties,
+  getHospitalSpecialtiesSimple,
+  getHospitalSpecialtyBySpecialtyId,
+  getHospitalSpecialtyBySpecialtySlug
 }
+
+export default hospitalSpecialties

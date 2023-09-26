@@ -1,26 +1,17 @@
+import {
+  NotificationsApi,
+  NotificationsApiApiV2NotificationsCheckPostRequest,
+  NotificationsApiApiV2NotificationsGetRequest
+} from 'ch-api-client-typescript2/lib/api/notifications-api'
+import { NotificationsModel } from 'ch-api-client-typescript2/lib/models/notifications-model'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
-import { NotificationsSearchOption } from '../models/notifications'
-import { CheckNotificationsCommand, NotificationsApi, NotificationsModel } from 'ch-api-client-typescript2/lib'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export function loadNotifications(notificationsSearchOption: NotificationsSearchOption): Promise<NotificationsModel> {
-  const { notificationCode, unreadCountOnly, page, limit, lastRetrieved } = notificationsSearchOption
-  return new NotificationsApi(configuration, apiRoot, instance)
-    .apiV2NotificationsGet(notificationCode, unreadCountOnly, page, limit, lastRetrieved)
-    .then((res) => {
-      return res.data as NotificationsModel
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-
-export function checkNotifications(checkNotificationsCommand: CheckNotificationsCommand): Promise<boolean> {
-  return new NotificationsApi(configuration, apiRoot, instance)
-    .apiV2NotificationsCheckPost(checkNotificationsCommand)
+export const loadNotifications = async (
+  payload: NotificationsApiApiV2NotificationsGetRequest
+): Promise<NotificationsModel> => {
+  return new NotificationsApi(configuration, undefined, instance)
+    .apiV2NotificationsGet(payload)
     .then((res) => {
       return res.data
     })
@@ -30,7 +21,23 @@ export function checkNotifications(checkNotificationsCommand: CheckNotifications
     })
 }
 
-export default {
+export const checkNotifications = async (
+  payload: NotificationsApiApiV2NotificationsCheckPostRequest
+): Promise<boolean> => {
+  return new NotificationsApi(configuration, undefined, instance)
+    .apiV2NotificationsCheckPost(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
+const notifications = {
   loadNotifications,
   checkNotifications
 }
+
+export default notifications

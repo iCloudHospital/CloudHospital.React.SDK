@@ -1,27 +1,18 @@
+import {
+  DoctorsApi,
+  DoctorsApiApiV2DoctorsDoctorIdCertificatesCertificateIdGetRequest,
+  DoctorsApiApiV2DoctorsDoctorIdCertificatesGetRequest
+} from 'ch-api-client-typescript2/lib/api/doctors-api'
+import { DoctorCertificateModel } from 'ch-api-client-typescript2/lib/models/doctor-certificate-model'
+import { DoctorCertificatesModel } from 'ch-api-client-typescript2/lib/models/doctor-certificates-model'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
-import { DoctorCertificatesModel, DoctorCertificateModel, DoctorsApi } from 'ch-api-client-typescript2/lib'
-import { DoctorCertificatesSearchOption } from '../models/doctorCertificates'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export function loadDoctorCertificates(
-  doctorCertificatesSearchOption: DoctorCertificatesSearchOption
-): Promise<DoctorCertificatesModel> {
-  const { doctorId, doctorName, certificateId, certificate, activeFrom, activeTo, page, limit, lastRetrieved } =
-    doctorCertificatesSearchOption
-  return new DoctorsApi(configuration, apiRoot, instance)
-    .apiV2DoctorsDoctorIdCertificatesGet(
-      doctorId,
-      doctorName,
-      certificateId,
-      certificate,
-      activeFrom,
-      activeTo,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const loadDoctorCertificates = async (
+  payload: DoctorsApiApiV2DoctorsDoctorIdCertificatesGetRequest
+): Promise<DoctorCertificatesModel> => {
+  return new DoctorsApi(configuration, undefined, instance)
+    .apiV2DoctorsDoctorIdCertificatesGet(payload)
     .then((res) => {
       return res.data
     })
@@ -31,9 +22,11 @@ export function loadDoctorCertificates(
     })
 }
 
-export function loadDoctorCertificate(doctorId: string, certificateId: string): Promise<DoctorCertificateModel> {
-  return new DoctorsApi(configuration, apiRoot, instance)
-    .apiV2DoctorsDoctorIdCertificatesCertificateIdGet(doctorId, certificateId)
+export const loadDoctorCertificate = async (
+  payload: DoctorsApiApiV2DoctorsDoctorIdCertificatesCertificateIdGetRequest
+): Promise<DoctorCertificateModel> => {
+  return new DoctorsApi(configuration, undefined, instance)
+    .apiV2DoctorsDoctorIdCertificatesCertificateIdGet(payload)
     .then((res) => {
       return res.data
     })
@@ -43,7 +36,9 @@ export function loadDoctorCertificate(doctorId: string, certificateId: string): 
     })
 }
 
-export default {
+const doctorCertificates = {
   loadDoctorCertificates,
   loadDoctorCertificate
 }
+
+export default doctorCertificates

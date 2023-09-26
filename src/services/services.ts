@@ -1,56 +1,18 @@
+import {
+  ServicesApi,
+  ServicesApiApiV2ServicesGetRequest,
+  ServicesApiApiV2ServicesServiceIdGetRequest,
+  ServicesApiApiV2ServicesSlugGetRequest
+} from 'ch-api-client-typescript2/lib/api/services-api'
+import { HospitalServiceModel } from 'ch-api-client-typescript2/lib/models/hospital-service-model'
+import { HospitalServicesModel } from 'ch-api-client-typescript2/lib/models/hospital-services-model'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
-import { HospitalServiceModel, HospitalServicesModel, ServicesApi } from 'ch-api-client-typescript2/lib'
-import {} from '../models/hospitals'
-import { ServiceSearchOption, ServicesSearchOption } from '../models/services'
-
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 // #region Services
-export function loadServices(servicesSearchOption: ServicesSearchOption): Promise<HospitalServicesModel> {
-  const {
-    hospitalId,
-    hospitalName,
-    hospitalSlug,
-    id,
-    name,
-    description,
-    specialtyId,
-    specialtyName,
-    specialtyTypeId,
-    specialtyTypeName,
-    serviceCategoryId,
-    marketingType,
-    procedure,
-    created,
-    languageCode,
-    returnDefaultValue,
-    page,
-    limit,
-    lastRetrieved
-  } = servicesSearchOption
-  return new ServicesApi(configuration, apiRoot, instance)
-    .apiV2ServicesGet(
-      hospitalId,
-      hospitalName,
-      hospitalSlug,
-      id,
-      name,
-      description,
-      specialtyId,
-      specialtyName,
-      specialtyTypeId,
-      specialtyTypeName,
-      serviceCategoryId,
-      marketingType,
-      procedure,
-      created,
-      languageCode,
-      returnDefaultValue,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const getServices = async (payload: ServicesApiApiV2ServicesGetRequest): Promise<HospitalServicesModel> => {
+  return new ServicesApi(configuration, undefined, instance)
+    .apiV2ServicesGet(payload)
     .then((res) => {
       return res.data
     })
@@ -59,33 +21,40 @@ export function loadServices(servicesSearchOption: ServicesSearchOption): Promis
       throw restException
     })
 }
-export function loadService(serviceSearchOption: ServiceSearchOption): Promise<HospitalServiceModel> {
-  const { serviceId, languageCode, slug } = serviceSearchOption
-  if (slug) {
-    return new ServicesApi(configuration, apiRoot, instance)
-      .apiV2ServicesSlugGet(slug, languageCode)
-      .then((res) => {
-        return res.data
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  } else {
-    return new ServicesApi(configuration, apiRoot, instance)
-      .apiV2ServicesServiceIdGet(serviceId, languageCode)
-      .then((res) => {
-        return res.data
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  }
+
+export const getServiceByServiceId = async (
+  payload: ServicesApiApiV2ServicesServiceIdGetRequest
+): Promise<HospitalServiceModel> => {
+  return new ServicesApi(configuration, undefined, instance)
+    .apiV2ServicesServiceIdGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
+export const getServiceBySlug = async (
+  payload: ServicesApiApiV2ServicesSlugGetRequest
+): Promise<HospitalServiceModel> => {
+  return new ServicesApi(configuration, undefined, instance)
+    .apiV2ServicesSlugGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
 }
 // #endregion Services
 
-export default {
-  loadServices,
-  loadService
+const services = {
+  getServices,
+  getServiceByServiceId,
+  getServiceBySlug
 }
+
+export default services

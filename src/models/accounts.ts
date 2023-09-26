@@ -4,10 +4,17 @@ export const ConfirmAccountSchema = object().shape({
   code: string().required('code is required')
 })
 
+export enum Role {
+  Doctor = 'Doctor',
+  LocalManager = 'LocalManager',
+  User = 'User'
+}
+
 export interface PostAccountModel {
   email: string
   password: string
   confirmPassword: string
+  role: Role
 }
 
 export const PostAccountSchema = object().shape({
@@ -61,6 +68,7 @@ export const ChangePasswordSchema = object().shape({
 })
 
 export interface ForgotPasswordModel {
+  policy: number
   email: string
 }
 

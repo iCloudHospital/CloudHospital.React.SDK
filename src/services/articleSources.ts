@@ -1,20 +1,21 @@
+import {
+  ArticlesApi,
+  ArticlesApiApiV2ArticlesArticleIdSourcesGetRequest,
+  ArticlesApiApiV2ArticlesArticleIdSourcesSourceIdGetRequest
+} from 'ch-api-client-typescript2/lib/api/articles-api'
+import { ArticleSourcesModel } from 'ch-api-client-typescript2/lib/models/article-sources-model'
+import { SourceModel } from 'ch-api-client-typescript2/lib/models/source-model'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
-import { ArticlesApi, ArticleSourcesModel, SourceModel } from 'ch-api-client-typescript2/lib'
-import { ArticleSourcesSearchOption } from '../models/articleSources'
-
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 // #region ArticleSources
-export function loadArticleSources(
-  articleSourcesSearchOption: ArticleSourcesSearchOption
-): Promise<ArticleSourcesModel> {
-  const { articleId, page, limit, lastRetrieved } = articleSourcesSearchOption
-
-  return new ArticlesApi(configuration, apiRoot, instance)
-    .apiV2ArticlesArticleIdSourcesGet(articleId, page, limit, lastRetrieved)
+export const getArticleSources = async (
+  payload: ArticlesApiApiV2ArticlesArticleIdSourcesGetRequest
+): Promise<ArticleSourcesModel> => {
+  return new ArticlesApi(configuration, undefined, instance)
+    .apiV2ArticlesArticleIdSourcesGet(payload)
     .then((res) => {
-      return res.data as ArticleSourcesModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -22,9 +23,11 @@ export function loadArticleSources(
     })
 }
 
-export function loadArticleSource(articleId: string, sourceId: string): Promise<SourceModel> {
-  return new ArticlesApi(configuration, apiRoot, instance)
-    .apiV2ArticlesArticleIdSourcesSourceIdGet(articleId, sourceId)
+export const getArticleSource = async (
+  payload: ArticlesApiApiV2ArticlesArticleIdSourcesSourceIdGetRequest
+): Promise<SourceModel> => {
+  return new ArticlesApi(configuration, undefined, instance)
+    .apiV2ArticlesArticleIdSourcesSourceIdGet(payload)
     .then((res) => {
       return res.data
     })
@@ -35,7 +38,9 @@ export function loadArticleSource(articleId: string, sourceId: string): Promise<
 }
 // #endregion ArticleSources
 
-export default {
-  loadArticleSources,
-  loadArticleSource
+const articleSources = {
+  getArticleSources,
+  getArticleSource
 }
+
+export default articleSources

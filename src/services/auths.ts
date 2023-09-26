@@ -1,8 +1,7 @@
-import axios from 'axios'
 import qs from 'qs'
-import { EmailSignIn, ExternalSignIn, IdentityToken } from '../models/auths'
-import { GrantValidationResult } from '../models/exceptions'
-import { HttpClient } from './HttpClient'
+import { instance } from './HttpClient'
+import { EmailSignIn, ExternalSignIn, IdentityToken } from '@models/auths'
+import { GrantValidationResult } from '@models/exceptions'
 import { log } from '../utils/log'
 
 const sts_issuer = process.env.NEXT_PUBLIC_STS_ISSUER
@@ -25,9 +24,7 @@ const signInROPCAsync = async (emailSignIn: EmailSignIn): Promise<IdentityToken>
       password: emailSignIn.password
     }
 
-    const client = HttpClient.getInstance()
-
-    const response = await client({
+    const response = await instance({
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -67,9 +64,7 @@ const signInExternal = async (externalSignIn: ExternalSignIn): Promise<IdentityT
       email: externalSignIn.email
     }
 
-    const client = HttpClient.getInstance()
-
-    const response = await client({
+    const response = await instance({
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -102,9 +97,7 @@ const signOutExternal = async (provider: 'Facebook' | 'Google' | 'Apple', provid
     const action = 'externalLogins/removeLogin'
     const url = `${sts_issuer}/${action}`
 
-    const client = HttpClient.getInstance()
-
-    const response = await client({
+    const response = await instance({
       method: 'POST',
       headers: {
         Accept: 'application/json'
@@ -140,8 +133,6 @@ const refreshToken = async (refresh_token: string): Promise<any> => {
     }
     log('DATA: ', data)
 
-    const instance = HttpClient.getInstance()
-
     const response = await instance({
       method: 'POST',
       headers: {
@@ -163,9 +154,11 @@ const refreshToken = async (refresh_token: string): Promise<any> => {
   }
 }
 
-export default {
+const auths = {
   signInROPCAsync,
   signInExternal,
   signOutExternal,
   refreshToken
 }
+
+export default auths

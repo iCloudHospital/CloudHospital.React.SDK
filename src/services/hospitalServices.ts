@@ -1,68 +1,23 @@
-import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
 import {
   HospitalsApi,
-  HospitalServicesModel,
-  HospitalServiceModel,
-  MediasModel,
-  MediaModel
-} from 'ch-api-client-typescript2/lib'
-import {
-  HospitalServicesSearchOption,
-  HospitalServiceSearchOption,
-  HospitalServiceMediasSearchOption,
-  HospitalServiceMediaSearchOption
-} from '../models/hospitalServices'
-
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
+  HospitalsApiApiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesGetRequest,
+  HospitalsApiApiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesServiceIdGetRequest,
+  HospitalsApiApiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesServiceIdMediasGetRequest,
+  HospitalsApiApiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesServiceIdMediasMediaIdGetRequest
+} from 'ch-api-client-typescript2/lib/api/hospitals-api'
+import { HospitalServiceModel } from 'ch-api-client-typescript2/lib/models/hospital-service-model'
+import { HospitalServicesModel } from 'ch-api-client-typescript2/lib/models/hospital-services-model'
+import { MediaModel } from 'ch-api-client-typescript2/lib/models/media-model'
+import { MediasModel } from 'ch-api-client-typescript2/lib/models/medias-model'
+import { RestException } from '@models/exceptions'
+import { configuration, instance } from './HttpClient'
 
 // #region HospitalServices
-export function loadHospitalServices(
-  hospitalServicesSearchOption: HospitalServicesSearchOption
-): Promise<HospitalServicesModel> {
-  const {
-    hospitalId,
-    specialtyId,
-    hospitalName,
-    hospitalSlug,
-    id,
-    name,
-    description,
-    specialtyName,
-    specialtyTypeId,
-    specialtyTypeName,
-    serviceCategoryId,
-    marketingType,
-    procedure,
-    created,
-    languageCode,
-    returnDefaultValue,
-    page,
-    limit,
-    lastRetrieved
-  } = hospitalServicesSearchOption
-  return new HospitalsApi(configuration, apiRoot, instance)
-    .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesGet(
-      hospitalId,
-      specialtyId,
-      hospitalName,
-      hospitalSlug,
-      id,
-      name,
-      description,
-      specialtyName,
-      specialtyTypeId,
-      specialtyTypeName,
-      serviceCategoryId,
-      marketingType,
-      procedure,
-      created,
-      languageCode,
-      returnDefaultValue,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const loadHospitalServices = async (
+  payload: HospitalsApiApiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesGetRequest
+): Promise<HospitalServicesModel> => {
+  return new HospitalsApi(configuration, undefined, instance)
+    .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesGet(payload)
     .then((res) => {
       return res.data
     })
@@ -72,17 +27,11 @@ export function loadHospitalServices(
     })
 }
 
-export function loadHospitalService(
-  hospitalServiceSearchOption: HospitalServiceSearchOption
-): Promise<HospitalServiceModel> {
-  const { hospitalId, specialtyId, serviceId, languageCode } = hospitalServiceSearchOption
-  return new HospitalsApi(configuration, apiRoot, instance)
-    .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesServiceIdGet(
-      hospitalId,
-      specialtyId,
-      serviceId,
-      languageCode
-    )
+export const loadHospitalService = async (
+  payload: HospitalsApiApiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesServiceIdGetRequest
+): Promise<HospitalServiceModel> => {
+  return new HospitalsApi(configuration, undefined, instance)
+    .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesServiceIdGet(payload)
     .then((res) => {
       return res.data
     })
@@ -94,22 +43,11 @@ export function loadHospitalService(
 // #endregion HospitalServices
 
 // #region HospitalServiceMedias
-export function loadHospitalServiceMedias(
-  hospitalServiceMediasSearchOption: HospitalServiceMediasSearchOption
-): Promise<MediasModel> {
-  const { hospitalId, specialtyId, serviceId, id, mediaType, page, limit, lastRetrieved } =
-    hospitalServiceMediasSearchOption
-  return new HospitalsApi(configuration, apiRoot, instance)
-    .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesServiceIdMediasGet(
-      hospitalId,
-      specialtyId,
-      serviceId,
-      id,
-      mediaType,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const loadHospitalServiceMedias = async (
+  payload: HospitalsApiApiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesServiceIdMediasGetRequest
+): Promise<MediasModel> => {
+  return new HospitalsApi(configuration, undefined, instance)
+    .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesServiceIdMediasGet(payload)
     .then((res) => {
       return res.data
     })
@@ -119,17 +57,11 @@ export function loadHospitalServiceMedias(
     })
 }
 
-export function loadHospitalServiceMedia(
-  hospitalServiceMediaSearchOption: HospitalServiceMediaSearchOption
-): Promise<MediaModel> {
-  const { hospitalId, specialtyId, serviceId, mediaId } = hospitalServiceMediaSearchOption
-  return new HospitalsApi(configuration, apiRoot, instance)
-    .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesServiceIdMediasMediaIdGet(
-      hospitalId,
-      specialtyId,
-      serviceId,
-      mediaId
-    )
+export const loadHospitalServiceMedia = async (
+  payload: HospitalsApiApiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesServiceIdMediasMediaIdGetRequest
+): Promise<MediaModel> => {
+  return new HospitalsApi(configuration, undefined, instance)
+    .apiV2HospitalsHospitalIdSpecialtiesSpecialtyIdServicesServiceIdMediasMediaIdGet(payload)
     .then((res) => {
       return res.data
     })
@@ -139,10 +71,11 @@ export function loadHospitalServiceMedia(
     })
 }
 
-export default {
+const hospitalServices = {
   loadHospitalServices,
   loadHospitalService,
-
   loadHospitalServiceMedias,
   loadHospitalServiceMedia
 }
+
+export default hospitalServices

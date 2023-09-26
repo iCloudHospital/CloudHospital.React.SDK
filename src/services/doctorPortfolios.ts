@@ -1,16 +1,18 @@
+import {
+  DoctorsApi,
+  DoctorsApiApiV2DoctorsDoctorIdPortfoliosGetRequest,
+  DoctorsApiApiV2DoctorsDoctorIdPortfoliosPortfolioIdGetRequest
+} from 'ch-api-client-typescript2/lib/api/doctors-api'
+import { DoctorPortfolioModel } from 'ch-api-client-typescript2/lib/models/doctor-portfolio-model'
+import { DoctorPortfoliosModel } from 'ch-api-client-typescript2/lib/models/doctor-portfolios-model'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
-import { DoctorsApi, DoctorPortfoliosModel, DoctorPortfolioModel } from 'ch-api-client-typescript2/lib'
-import { DoctorPortfoliosSearchOption } from '../models/doctorPortfolios'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export function loadDoctorPortfolios(
-  doctorPortfoliosSearchOption: DoctorPortfoliosSearchOption
-): Promise<DoctorPortfoliosModel> {
-  const { doctorId, doctorName, portfolioId, name, page, limit, lastRetrieved } = doctorPortfoliosSearchOption
-  return new DoctorsApi(configuration, apiRoot, instance)
-    .apiV2DoctorsDoctorIdPortfoliosGet(doctorId, doctorName, portfolioId, name, page, limit, lastRetrieved)
+export const getDoctorPortfolios = async (
+  payload: DoctorsApiApiV2DoctorsDoctorIdPortfoliosGetRequest
+): Promise<DoctorPortfoliosModel> => {
+  return new DoctorsApi(configuration, undefined, instance)
+    .apiV2DoctorsDoctorIdPortfoliosGet(payload)
     .then((res) => {
       return res.data
     })
@@ -20,9 +22,11 @@ export function loadDoctorPortfolios(
     })
 }
 
-export function loadDoctorPortfolio(doctorId: string, portfolioId: string): Promise<DoctorPortfolioModel> {
-  return new DoctorsApi(configuration, apiRoot, instance)
-    .apiV2DoctorsDoctorIdPortfoliosPortfolioIdGet(doctorId, portfolioId)
+export const getDoctorPortfolioByPortfolioId = async (
+  payload: DoctorsApiApiV2DoctorsDoctorIdPortfoliosPortfolioIdGetRequest
+): Promise<DoctorPortfolioModel> => {
+  return new DoctorsApi(configuration, undefined, instance)
+    .apiV2DoctorsDoctorIdPortfoliosPortfolioIdGet(payload)
     .then((res) => {
       return res.data
     })
@@ -32,7 +36,9 @@ export function loadDoctorPortfolio(doctorId: string, portfolioId: string): Prom
     })
 }
 
-export default {
-  loadDoctorPortfolios,
-  loadDoctorPortfolio
+const doctorPortfolios = {
+  getDoctorPortfolios,
+  getDoctorPortfolioByPortfolioId
 }
+
+export default doctorPortfolios
