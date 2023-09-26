@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios'
-import { Configuration } from 'ch-api-client-typescript2/lib'
+import { Configuration } from 'ch-api-client-typescript2/lib/configuration'
 export class HttpClient {
   private static instance: AxiosInstance | null = null
 

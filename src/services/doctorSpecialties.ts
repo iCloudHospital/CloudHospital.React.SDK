@@ -1,16 +1,18 @@
+import {
+  DoctorsApi,
+  DoctorsApiApiV2DoctorsDoctorIdSpecialtiesGetRequest,
+  DoctorsApiApiV2DoctorsDoctorIdSpecialtiesSpecialtyIdGetRequest
+} from 'ch-api-client-typescript2/lib/api/doctors-api'
+import { DoctorSpecialtiesModel } from 'ch-api-client-typescript2/lib/models/doctor-specialties-model'
+import { DoctorSpecialtyModel } from 'ch-api-client-typescript2/lib/models/doctor-specialty-model'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
-import { DoctorsApi, DoctorSpecialtiesModel, DoctorSpecialtyModel } from 'ch-api-client-typescript2/lib'
-import { DoctorSpecialtiesSearchOption } from '../models/doctorSpecialties'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export function loadDoctorSpecialties(
-  doctorSpecialtiesSearchOption: DoctorSpecialtiesSearchOption
-): Promise<DoctorSpecialtiesModel> {
-  const { doctorId, doctorName, specialtyId, specialtyName, page, limit, lastRetrieved } = doctorSpecialtiesSearchOption
-  return new DoctorsApi(configuration, apiRoot, instance)
-    .apiV2DoctorsDoctorIdSpecialtiesGet(doctorId, doctorName, specialtyId, specialtyName, page, limit, lastRetrieved)
+export const getDoctorSpecialties = async (
+  payload: DoctorsApiApiV2DoctorsDoctorIdSpecialtiesGetRequest
+): Promise<DoctorSpecialtiesModel> => {
+  return new DoctorsApi(configuration, undefined, instance)
+    .apiV2DoctorsDoctorIdSpecialtiesGet(payload)
     .then((res) => {
       return res.data
     })
@@ -20,9 +22,11 @@ export function loadDoctorSpecialties(
     })
 }
 
-export function loadDoctorSpecialty(doctorId: string, specialtyId: string): Promise<DoctorSpecialtyModel> {
-  return new DoctorsApi(configuration, apiRoot, instance)
-    .apiV2DoctorsDoctorIdSpecialtiesSpecialtyIdGet(doctorId, specialtyId)
+export const getDoctorSpecialtyBySpecialtyId = async (
+  payload: DoctorsApiApiV2DoctorsDoctorIdSpecialtiesSpecialtyIdGetRequest
+): Promise<DoctorSpecialtyModel> => {
+  return new DoctorsApi(configuration, undefined, instance)
+    .apiV2DoctorsDoctorIdSpecialtiesSpecialtyIdGet(payload)
     .then((res) => {
       return res.data
     })
@@ -32,7 +36,9 @@ export function loadDoctorSpecialty(doctorId: string, specialtyId: string): Prom
     })
 }
 
-export default {
-  loadDoctorSpecialties,
-  loadDoctorSpecialty
+const doctorSpecialties = {
+  getDoctorSpecialties,
+  getDoctorSpecialtyBySpecialtyId
 }
+
+export default doctorSpecialties

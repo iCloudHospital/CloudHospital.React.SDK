@@ -1,18 +1,20 @@
+import {
+  ServicesCategoriesApi,
+  ServicesCategoriesApiApiV2ServicescategoriesGetRequest,
+  ServicesCategoriesApiApiV2ServicescategoriesServiceCategoryIdGetRequest
+} from 'ch-api-client-typescript2/lib/api/services-categories-api'
+import { ServiceCategoriesModel } from 'ch-api-client-typescript2/lib/models/service-categories-model'
+import { ServiceCategoryModel } from 'ch-api-client-typescript2/lib/models/service-category-model'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
-import { ServiceCategoriesModel, ServiceCategoryModel, ServicesCategoriesApi } from 'ch-api-client-typescript2/lib'
-import { ServicesCategoriesSearchOption, ServicesCategorySearchOption } from '../models/servicesCategories'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export function loadServicesCategories(
-  servicesCategoriesSearchOption: ServicesCategoriesSearchOption
-): Promise<ServiceCategoriesModel> {
-  const { id, name, page, limit, lastRetrieved } = servicesCategoriesSearchOption
-  return new ServicesCategoriesApi(configuration, apiRoot, instance)
-    .apiV2ServicescategoriesGet(id, name, page, limit, lastRetrieved)
+export const loadServicesCategories = async (
+  payload?: ServicesCategoriesApiApiV2ServicescategoriesGetRequest
+): Promise<ServiceCategoriesModel> => {
+  return new ServicesCategoriesApi(configuration, undefined, instance)
+    .apiV2ServicescategoriesGet(payload)
     .then((res) => {
-      return res.data as ServiceCategoriesModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -20,14 +22,13 @@ export function loadServicesCategories(
     })
 }
 
-export function loadServicesCategory(
-  servicesCategorySearchOption: ServicesCategorySearchOption
-): Promise<ServiceCategoryModel> {
-  const { serviceCategoryId } = servicesCategorySearchOption
-  return new ServicesCategoriesApi(configuration, apiRoot, instance)
-    .apiV2ServicescategoriesServiceCategoryIdGet(serviceCategoryId)
+export const loadServicesCategory = async (
+  payload: ServicesCategoriesApiApiV2ServicescategoriesServiceCategoryIdGetRequest
+): Promise<ServiceCategoryModel> => {
+  return new ServicesCategoriesApi(configuration, undefined, instance)
+    .apiV2ServicescategoriesServiceCategoryIdGet(payload)
     .then((res) => {
-      return res.data as ServiceCategoryModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -35,7 +36,9 @@ export function loadServicesCategory(
     })
 }
 
-export default {
+const serviceCategories = {
   loadServicesCategories,
   loadServicesCategory
 }
+
+export default serviceCategories

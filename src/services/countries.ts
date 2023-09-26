@@ -1,41 +1,24 @@
+import {
+  CountriesApi,
+  CountriesApiApiV2CountriesCountryIdGetRequest,
+  CountriesApiApiV2CountriesCountryIdMediasGetRequest,
+  CountriesApiApiV2CountriesCountryIdMediasMediaIdGetRequest,
+  CountriesApiApiV2CountriesGetRequest,
+  CountriesApiApiV2CountriesSlugGetRequest
+} from 'ch-api-client-typescript2/lib/api/countries-api'
+import { CountriesModel } from 'ch-api-client-typescript2/lib/models/countries-model'
+import { CountryModel } from 'ch-api-client-typescript2/lib/models/country-model'
+import { MediaModel } from 'ch-api-client-typescript2/lib/models/media-model'
+import { MediasModel } from 'ch-api-client-typescript2/lib/models/medias-model'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
-import { CountriesApi, CountriesModel, CountryModel, MediaModel, MediasModel } from 'ch-api-client-typescript2/lib'
-import { CountriesSearchOption, CountrySearchOption } from '../models/countries'
-import { CountryMediaSearchOption, CountryMediasSearchOption } from '../models/countryMedias'
-
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 // #region Countries
-export function loadCountries(countriesSearchOption: CountriesSearchOption): Promise<CountriesModel> {
-  const {
-    id,
-    name,
-    description,
-    createdDate,
-    languageCode,
-    showHidden,
-    returnDefaultValue,
-    page,
-    limit,
-    lastRetrieved
-  } = countriesSearchOption
-
-  return new CountriesApi(configuration, apiRoot, instance)
-    .apiV2CountriesGet(
-      id,
-      name,
-      description,
-      createdDate,
-      languageCode,
-      showHidden,
-      returnDefaultValue,
-      page,
-      limit,
-      lastRetrieved
-    )
+export const getCountries = async (payload?: CountriesApiApiV2CountriesGetRequest): Promise<CountriesModel> => {
+  return new CountriesApi(configuration, undefined, instance)
+    .apiV2CountriesGet(payload)
     .then((res) => {
-      return res.data as CountriesModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -43,41 +26,40 @@ export function loadCountries(countriesSearchOption: CountriesSearchOption): Pro
     })
 }
 
-export function loadCountry(countrySearchOption: CountrySearchOption): Promise<CountryModel> {
-  const { countryId, slug, languageCode, returnDefaultValue, options } = countrySearchOption
-
-  if (slug) {
-    return new CountriesApi(configuration, apiRoot, instance)
-      .apiV2CountriesSlugGet(slug, languageCode, returnDefaultValue, options)
-      .then((res) => {
-        return res.data as CountryModel
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  } else {
-    return new CountriesApi(configuration, apiRoot, instance)
-      .apiV2CountriesCountryIdGet(countryId, languageCode, returnDefaultValue, options)
-      .then((res) => {
-        return res.data as CountryModel
-      })
-      .catch((error: any) => {
-        const restException = error.response.data as RestException
-        throw restException
-      })
-  }
+export const getCountryById = async (payload: CountriesApiApiV2CountriesCountryIdGetRequest): Promise<CountryModel> => {
+  return new CountriesApi(configuration, undefined, instance)
+    .apiV2CountriesCountryIdGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
 }
+
+export const getCountryBySlug = async (payload: CountriesApiApiV2CountriesSlugGetRequest): Promise<CountryModel> => {
+  return new CountriesApi(configuration, undefined, instance)
+    .apiV2CountriesSlugGet(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+
 // #endregion Countries
 
 // #region CountryMedias
-export function loadCountryMedias(countryMediasSearchOption: CountryMediasSearchOption): Promise<MediasModel> {
-  const { countryId, id, mediaType, page, limit, lastRetrieved } = countryMediasSearchOption
-
-  return new CountriesApi(configuration, apiRoot, instance)
-    .apiV2CountriesCountryIdMediasGet(countryId, id, mediaType, page, limit, lastRetrieved)
+export const getCountryMedias = async (
+  payload: CountriesApiApiV2CountriesCountryIdMediasGetRequest
+): Promise<MediasModel> => {
+  return new CountriesApi(configuration, undefined, instance)
+    .apiV2CountriesCountryIdMediasGet(payload)
     .then((res) => {
-      return res.data as MediasModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -85,13 +67,13 @@ export function loadCountryMedias(countryMediasSearchOption: CountryMediasSearch
     })
 }
 
-export function loadCountryMedia(countryMediaSearchOption: CountryMediaSearchOption): Promise<MediaModel> {
-  const { countryId, mediaId, options } = countryMediaSearchOption
-
-  return new CountriesApi(configuration, apiRoot, instance)
-    .apiV2CountriesCountryIdMediasMediaIdGet(countryId, mediaId, options)
+export const getCountryMedia = async (
+  payload: CountriesApiApiV2CountriesCountryIdMediasMediaIdGetRequest
+): Promise<MediaModel> => {
+  return new CountriesApi(configuration, undefined, instance)
+    .apiV2CountriesCountryIdMediasMediaIdGet(payload)
     .then((res) => {
-      return res.data as MediaModel
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -100,10 +82,12 @@ export function loadCountryMedia(countryMediaSearchOption: CountryMediaSearchOpt
 }
 // #endregion CountryMedias
 
-export default {
-  loadCountries,
-  loadCountry,
-
-  loadCountryMedias,
-  loadCountryMedia
+const countries = {
+  getCountries,
+  getCountryById,
+  getCountryBySlug,
+  getCountryMedias,
+  getCountryMedia
 }
+
+export default countries

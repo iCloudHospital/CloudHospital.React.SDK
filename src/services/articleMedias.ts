@@ -1,15 +1,19 @@
+import {
+  ArticlesApi,
+  ArticlesApiApiV2ArticlesArticleIdMediasGetRequest,
+  ArticlesApiApiV2ArticlesArticleIdMediasMediaIdGetRequest
+} from 'ch-api-client-typescript2/lib/api/articles-api'
+import { MediaModel } from 'ch-api-client-typescript2/lib/models/media-model'
+import { MediasModel } from 'ch-api-client-typescript2/lib/models/medias-model'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
-import { ArticlesApi, MediasModel, MediaModel } from 'ch-api-client-typescript2/lib'
-import { ArticleMediasSearchOption } from '../models/articleMedias'
-
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
 
 // #region ArticlelMedias
-export function loadArticleMedias(articleMediasSearchOption: ArticleMediasSearchOption): Promise<MediasModel> {
-  const { articleId, id, mediaType, page, limit, lastRetrieved } = articleMediasSearchOption
-  return new ArticlesApi(configuration, apiRoot, instance)
-    .apiV2ArticlesArticleIdMediasGet(articleId, id, mediaType, page, limit, lastRetrieved)
+export const loadArticleMedias = async (
+  payload: ArticlesApiApiV2ArticlesArticleIdMediasGetRequest
+): Promise<MediasModel> => {
+  return new ArticlesApi(configuration, undefined, instance)
+    .apiV2ArticlesArticleIdMediasGet(payload)
     .then((res) => {
       return res.data
     })
@@ -19,9 +23,11 @@ export function loadArticleMedias(articleMediasSearchOption: ArticleMediasSearch
     })
 }
 
-export function loadArticleMedia(articleId: string, mediaId: string): Promise<MediaModel> {
-  return new ArticlesApi(configuration, apiRoot, instance)
-    .apiV2ArticlesArticleIdMediasMediaIdGet(articleId, mediaId)
+export const loadArticleMedia = async (
+  payload: ArticlesApiApiV2ArticlesArticleIdMediasMediaIdGetRequest
+): Promise<MediaModel> => {
+  return new ArticlesApi(configuration, undefined, instance)
+    .apiV2ArticlesArticleIdMediasMediaIdGet(payload)
     .then((res) => {
       return res.data
     })
@@ -32,7 +38,9 @@ export function loadArticleMedia(articleId: string, mediaId: string): Promise<Me
 }
 // #endregion ArticlelMedias
 
-export default {
+const articleMedias = {
   loadArticleMedias,
   loadArticleMedia
 }
+
+export default articleMedias

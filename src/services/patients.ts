@@ -1,16 +1,31 @@
+import { RestException } from '@models/exceptions'
+import {
+  PatientsApi,
+  PatientsApiApiV2PatientsAffiliationsHospitalIdDeleteRequest,
+  PatientsApiApiV2PatientsAffiliationsHospitalIdPostRequest
+} from 'ch-api-client-typescript2/lib/api/patients-api'
 import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
-import { PatientsApi, PatientModel, CreatePatientCommand, UpdatePatientCommand } from 'ch-api-client-typescript2/lib'
-import { PatientSearchOption } from '../models/patients'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export function loadPatient(patientSearchOption: PatientSearchOption): Promise<PatientModel> {
-  const { patientId, options } = patientSearchOption
-  return new PatientsApi(configuration, apiRoot, instance)
-    .apiV2PatientsPatientIdGet(patientId, options)
+export const postPatientAffiliation = async (
+  payload: PatientsApiApiV2PatientsAffiliationsHospitalIdPostRequest
+): Promise<boolean> => {
+  return new PatientsApi(configuration, undefined, instance)
+    .apiV2PatientsAffiliationsHospitalIdPost(payload)
     .then((res) => {
-      return res.data as PatientModel
+      return res.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+export const deletePatientAffiliation = async (
+  payload: PatientsApiApiV2PatientsAffiliationsHospitalIdDeleteRequest
+): Promise<boolean> => {
+  return new PatientsApi(configuration, undefined, instance)
+    .apiV2PatientsAffiliationsHospitalIdDelete(payload)
+    .then((res) => {
+      return res.data
     })
     .catch((error: any) => {
       const restException = error.response.data as RestException
@@ -18,45 +33,9 @@ export function loadPatient(patientSearchOption: PatientSearchOption): Promise<P
     })
 }
 
-export function postPatient(createPatientCommand?: CreatePatientCommand): Promise<PatientModel> {
-  return new PatientsApi(configuration, apiRoot, instance)
-    .apiV2PatientsPost(createPatientCommand)
-    .then((res) => {
-      return res.data as PatientModel
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
+const patients = {
+  postPatientAffiliation,
+  deletePatientAffiliation
 }
 
-export function putPatient(patientId: string, updatePatientCommand?: UpdatePatientCommand): Promise<PatientModel> {
-  return new PatientsApi(configuration, apiRoot, instance)
-    .apiV2PatientsPatientIdPut(patientId, updatePatientCommand)
-    .then((res) => {
-      return res.data as PatientModel
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-
-export function deletePatient(patientId: string): Promise<boolean> {
-  return new PatientsApi(configuration, apiRoot, instance)
-    .apiV2PatientsPatientIdDelete(patientId)
-    .then((res) => {
-      return res.data as boolean
-    })
-    .catch((error: any) => {
-      const restException = error.response.data as RestException
-      throw restException
-    })
-}
-
-export default {
-  loadPatient,
-  postPatient,
-  putPatient,
-  deletePatient
-}
+export default patients

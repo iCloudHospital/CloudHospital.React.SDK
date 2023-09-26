@@ -10,6 +10,7 @@ export interface IdentityToken {
   scope: string
   error?: string
 }
+
 export interface EmailSignIn {
   email: string
   password: string

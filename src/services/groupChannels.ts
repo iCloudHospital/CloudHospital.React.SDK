@@ -1,23 +1,22 @@
-import { configuration, instance } from './HttpClient'
-import { RestException } from '../models/exceptions'
 import {
   GroupChannelsApi,
-  SendBirdGroupChannelModel,
-  InviteSendBirdGroupChannelCommand
-} from 'ch-api-client-typescript2/lib'
+  GroupChannelsApiApiV2GroupchannelsChannelUrlInviteHospitalIdManagerPostRequest,
+  GroupChannelsApiApiV2GroupchannelsChannelUrlInvitePostRequest,
+  GroupChannelsApiApiV2GroupchannelsDealDealIdGetRequest,
+  GroupChannelsApiApiV2GroupchannelsDoctorDoctorIdGetRequest,
+  GroupChannelsApiApiV2GroupchannelsHospitalHospitalIdGetRequest
+} from 'ch-api-client-typescript2/lib/api/group-channels-api'
+import { SendBirdGroupChannelModel } from 'ch-api-client-typescript2/lib/models/send-bird-group-channel-model'
+import { RestException } from '@models/exceptions'
+import { configuration, instance } from './HttpClient'
 
-const apiRoot = process.env.NEXT_PUBLIC_API_ROOT
-
-export function postInviteGroupChannel(channelUrl: string, userIds: string[]): Promise<boolean> {
-  const data = {
-    // eslint-disable-next-line @typescript-eslint/camelcase, camelcase
-    user_ids: userIds
-  } as InviteSendBirdGroupChannelCommand
-
-  return new GroupChannelsApi(configuration, apiRoot, instance)
-    .apiV2GroupchannelsChannelUrlInvitePost(channelUrl, data)
+export const postChannelUrlInvite = async (
+  payload: GroupChannelsApiApiV2GroupchannelsChannelUrlInvitePostRequest
+): Promise<SendBirdGroupChannelModel> => {
+  return new GroupChannelsApi(configuration, undefined, instance)
+    .apiV2GroupchannelsChannelUrlInvitePost(payload)
     .then((res) => {
-      return res.data as boolean
+      return res.data
     })
     .catch((error) => {
       const restException = error.response.data as RestException
@@ -25,9 +24,27 @@ export function postInviteGroupChannel(channelUrl: string, userIds: string[]): P
     })
 }
 
-export function loadHospitalGroupChannel(hospitalId: string): Promise<SendBirdGroupChannelModel> {
-  return new GroupChannelsApi(configuration, apiRoot, instance)
-    .apiV2GroupchannelsHospitalHospitalIdGet(hospitalId)
+export const postChannelUrlInviteHospitalIdManager = async (
+  payload: GroupChannelsApiApiV2GroupchannelsChannelUrlInviteHospitalIdManagerPostRequest
+): Promise<boolean> => {
+  return new GroupChannelsApi(configuration, undefined, instance)
+    .apiV2GroupchannelsChannelUrlInviteHospitalIdManagerPost(payload)
+    .then((res) => {
+      return res.data
+    })
+    .catch((error) => {
+      const errorResponse = error.response
+      throw errorResponse
+      // const restException = error.response.data as RestException
+      // throw restException
+    })
+}
+
+export const getHospitalGroupChannelByHospitalId = async (
+  payload: GroupChannelsApiApiV2GroupchannelsHospitalHospitalIdGetRequest
+): Promise<SendBirdGroupChannelModel> => {
+  return new GroupChannelsApi(configuration, undefined, instance)
+    .apiV2GroupchannelsHospitalHospitalIdGet(payload)
     .then((res) => {
       return res.data as SendBirdGroupChannelModel
     })
@@ -37,9 +54,11 @@ export function loadHospitalGroupChannel(hospitalId: string): Promise<SendBirdGr
     })
 }
 
-export function loadDoctorGroupChannel(doctorId: string, hospitalId?: string | undefined): Promise<SendBirdGroupChannelModel> {
-  return new GroupChannelsApi(configuration, apiRoot, instance)
-    .apiV2GroupchannelsDoctorDoctorIdGet(doctorId, hospitalId)
+export const getDoctorGroupChannelByDoctorId = async (
+  payload: GroupChannelsApiApiV2GroupchannelsDoctorDoctorIdGetRequest
+): Promise<SendBirdGroupChannelModel> => {
+  return new GroupChannelsApi(configuration, undefined, instance)
+    .apiV2GroupchannelsDoctorDoctorIdGet(payload)
     .then((res) => {
       return res.data as SendBirdGroupChannelModel
     })
@@ -49,9 +68,11 @@ export function loadDoctorGroupChannel(doctorId: string, hospitalId?: string | u
     })
 }
 
-export function loadDealGroupChannel(dealId: string, hospitalId?: string | undefined): Promise<SendBirdGroupChannelModel> {
-  return new GroupChannelsApi(configuration, apiRoot, instance)
-    .apiV2GroupchannelsDealDealIdGet(dealId, hospitalId)
+export const getDealGroupChannelByDealId = async (
+  payload: GroupChannelsApiApiV2GroupchannelsDealDealIdGetRequest
+): Promise<SendBirdGroupChannelModel> => {
+  return new GroupChannelsApi(configuration, undefined, instance)
+    .apiV2GroupchannelsDealDealIdGet(payload)
     .then((res) => {
       return res.data as SendBirdGroupChannelModel
     })
@@ -61,9 +82,12 @@ export function loadDealGroupChannel(dealId: string, hospitalId?: string | undef
     })
 }
 
-export default {
-  postInviteGroupChannel,
-  loadHospitalGroupChannel,
-  loadDoctorGroupChannel,
-  loadDealGroupChannel
+const groupChannels = {
+  postChannelUrlInvite,
+  postChannelUrlInviteHospitalIdManager,
+  getHospitalGroupChannelByHospitalId,
+  getDoctorGroupChannelByDoctorId,
+  getDealGroupChannelByDealId
 }
+
+export default groupChannels
