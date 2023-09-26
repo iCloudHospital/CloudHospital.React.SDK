@@ -5,7 +5,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/doctors-api'
 import { DoctorEducationModel } from 'ch-api-client-typescript2/lib/models/doctor-education-model'
 import { DoctorEducationsModel } from 'ch-api-client-typescript2/lib/models/doctor-educations-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #endregion Doctor Educations

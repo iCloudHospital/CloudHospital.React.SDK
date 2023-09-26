@@ -9,7 +9,7 @@ import { HospitalServiceModel } from 'ch-api-client-typescript2/lib/models/hospi
 import { HospitalServicesModel } from 'ch-api-client-typescript2/lib/models/hospital-services-model'
 import { MediaModel } from 'ch-api-client-typescript2/lib/models/media-model'
 import { MediasModel } from 'ch-api-client-typescript2/lib/models/medias-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #region HospitalServices

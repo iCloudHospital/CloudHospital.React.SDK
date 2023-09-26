@@ -1,9 +1,9 @@
-import { nameOf, useGenericSWR, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
-import { CommunicationUserTokenModel } from 'ch-api-client-typescript2/lib'
-import { getCommunicationUser } from '../services/communications'
+import { nameOf, useGenericSWR, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
+import { getCommunicationUser } from '@services/communications'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
+import { CommunicationUserTokenModel } from 'ch-api-client-typescript2/lib/models/communication-user-token-model'
 
 // #region GET api/v2/communicatioms
 export const getCommunicationUserSWR = (

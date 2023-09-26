@@ -1,8 +1,8 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import { ContributorsApiApiV2ContributorsGetRequest } from 'ch-api-client-typescript2/lib/api/contributors-api'
 import { ContributorsModel } from 'ch-api-client-typescript2/lib/models/contributors-model'
-import { getContributors } from '../services/contributors'
+import { getContributors } from '@services/contributors'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

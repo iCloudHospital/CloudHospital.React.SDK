@@ -1,4 +1,4 @@
-import { REGEX_SPECIAL_CHARACTERS_G } from '../constants/regex'
+import { REGEX_SPECIAL_CHARACTERS_G } from 'src/constants/regex'
 import useSWR, { SWRConfiguration } from 'swr'
 import useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation'
 import useSWRInfinite, { SWRInfiniteConfiguration } from 'swr/infinite'
@@ -7,8 +7,8 @@ import { PagedListMetaData } from 'ch-api-client-typescript2/lib/models/paged-li
 
 type SWRKeyType<TPayload> = [string, TPayload]
 
-export const nameOf = (f: () => unknown, returnesFullName = false): string => {
-  const fullName = f.toString().replace(/[ |\\(\\)=>]/g, '')
+export const nameOf = (f: () => any, returnesFullName = false): string => {
+  const fullName = f.toString().replace(/[ |\(\)=>]/g, '')
   if (!returnesFullName) {
     return (
       fullName
@@ -51,8 +51,7 @@ export const useGenericSWRMutation = <TResponse, TError, TPayload>(
 ) => {
   const { data, error, trigger, reset, isMutating } = useSWRMutation<TResponse, TError, any, TPayload>(
     key,
-    (_: string, payload: { arg: TPayload }): FetcherResponse<TResponse> => api(payload.arg),
-    config
+    (_: string, payload: { arg: TPayload }): FetcherResponse<TResponse> => api(payload.arg)
   )
 
   return { data, error, trigger, reset, isMutating }
@@ -72,6 +71,7 @@ export const useGenericSWRInfinite = <
   const {
     data: fetched,
     isValidating,
+    isLoading,
     error,
     setSize,
     mutate
@@ -113,8 +113,9 @@ export const useGenericSWRInfinite = <
   return {
     data,
     isValidating,
+    isLoading,
     error,
     setSize,
-    mutate
+    mutate,
   }
 }

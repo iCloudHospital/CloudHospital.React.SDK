@@ -1,4 +1,4 @@
-import { nameOf, useGenericSWR, useGenericSWRMutation } from '../hooks/useGenericSWRs'
+import { nameOf, useGenericSWR, useGenericSWRMutation } from '@hooks/useGenericSWRs'
 import {
   AccountModel,
   ChangePasswordModel,
@@ -6,8 +6,8 @@ import {
   ForgotPasswordModel,
   PostAccountModel,
   ResetPasswordModel
-} from '../models/accounts'
-import { IdentityError, RestException } from '../models/exceptions'
+} from '@models/accounts'
+import { IdentityError, RestException } from '@models/exceptions'
 import {
   changePassword,
   confirmAccount,
@@ -16,7 +16,7 @@ import {
   postAccount,
   resetPassword,
   sendVerificationMail
-} from '../services/accounts'
+} from '@services/accounts'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

@@ -1,5 +1,5 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   ServicesApiApiV2ServicesGetRequest,
   ServicesApiApiV2ServicesServiceIdGetRequest,
@@ -7,7 +7,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/services-api'
 import { HospitalServiceModel } from 'ch-api-client-typescript2/lib/models/hospital-service-model'
 import { HospitalServicesModel } from 'ch-api-client-typescript2/lib/models/hospital-services-model'
-import { getServiceByServiceId, getServiceBySlug, getServices } from '../services/services'
+import { getServiceByServiceId, getServiceBySlug, getServices } from '@services/services'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

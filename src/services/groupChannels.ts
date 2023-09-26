@@ -7,7 +7,7 @@ import {
   GroupChannelsApiApiV2GroupchannelsHospitalHospitalIdGetRequest
 } from 'ch-api-client-typescript2/lib/api/group-channels-api'
 import { SendBirdGroupChannelModel } from 'ch-api-client-typescript2/lib/models/send-bird-group-channel-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 export const postChannelUrlInvite = async (

@@ -1,5 +1,5 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   BookingsApiApiV2BookingsBookingIdGetRequest,
   BookingsApiApiV2BookingsBookingIdPayPostRequest,
@@ -9,7 +9,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/bookings-api'
 import { BookingModel } from 'ch-api-client-typescript2/lib/models/booking-model'
 import { BookingsModel } from 'ch-api-client-typescript2/lib/models/bookings-model'
-import { getBookingById, getBookings, postBooking, postBookingPaymentKey, putBooking } from '../services/bookings'
+import { getBookingById, getBookings, postBooking, postBookingPaymentKey, putBooking } from '@services/bookings'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

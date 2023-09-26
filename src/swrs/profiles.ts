@@ -1,5 +1,5 @@
-import { nameOf, useGenericSWR, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   ProfilesApiApiV2ProfilesChangeemailPostRequest,
   ProfilesApiApiV2ProfilesPostRequest,
@@ -7,7 +7,7 @@ import {
   ProfilesApiApiV2ProfilesPutRequest
 } from 'ch-api-client-typescript2/lib/api/profiles-api'
 import { PatientModel } from 'ch-api-client-typescript2/lib/models/patient-model'
-import { changeEmail, deleteProfile, getProfile, postProfile, putProfile } from '../services/profiles'
+import { changeEmail, deleteProfile, getProfile, postProfile, putProfile } from '@services/profiles'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

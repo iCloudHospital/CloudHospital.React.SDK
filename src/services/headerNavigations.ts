@@ -3,7 +3,7 @@ import {
   HeaderNavigationsApiApiV2HeadernavigationsLanguageCodeGetRequest
 } from 'ch-api-client-typescript2/lib/api/header-navigations-api'
 import { HeaderNavigationItemModel } from 'ch-api-client-typescript2/lib/models/header-navigation-item-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #region HeaderNavigations

@@ -1,5 +1,5 @@
-import { nameOf, useGenericSWR, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   GroupChannelsApiApiV2GroupchannelsChannelUrlInviteHospitalIdManagerPostRequest,
   GroupChannelsApiApiV2GroupchannelsChannelUrlInvitePostRequest,
@@ -14,7 +14,7 @@ import {
   getHospitalGroupChannelByHospitalId,
   postChannelUrlInvite,
   postChannelUrlInviteHospitalIdManager
-} from '../services/groupChannels'
+} from '@services/groupChannels'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

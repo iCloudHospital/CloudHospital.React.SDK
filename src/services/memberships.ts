@@ -7,7 +7,7 @@ import {
 import { MembersModel } from 'ch-api-client-typescript2/lib/models/members-model'
 import { MembershipModel } from 'ch-api-client-typescript2/lib/models/membership-model'
 import { MembershipsModel } from 'ch-api-client-typescript2/lib/models/memberships-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 export const loadMemberships = async (payload: MembershipsApiApiV2MembershipsGetRequest): Promise<MembershipsModel> => {

@@ -5,7 +5,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/hospitals-api'
 import { LandingModel } from 'ch-api-client-typescript2/lib/models/landing-model'
 import { LandingsModel } from 'ch-api-client-typescript2/lib/models/landings-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 export const loadLandings = async (

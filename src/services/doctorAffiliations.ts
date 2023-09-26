@@ -6,7 +6,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/doctor-affiliations-api'
 import { DoctorAffiliationModel } from 'ch-api-client-typescript2/lib/models/doctor-affiliation-model'
 import { DoctorAffiliationsModel } from 'ch-api-client-typescript2/lib/models/doctor-affiliations-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #region Doctor Affiliations

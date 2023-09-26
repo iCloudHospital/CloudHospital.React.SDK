@@ -5,8 +5,8 @@ import {
   ForgotPasswordModel,
   PostAccountModel,
   ResetPasswordModel
-} from '../models/accounts'
-import { Errors, IdentityError, RestException } from '../models/exceptions'
+} from '@models/accounts'
+import { Errors, IdentityError, RestException } from '@models/exceptions'
 import { log } from '../utils/log'
 import { instance } from './HttpClient'
 

@@ -5,7 +5,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/articles-api'
 import { ArticleSourcesModel } from 'ch-api-client-typescript2/lib/models/article-sources-model'
 import { SourceModel } from 'ch-api-client-typescript2/lib/models/source-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #region ArticleSources

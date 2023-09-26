@@ -7,7 +7,7 @@ import {
 import { DoctorModel } from 'ch-api-client-typescript2/lib/models/doctor-model'
 import { DoctorsModel } from 'ch-api-client-typescript2/lib/models/doctors-model'
 import { DoctorsSimpleModel } from 'ch-api-client-typescript2/lib/models/doctors-simple-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #region Doctors

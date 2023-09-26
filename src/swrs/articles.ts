@@ -1,5 +1,5 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   ArticlesApiApiV2ArticlesArticleIdGetRequest,
   ArticlesApiApiV2ArticlesGetRequest,
@@ -7,7 +7,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/articles-api'
 import { ArticleModel } from 'ch-api-client-typescript2/lib/models/article-model'
 import { ArticlesModel } from 'ch-api-client-typescript2/lib/models/articles-model'
-import { getArticleById, getArticleBySlug, getArticles } from '../services/articles'
+import { getArticleById, getArticleBySlug, getArticles } from '@services/articles'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

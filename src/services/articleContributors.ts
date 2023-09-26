@@ -5,7 +5,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/articles-api'
 import { ArticleContributorModel } from 'ch-api-client-typescript2/lib/models/article-contributor-model'
 import { ArticleContributorsModel } from 'ch-api-client-typescript2/lib/models/article-contributors-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #region ArticleContributors

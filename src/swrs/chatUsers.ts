@@ -1,14 +1,13 @@
-import { nameOf, useGenericSWR, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   ChatUsersApiApiV2ChatusersPostRequest,
   ChatUsersApiApiV2ChatusersPutRequest
 } from 'ch-api-client-typescript2/lib/api/chat-users-api'
 import { ChatUserModel } from 'ch-api-client-typescript2/lib/models/chat-user-model'
-
-import { getChatUser, postChatUser, putChatUser } from '../services/chats'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
+import { getChatUser, postChatUser, putChatUser } from '@services/chats'
 
 // #region POST api/v2/chatusers
 export const postChatUserSWRMutation = (

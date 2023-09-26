@@ -1,12 +1,12 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   SpecialtyTypesApiApiV2SpecialtytypesSpecialtyTypeIdMediasGetRequest,
   SpecialtyTypesApiApiV2SpecialtytypesSpecialtyTypeIdMediasMediaIdGetRequest
 } from 'ch-api-client-typescript2/lib/api/specialty-types-api'
 import { MediaModel } from 'ch-api-client-typescript2/lib/models/media-model'
 import { MediasModel } from 'ch-api-client-typescript2/lib/models/medias-model'
-import { getSpecialtyTypeMediaByMediaId, getSpecialtyTypeMedias } from '../services/specialtyTypeMedias'
+import { getSpecialtyTypeMediaByMediaId, getSpecialtyTypeMedias } from '@services/specialtyTypeMedias'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

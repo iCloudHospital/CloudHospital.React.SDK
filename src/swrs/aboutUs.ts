@@ -1,5 +1,5 @@
-import { nameOf, useGenericSWR, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   AboutUsApiApiV2AboutusHospitalIdGetRequest,
   AboutUsApiApiV2AboutusSlugGetRequest
@@ -7,7 +7,7 @@ import {
 import { AboutUsPageModel } from 'ch-api-client-typescript2/lib/models/about-us-page-model'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
-import { getAboutUsPageById, getAboutUsPageBySlug } from '../services/aboutUs'
+import { getAboutUsPageById, getAboutUsPageBySlug } from '@services/aboutUs'
 
 // #region GET api/v1/aboutus/{hospitalId}
 export const getAboutusPageByIdSWR = (

@@ -1,10 +1,10 @@
+import { RestException } from '@models/exceptions'
 import {
   AboutUsApi,
   AboutUsApiApiV2AboutusHospitalIdGetRequest,
   AboutUsApiApiV2AboutusSlugGetRequest
 } from 'ch-api-client-typescript2/lib/api/about-us-api'
 import { AboutUsPageModel } from 'ch-api-client-typescript2/lib/models/about-us-page-model'
-import { RestException } from '../models'
 import { configuration, instance } from './HttpClient'
 
 export const getAboutUsPageById = async (

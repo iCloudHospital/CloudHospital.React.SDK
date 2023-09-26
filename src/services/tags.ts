@@ -5,7 +5,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/tags-api'
 import { TagModel } from 'ch-api-client-typescript2/lib/models/tag-model'
 import { TagsModel } from 'ch-api-client-typescript2/lib/models/tags-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 export const loadTags = async (payload?: TagsApiApiV2TagsGetRequest): Promise<TagsModel> => {

@@ -1,5 +1,5 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   SpecialtyTypesApiApiV2SpecialtytypesGetRequest,
   SpecialtyTypesApiApiV2SpecialtytypesSlugGetRequest,
@@ -11,7 +11,7 @@ import {
   getSpecialtyTypeBySlug,
   getSpecialtyTypeBySpecialtyTypeId,
   getSpecialtyTypes
-} from '../services/specialtyTypes'
+} from '@services/specialtyTypes'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

@@ -1,5 +1,5 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   ConsultationsApiApiV2ConsultationsConsultationIdGetRequest,
   ConsultationsApiApiV2ConsultationsConsultationIdPayPostRequest,
@@ -15,7 +15,7 @@ import {
   postConsultation,
   postConsultationPaymentKey,
   putConsultation
-} from '../services/consultations'
+} from '@services/consultations'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

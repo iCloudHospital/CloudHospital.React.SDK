@@ -1,4 +1,4 @@
-import { RestException } from '../models'
+import { RestException } from '@models/exceptions'
 import {
   PatientsApi,
   PatientsApiApiV2PatientsAffiliationsHospitalIdDeleteRequest,

@@ -9,7 +9,7 @@ import { PlanHospitalModel } from 'ch-api-client-typescript2/lib/models/plan-hos
 import { PlanHospitalsModel } from 'ch-api-client-typescript2/lib/models/plan-hospitals-model'
 import { PlanModel } from 'ch-api-client-typescript2/lib/models/plan-model'
 import { PlansModel } from 'ch-api-client-typescript2/lib/models/plans-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #region Plans

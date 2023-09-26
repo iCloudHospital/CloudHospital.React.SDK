@@ -1,7 +1,8 @@
-import { nameOf, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
-import { ImagesApiApiV2ImagesPostRequest, MediaModel } from 'ch-api-client-typescript2/lib'
-import { postImages } from '../services/images'
+import { nameOf, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
+import { postImages } from '@services/images'
+import { ImagesApiApiV2ImagesPostRequest } from 'ch-api-client-typescript2/lib/api/images-api'
+import { MediaModel } from 'ch-api-client-typescript2/lib/models/media-model'
 import { SWRMutationConfiguration } from 'swr/mutation'
 
 // #region POST api/v2/images

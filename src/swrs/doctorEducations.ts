@@ -1,12 +1,12 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   DoctorsApiApiV2DoctorsDoctorIdEducationsEducationIdGetRequest,
   DoctorsApiApiV2DoctorsDoctorIdEducationsGetRequest
 } from 'ch-api-client-typescript2/lib/api/doctors-api'
 import { DoctorEducationModel } from 'ch-api-client-typescript2/lib/models/doctor-education-model'
 import { DoctorEducationsModel } from 'ch-api-client-typescript2/lib/models/doctor-educations-model'
-import { getDoctorEducationById, getDoctorEducations } from '../services/doctorEducations'
+import { getDoctorEducationById, getDoctorEducations } from '@services/doctorEducations'
 import { SWRMutationConfiguration } from 'swr/mutation'
 
 // #region GET api/v2/doctors/{doctorid}/educations

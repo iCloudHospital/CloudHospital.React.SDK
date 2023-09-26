@@ -16,7 +16,7 @@ import { DealServiceModel } from 'ch-api-client-typescript2/lib/models/deal-serv
 import { DealServicesModel } from 'ch-api-client-typescript2/lib/models/deal-services-model'
 import { DealsModel } from 'ch-api-client-typescript2/lib/models/deals-model'
 import { DealsSimpleModel } from 'ch-api-client-typescript2/lib/models/deals-simple-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #region Deals

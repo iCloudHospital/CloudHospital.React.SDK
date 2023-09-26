@@ -1,5 +1,5 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   DealsApiApiV2DealsDealIdGetRequest,
   DealsApiApiV2DealsDealIdPackagesGetRequest,
@@ -20,7 +20,7 @@ import {
   getDealPackages,
   getDeals,
   getDealsSimple
-} from '../services/deals'
+} from '@services/deals'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

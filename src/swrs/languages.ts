@@ -1,12 +1,12 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   LanguagesApiApiV2LanguagesCodeGetRequest,
   LanguagesApiApiV2LanguagesGetRequest
 } from 'ch-api-client-typescript2/lib/api/languages-api'
 import { LanguageModel } from 'ch-api-client-typescript2/lib/models/language-model'
 import { LanguagesModel } from 'ch-api-client-typescript2/lib/models/languages-model'
-import { getLanguageByCode, getLanguages } from '../services/languages'
+import { getLanguageByCode, getLanguages } from '@services/languages'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

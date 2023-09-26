@@ -6,7 +6,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/specialties-api'
 import { SpecialtiesModel } from 'ch-api-client-typescript2/lib/models/specialties-model'
 import { SpecialtyModel } from 'ch-api-client-typescript2/lib/models/specialty-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #region Specialties

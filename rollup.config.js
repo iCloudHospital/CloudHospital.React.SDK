@@ -8,7 +8,7 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import pkg from './package.json' assert { type: 'json' }
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
-const external = ['moment-timezone', 'next-auth']
+const external = ['@cloudhospital/integratedservicesfunctionsapp.client', 'qs', 'swr', 'yup']
 
 /**
  * @type {import('rollup').RollupOptions}
@@ -42,7 +42,7 @@ const config = {
       declarationDir: 'dist'
       // verbosity: 3,
     }),
-    peerDepsExternal(),
+peerDepsExternal(),
     copy({
       targets: [{ src: 'src/**/*.css', dest: 'dist' }]
     }),

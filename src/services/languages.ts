@@ -5,7 +5,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/languages-api'
 import { LanguageModel } from 'ch-api-client-typescript2/lib/models/language-model'
 import { LanguagesModel } from 'ch-api-client-typescript2/lib/models/languages-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 export const getLanguages = async (payload?: LanguagesApiApiV2LanguagesGetRequest): Promise<LanguagesModel> => {

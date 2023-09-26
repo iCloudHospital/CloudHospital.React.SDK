@@ -5,7 +5,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/doctors-api'
 import { DoctorCertificateModel } from 'ch-api-client-typescript2/lib/models/doctor-certificate-model'
 import { DoctorCertificatesModel } from 'ch-api-client-typescript2/lib/models/doctor-certificates-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 export const loadDoctorCertificates = async (

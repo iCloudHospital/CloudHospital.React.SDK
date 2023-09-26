@@ -1,5 +1,6 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
+import { getDoctorByDoctorId, getDoctors, getDoctorsSimple } from '@services/doctors'
 import {
   DoctorsApiApiV2DoctorsDoctorIdGetRequest,
   DoctorsApiApiV2DoctorsGetRequest,
@@ -8,7 +9,6 @@ import {
 import { DoctorModel } from 'ch-api-client-typescript2/lib/models/doctor-model'
 import { DoctorsModel } from 'ch-api-client-typescript2/lib/models/doctors-model'
 import { DoctorsSimpleModel } from 'ch-api-client-typescript2/lib/models/doctors-simple-model'
-import { getDoctorByDoctorId, getDoctors, getDoctorsSimple } from '../services/doctors'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

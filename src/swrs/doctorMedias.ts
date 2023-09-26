@@ -1,12 +1,12 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
+import { getDoctorMediaByMediaId, getDoctorMedias } from '@services/doctorMedias'
 import {
   DoctorsApiApiV2DoctorsDoctorIdMediasGetRequest,
   DoctorsApiApiV2DoctorsDoctorIdMediasMediaIdGetRequest
 } from 'ch-api-client-typescript2/lib/api/doctors-api'
 import { MediaModel } from 'ch-api-client-typescript2/lib/models/media-model'
 import { MediasModel } from 'ch-api-client-typescript2/lib/models/medias-model'
-import { getDoctorMediaByMediaId, getDoctorMedias } from '../services/doctorMedias'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

@@ -1,6 +1,6 @@
 import { CommunicationsApi } from 'ch-api-client-typescript2/lib/api/communications-api'
 import { CommunicationUserTokenModel } from 'ch-api-client-typescript2/lib/models/communication-user-token-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { log } from '../utils/log'
 import { configuration, instance } from './HttpClient'
 

@@ -1,6 +1,4 @@
-import { RestException } from '../models/exceptions'
-import { configuration, instance } from './HttpClient'
-
+import { RestException } from '@models/exceptions'
 import {
   ConsultationsApi,
   ConsultationsApiApiV2ConsultationsConsultationIdGetRequest,
@@ -12,6 +10,7 @@ import {
 import { ConsultationModel } from 'ch-api-client-typescript2/lib/models/consultation-model'
 import { ConsultationsModel } from 'ch-api-client-typescript2/lib/models/consultations-model'
 import { log } from '../utils/log'
+import { configuration, instance } from './HttpClient'
 
 export const getConsultations = async (
   payload: ConsultationsApiApiV2ConsultationsGetRequest

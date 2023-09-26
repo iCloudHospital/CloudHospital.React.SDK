@@ -1,12 +1,12 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   CountriesApiApiV2CountriesCountryIdGetRequest,
   CountriesApiApiV2CountriesGetRequest
 } from 'ch-api-client-typescript2/lib/api/countries-api'
 import { CountriesModel } from 'ch-api-client-typescript2/lib/models/countries-model'
 import { CountryModel } from 'ch-api-client-typescript2/lib/models/country-model'
-import { getCountries, getCountryById } from '../services/countries'
+import { getCountries, getCountryById } from '@services/countries'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

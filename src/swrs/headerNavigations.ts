@@ -1,8 +1,8 @@
-import { nameOf, useGenericSWR, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import { HeaderNavigationsApiApiV2HeadernavigationsLanguageCodeGetRequest } from 'ch-api-client-typescript2/lib/api/header-navigations-api'
 import { HeaderNavigationItemModel } from 'ch-api-client-typescript2/lib/models/header-navigation-item-model'
-import { getHeaderNavigations } from '../services/headerNavigations'
+import { getHeaderNavigations } from '@services/headerNavigations'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

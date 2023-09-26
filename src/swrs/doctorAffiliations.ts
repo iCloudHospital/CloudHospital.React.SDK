@@ -1,5 +1,5 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   DoctorAffiliationsApiApiV2DoctoraffiliationsGetRequest,
   DoctorAffiliationsApiApiV2DoctoraffiliationsIdGetRequest,
@@ -11,7 +11,7 @@ import {
   getDoctorAffiliationById,
   getDoctorAffiliationBySlug,
   getDoctorAffiliations
-} from '../services/doctorAffiliations'
+} from '@services/doctorAffiliations'
 import { SWRMutationConfiguration } from 'swr/mutation'
 
 // #region GET api/v2/doctoraffiliations

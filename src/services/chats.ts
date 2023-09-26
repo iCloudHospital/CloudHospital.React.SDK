@@ -4,7 +4,7 @@ import {
   ChatUsersApiApiV2ChatusersPutRequest
 } from 'ch-api-client-typescript2/lib/api/chat-users-api'
 import { ChatUserModel } from 'ch-api-client-typescript2/lib/models/chat-user-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 export const postChatUser = async (payload?: ChatUsersApiApiV2ChatusersPostRequest): Promise<ChatUserModel> => {

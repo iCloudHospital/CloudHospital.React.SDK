@@ -6,7 +6,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/services-api'
 import { HospitalServiceModel } from 'ch-api-client-typescript2/lib/models/hospital-service-model'
 import { HospitalServicesModel } from 'ch-api-client-typescript2/lib/models/hospital-services-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #region Services

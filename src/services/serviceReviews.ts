@@ -8,7 +8,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/service-reviews-api'
 import { ServiceReviewModel } from 'ch-api-client-typescript2/lib/models/service-review-model'
 import { ServiceReviewsModel } from 'ch-api-client-typescript2/lib/models/service-reviews-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #region ServiceReviews

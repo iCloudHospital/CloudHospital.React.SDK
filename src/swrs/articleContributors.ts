@@ -1,10 +1,10 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
 import { ArticlesApiApiV2ArticlesArticleIdContributorsGetRequest } from 'ch-api-client-typescript2/lib/api/articles-api'
 import { ArticleContributorsModel } from 'ch-api-client-typescript2/lib/models/article-contributors-model'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
-import { RestException } from '../models/exceptions'
-import { loadArticleContributors } from '../services/articleContributors'
+import { RestException } from '@models/exceptions'
+import { loadArticleContributors } from '@services/articleContributors'
 
 // #region GET api/v2/articles/{articleId}/contributors
 export const getArticleContributorsSWR = (

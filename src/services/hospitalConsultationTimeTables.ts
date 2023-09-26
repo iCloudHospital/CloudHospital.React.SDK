@@ -1,9 +1,9 @@
+import { RestException } from '@models/exceptions'
 import {
   HospitalsConsultationTimetablesApi,
   HospitalsConsultationTimetablesApiApiV2HospitalsHospitalIdConsultationtimetablesGetRequest
 } from 'ch-api-client-typescript2/lib/api/hospitals-consultation-timetables-api'
 import { ConsultationTimetableModel } from 'ch-api-client-typescript2/lib/models/consultation-timetable-model'
-import { RestException } from '../models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #region HospitalConsultationTimetables

@@ -1,5 +1,5 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   HospitalsApiApiV2HospitalsHospitalIdEquipmentsEquipmentIdGetRequest,
   HospitalsApiApiV2HospitalsHospitalIdEquipmentsEquipmentIdMediasGetRequest,
@@ -15,7 +15,7 @@ import {
   getHospitalEquipmentMediaByMediaId,
   getHospitalEquipmentMedias,
   getHospitalEquipments
-} from '../services/hospitalEquipments'
+} from '@services/hospitalEquipments'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

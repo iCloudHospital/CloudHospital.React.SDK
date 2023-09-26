@@ -1,7 +1,7 @@
 import qs from 'qs'
 import { instance } from './HttpClient'
-import { EmailSignIn, ExternalSignIn, IdentityToken } from '../models/auths'
-import { GrantValidationResult } from '../models/exceptions'
+import { EmailSignIn, ExternalSignIn, IdentityToken } from '@models/auths'
+import { GrantValidationResult } from '@models/exceptions'
 import { log } from '../utils/log'
 
 const sts_issuer = process.env.NEXT_PUBLIC_STS_ISSUER

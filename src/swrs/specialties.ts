@@ -1,5 +1,5 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   SpecialtiesApiApiV2SpecialtiesGetRequest,
   SpecialtiesApiApiV2SpecialtiesSlugGetRequest,
@@ -7,7 +7,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/specialties-api'
 import { SpecialtiesModel } from 'ch-api-client-typescript2/lib/models/specialties-model'
 import { SpecialtyModel } from 'ch-api-client-typescript2/lib/models/specialty-model'
-import { getSpecialties, getSpecialtyBySlug, getSpecialtyBySpecialtyId } from '../services/specialties'
+import { getSpecialties, getSpecialtyBySlug, getSpecialtyBySpecialtyId } from '@services/specialties'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

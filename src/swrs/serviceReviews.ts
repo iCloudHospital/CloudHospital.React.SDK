@@ -1,5 +1,5 @@
-import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRInfinite, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import {
   ServiceReviewsApiApiV2ServicereviewsGetRequest,
   ServiceReviewsApiApiV2ServicereviewsPostRequest,
@@ -15,7 +15,7 @@ import {
   getServiceReviews,
   postServiceReview,
   putServiceReview
-} from '../services/serviceReviews'
+} from '@services/serviceReviews'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

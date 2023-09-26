@@ -8,7 +8,7 @@ import {
 import { HospitalSpecialtiesModel } from 'ch-api-client-typescript2/lib/models/hospital-specialties-model'
 import { HospitalSpecialtiesSimpleModel } from 'ch-api-client-typescript2/lib/models/hospital-specialties-simple-model'
 import { HospitalSpecialtyModel } from 'ch-api-client-typescript2/lib/models/hospital-specialty-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #region HospitalSpecialties

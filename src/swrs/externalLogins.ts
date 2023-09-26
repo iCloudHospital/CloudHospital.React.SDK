@@ -1,7 +1,7 @@
-import { nameOf, useGenericSWR, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { CurrentLogin, ExternalLogins } from '../models/auths'
-import { IdentityError } from '../models/exceptions'
-import externalLogins, { deleteExternalLogin, getExternalLogins, postExternalLogin } from '../services/externalLogins'
+import { nameOf, useGenericSWR, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { CurrentLogin, ExternalLogins } from '@models/auths'
+import { IdentityError } from '@models/exceptions'
+import externalLogins, { deleteExternalLogin, getExternalLogins, postExternalLogin } from '@services/externalLogins'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

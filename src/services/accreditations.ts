@@ -5,7 +5,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/accreditations-api'
 import { AccreditationModel } from 'ch-api-client-typescript2/lib/models/accreditation-model'
 import { AccreditationsModel } from 'ch-api-client-typescript2/lib/models/accreditations-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 export const getAccreditations = async (

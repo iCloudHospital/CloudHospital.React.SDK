@@ -6,7 +6,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/faq-categories-api'
 import { FaqCategoriesModel } from 'ch-api-client-typescript2/lib/models/faq-categories-model'
 import { FaqCategoryModel } from 'ch-api-client-typescript2/lib/models/faq-category-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 export const loadFaqCategories = async (

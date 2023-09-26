@@ -1,7 +1,6 @@
-import { CurrentLogin, ExternalLogins } from '../models/auths'
-import { IdentityError } from '../models/exceptions'
+import { CurrentLogin, ExternalLogins } from '@models/auths'
+import { IdentityError } from '@models/exceptions'
 import { log } from '../utils/log'
-
 import { instance } from './HttpClient'
 
 const sts_issuer = process.env.NEXT_PUBLIC_STS_ISSUER

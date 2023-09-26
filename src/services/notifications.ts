@@ -4,7 +4,7 @@ import {
   NotificationsApiApiV2NotificationsGetRequest
 } from 'ch-api-client-typescript2/lib/api/notifications-api'
 import { NotificationsModel } from 'ch-api-client-typescript2/lib/models/notifications-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 export const loadNotifications = async (

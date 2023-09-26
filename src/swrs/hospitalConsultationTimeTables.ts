@@ -1,8 +1,8 @@
-import { nameOf, useGenericSWR, useGenericSWRMutation } from '../hooks/useGenericSWRs'
-import { RestException } from '../models/exceptions'
+import { nameOf, useGenericSWR, useGenericSWRMutation } from '@hooks/useGenericSWRs'
+import { RestException } from '@models/exceptions'
 import { HospitalsConsultationTimetablesApiApiV2HospitalsHospitalIdConsultationtimetablesGetRequest } from 'ch-api-client-typescript2/lib/api/hospitals-consultation-timetables-api'
 import { ConsultationTimetableModel } from 'ch-api-client-typescript2/lib/models/consultation-timetable-model'
-import { getHospitalConsultationTimeTable } from '../services/hospitalConsultationTimeTables'
+import { getHospitalConsultationTimeTable } from '@services/hospitalConsultationTimeTables'
 import { SWRConfiguration } from 'swr'
 import { SWRMutationConfiguration } from 'swr/mutation'
 

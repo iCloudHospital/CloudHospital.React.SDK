@@ -5,7 +5,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/services-categories-api'
 import { ServiceCategoriesModel } from 'ch-api-client-typescript2/lib/models/service-categories-model'
 import { ServiceCategoryModel } from 'ch-api-client-typescript2/lib/models/service-category-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 export const loadServicesCategories = async (

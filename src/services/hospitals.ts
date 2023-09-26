@@ -2,14 +2,16 @@ import {
   HospitalsApi,
   HospitalsApiApiV2HospitalsGetRequest,
   HospitalsApiApiV2HospitalsHospitalIdGetRequest,
+  HospitalsApiApiV2HospitalsHospitalIdLanguagesGetRequest,
   HospitalsApiApiV2HospitalsSimpleGetRequest,
   HospitalsApiApiV2HospitalsSlugGetRequest
 } from 'ch-api-client-typescript2/lib/api/hospitals-api'
 import { HospitalModel } from 'ch-api-client-typescript2/lib/models/hospital-model'
 import { HospitalsModel } from 'ch-api-client-typescript2/lib/models/hospitals-model'
 import { HospitalsSimpleModel } from 'ch-api-client-typescript2/lib/models/hospitals-simple-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
+import { HospitalLanguagesModel } from 'ch-api-client-typescript2/lib/models/hospital-languages-model'
 
 // #region Hospitals
 export const getHospitals = async (payload?: HospitalsApiApiV2HospitalsGetRequest): Promise<HospitalsModel> => {
@@ -64,6 +66,22 @@ export const getHospitalBySlug = async (payload: HospitalsApiApiV2HospitalsSlugG
     })
 }
 // #endregion Hospitals
+
+// #region HospitalLanguages
+export const loadHospitalLanguages = async (
+  payload: HospitalsApiApiV2HospitalsHospitalIdLanguagesGetRequest
+): Promise<HospitalLanguagesModel> => {
+  return new HospitalsApi(configuration, undefined, instance)
+    .apiV2HospitalsHospitalIdLanguagesGet(payload)
+    .then((res) => {
+      return res?.data
+    })
+    .catch((error: any) => {
+      const restException = error.response.data as RestException
+      throw restException
+    })
+}
+// #endregion HospitalLanguages
 
 const hospitals = {
   getHospitals,

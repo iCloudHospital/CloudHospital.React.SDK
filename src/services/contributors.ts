@@ -10,7 +10,7 @@ import { ContributorModel } from 'ch-api-client-typescript2/lib/models/contribut
 import { ContributorSnsHandlesModel } from 'ch-api-client-typescript2/lib/models/contributor-sns-handles-model'
 import { ContributorsModel } from 'ch-api-client-typescript2/lib/models/contributors-model'
 import { SnsHandleModel } from 'ch-api-client-typescript2/lib/models/sns-handle-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #region Contributors

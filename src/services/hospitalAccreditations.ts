@@ -5,7 +5,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/hospitals-api'
 import { HospitalAccreditationModel } from 'ch-api-client-typescript2/lib/models/hospital-accreditation-model'
 import { HospitalAccreditationsModel } from 'ch-api-client-typescript2/lib/models/hospital-accreditations-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #region HospitalAccreditations

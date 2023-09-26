@@ -1,6 +1,4 @@
-import { RestException } from '../models/exceptions'
-import { configuration, instance } from './HttpClient'
-
+import { RestException } from '@models/exceptions'
 import {
   BookingsApi,
   BookingsApiApiV2BookingsBookingIdGetRequest,
@@ -12,6 +10,7 @@ import {
 import { BookingModel } from 'ch-api-client-typescript2/lib/models/booking-model'
 import { BookingsModel } from 'ch-api-client-typescript2/lib/models/bookings-model'
 import { log } from '../utils/log'
+import { configuration, instance } from './HttpClient'
 
 export const postBooking = async (payload: BookingsApiApiV2BookingsRequestIdPostRequest): Promise<BookingModel> => {
   return new BookingsApi(configuration, undefined, instance)

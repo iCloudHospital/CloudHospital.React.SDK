@@ -10,7 +10,7 @@ import { FaqModel } from 'ch-api-client-typescript2/lib/models/faq-model'
 import { FaqsModel } from 'ch-api-client-typescript2/lib/models/faqs-model'
 import { MediaModel } from 'ch-api-client-typescript2/lib/models/media-model'
 import { MediasModel } from 'ch-api-client-typescript2/lib/models/medias-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 // #region Faqs

@@ -7,7 +7,7 @@ import {
 } from 'ch-api-client-typescript2/lib/api/profiles-api'
 import { PatientModel } from 'ch-api-client-typescript2/lib/models/patient-model'
 import { UserModel } from 'ch-api-client-typescript2/lib/models/user-model'
-import { RestException } from '../models/exceptions'
+import { RestException } from '@models/exceptions'
 import { configuration, instance } from './HttpClient'
 
 export const postProfile = async (payload: ProfilesApiApiV2ProfilesPostRequest): Promise<UserModel> => {
